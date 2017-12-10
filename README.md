@@ -9,6 +9,7 @@ This application requires no installation and does not modify any registry or cr
 I distributed the application in the hope that it will be useful for your subnet calculations.
 I will try to continuously develop the software, so please don't hesitate to comment/inform for any bugs or new feature suggestions. 
 
+![Screenshot1](http://download-codeplex.sec.s-msft.com/Download?ProjectName=ipv6st&DownloadId=1588883)
 
 Copyright (c) 2010-2018, Yücel Güven   
 All rights reserved.
