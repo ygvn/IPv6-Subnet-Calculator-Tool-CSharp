@@ -10,7 +10,7 @@ I distributed the application in the hope that it will be useful for your subnet
 I will try to continuously develop the software, so please don't hesitate to comment/inform for any bugs or new feature suggestions. 
 
 
-Copyright (c) 2010-2018, Yücel Güven
+Copyright (c) 2010-2018, Yücel Güven   
 All rights reserved.
 
 This file is part of IPv6 Subnetting Tool.
