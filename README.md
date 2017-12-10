@@ -4,12 +4,13 @@ IPv6 Subnet Calculator / Tool application lets you plan/subnet your assigned add
 We are in the transition phase from IPv4 to IPv6 addressing structure, and I believe that
 the network engineers should easily plan their IPv6 addressing /subnetting infrastructure without any error.
 For this purpose I decided to write and distribute an IPv6 Subnetting Tool / Calculator application
-using Visual C# 2013 Express based on .NET 4 Framework.   
+using Visual C# 2013 Express based on ".NET 4" Framework.   
 This application requires no installation and does not modify any registry or create any file.
 I distributed the application in the hope that it will be useful for your subnet calculations.
 I will try to continuously develop the software, so please don't hesitate to comment/inform for any bugs or new feature suggestions. 
 
 ![Screenshot1](http://download-codeplex.sec.s-msft.com/Download?ProjectName=ipv6st&DownloadId=1588883)
+![S4.png](http://download-codeplex.sec.s-msft.com/Download?ProjectName=ipv6st&DownloadId=1600122)
 
 Copyright (c) 2010-2018, Yücel Güven   
 All rights reserved.
