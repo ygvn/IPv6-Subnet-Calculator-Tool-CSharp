@@ -12,6 +12,19 @@ I will try to continuously develop the software, so please don't hesitate to com
 ![Screenshot1](http://download-codeplex.sec.s-msft.com/Download?ProjectName=ipv6st&DownloadId=1588883)
 ![S4.png](http://download-codeplex.sec.s-msft.com/Download?ProjectName=ipv6st&DownloadId=1600122)
 
+* MySQL Database Connection support   
+  .Store/update/manage IPv6 prefixes with MySQL database server   
+  .Tested with MySQL Connector/ODBC 5.3.6   
+  .DriverName: MySQL ODBC 5.3 Unicode Driver (myodbc5w.dll)   
+* Statistical View of Assigned/Available Prefixes   
+  .Note: Assigned prefixes must exist in the database   
+* 4-Bytes AS Number plain/dot Conversion Tool   
+  .Convert Autonomous System Numbers from asplain to asdot and vice versa.   
+* List Reverse DNS   
+* Compress / Uncompress IPv6 Address Tool
+* English, Turkish, German languages.
+
+
 Copyright (c) 2010-2018, Yücel Güven   
 All rights reserved.
 
