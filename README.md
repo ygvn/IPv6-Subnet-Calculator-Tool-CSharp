@@ -24,6 +24,9 @@ I will try to continuously develop the software, so please don't hesitate to com
 * Compress / Uncompress IPv6 Address Tool
 * English, Turkish, German languages.
 
+You can download from:   
+https://github.com/ygvn/IPv6-Subnet-Calculator-Tool/blob/master/IPv6-Subnet-Calculator-EXE-v3.7.zip
+
 
 Copyright (c) 2010-2018, Yücel Güven   
 All rights reserved.
