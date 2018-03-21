@@ -139,10 +139,9 @@ namespace IPv6SubnettingTool
 
             ShowDiskInfo();
             
-            // Cases that we do not need 'End Addresses':
-            if (this.is128Checked == CheckState.Unchecked && input.subnetslash == 64 // working with '/64'!
+            if (this.is128Checked == CheckState.Unchecked && input.subnetslash == 64
                 ||
-                this.is128Checked == CheckState.Checked && input.subnetslash == 128  // working with '/128'!
+                this.is128Checked == CheckState.Checked && input.subnetslash == 128
                 ||
                 this.incomingID == 1
                 ||

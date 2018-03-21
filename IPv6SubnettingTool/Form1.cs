@@ -84,7 +84,6 @@ namespace IPv6SubnettingTool
             InitializeComponent();
             
             #region special initials -yucel
-            //windowstoolStripMenuItem.Text = "Windows (" + Application.OpenForms.Count.ToString() + ")";
             label10.Text = label1.Text = trackBar1.Value.ToString();
             this.StartEnd.ID = ID; // ID of this Form. Form1 is the main Form.
             this.graph = this.CreateGraphics();
@@ -96,14 +95,9 @@ namespace IPv6SubnettingTool
         {
             this.textBox2.AutoCompleteCustomSource = autocomp;
             this.EnglishToolStripMenuItem.Checked = true;
-            //this.TurkishToolStripMenuItem.Checked = false;
+            //this.TurkishToolStripMenuItem.Checked = true;
             this.culture = Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
         }
-
-       /* private void UpdateWinList()
-        {
-            windowstoolStripMenuItem.Text = "Windows (" + (Application.OpenForms.Count - 1).ToString() + ")";
-        }*/
 
         private void UpdateStatus()
         {
@@ -844,9 +838,8 @@ namespace IPv6SubnettingTool
                 ListSubnetRange lh = new ListSubnetRange(this.StartEnd, listBox1.SelectedItem.ToString(),
                     this.trackBar1.Value, this.trackBar2.Value, this.checkBox2.CheckState, this.culture, this.MySQLconnection, this.ServerInfo);
                 lh.Show();
-                ////
+                //
                 windowsList.Add(new WindowsList(lh, lh.Name, lh.GetHashCode()));
-                //AddMenuItem(lh.Name, lh.GetHashCode());
 
                 this.ChangeUILanguage += lh.SwitchLanguage;
                 this.changeDBstate += lh.DBStateChange;
@@ -869,9 +862,8 @@ namespace IPv6SubnettingTool
                 ListSubnetRange lh = new ListSubnetRange(this.StartEnd, listBox1.SelectedItem.ToString(),
                     this.trackBar1.Value, this.trackBar2.Value, this.checkBox2.CheckState, this.culture, this.MySQLconnection, this.ServerInfo);
                 lh.Show();
-                ////
+                //
                 windowsList.Add(new WindowsList(lh, lh.Name, lh.GetHashCode()));
-                //AddMenuItem(lh.Name, lh.GetHashCode());
 
                 this.ChangeUILanguage += lh.SwitchLanguage;
                 this.changeDBstate += lh.DBStateChange;
@@ -1280,9 +1272,8 @@ namespace IPv6SubnettingTool
                 StartEnd.subnetslash = this.trackBar2.Value;
                 ListDnsReverses dnsr = new ListDnsReverses(StartEnd, this.checkBox2.CheckState, this.culture);
                 dnsr.Show();
-                ////
+                //
                 windowsList.Add(new WindowsList(dnsr, dnsr.Name, dnsr.GetHashCode()));
-                //AddMenuItem(dnsr.Name, dnsr.GetHashCode());
 
                 this.ChangeUILanguage += dnsr.SwitchLanguage;
             }
@@ -1304,9 +1295,8 @@ namespace IPv6SubnettingTool
                 ListSubnetRange lh = new ListSubnetRange(this.StartEnd, listBox1.SelectedItem.ToString(),
                     this.trackBar1.Value, this.trackBar2.Value, this.checkBox2.CheckState, this.culture, this.MySQLconnection, this.ServerInfo);
                 lh.Show();
-                ////
+                //
                 windowsList.Add(new WindowsList(lh, lh.Name, lh.GetHashCode()));
-                //AddMenuItem(lh.Name, lh.GetHashCode());
 
                 this.ChangeUILanguage += lh.SwitchLanguage;
                 this.changeDBstate += lh.DBStateChange;
@@ -1321,9 +1311,8 @@ namespace IPv6SubnettingTool
                 StartEnd.subnetslash = this.trackBar2.Value;
                 ListDnsReverses dnsr = new ListDnsReverses(StartEnd, this.checkBox2.CheckState, this.culture);
                 dnsr.Show();
-                ////
+                //
                 windowsList.Add(new WindowsList(dnsr, dnsr.Name, dnsr.GetHashCode()));
-                //AddMenuItem(dnsr.Name, dnsr.GetHashCode());
 
                 this.ChangeUILanguage += dnsr.SwitchLanguage;
             }
@@ -1552,9 +1541,8 @@ namespace IPv6SubnettingTool
                 ListSubnetRange lh = new ListSubnetRange(this.StartEnd, listBox1.SelectedItem.ToString(),
                     this.trackBar1.Value, this.trackBar2.Value, this.checkBox2.CheckState, this.culture, this.MySQLconnection, this.ServerInfo);
                 lh.Show();
-                ////
+                //
                 windowsList.Add(new WindowsList(lh, lh.Name, lh.GetHashCode()));
-                //AddMenuItem(lh.Name, lh.GetHashCode());
 
                 this.ChangeUILanguage += lh.SwitchLanguage;
                 this.changeDBstate += lh.DBStateChange;
@@ -1574,9 +1562,8 @@ namespace IPv6SubnettingTool
 
                         whoisQuery whoisquery = new whoisQuery(s, this.culture);
                         whoisquery.Show();
-                        ////
+                        //
                         windowsList.Add(new WindowsList(whoisquery, whoisquery.Name, whoisquery.GetHashCode()));
-                        //AddMenuItem(whoisquery.Name, whoisquery.GetHashCode());
 
                         this.ChangeUILanguage += whoisquery.SwitchLanguage;
                     }
@@ -1589,9 +1576,8 @@ namespace IPv6SubnettingTool
                 {
                     whoisQuery whoisquery = new whoisQuery(this.textBox1.Text, this.culture);
                     whoisquery.Show();
-                    ////
+                    //
                     windowsList.Add(new WindowsList(whoisquery, whoisquery.Name, whoisquery.GetHashCode()));
-                    //AddMenuItem(whoisquery.Name, whoisquery.GetHashCode());
 
                     this.ChangeUILanguage += whoisquery.SwitchLanguage;
                 }
@@ -1600,9 +1586,8 @@ namespace IPv6SubnettingTool
             {
                 whoisQuery whoisquery = new whoisQuery(this.textBox1.Text, this.culture);
                 whoisquery.Show();
-                ////
+                //
                 windowsList.Add(new WindowsList(whoisquery, whoisquery.Name, whoisquery.GetHashCode()));
-                //AddMenuItem(whoisquery.Name, whoisquery.GetHashCode());
 
                 this.ChangeUILanguage += whoisquery.SwitchLanguage;
             }
@@ -1784,9 +1769,8 @@ namespace IPv6SubnettingTool
         {
             SaveAsText exptofile = new SaveAsText(this.StartEnd, this.checkBox2.CheckState, this.culture);
             exptofile.Show();
-            ////
+            //
             windowsList.Add(new WindowsList(exptofile, exptofile.Name, exptofile.GetHashCode()));
-            //AddMenuItem(exptofile.Name, exptofile.GetHashCode());
 
             this.ChangeUILanguage += exptofile.SwitchLanguage;
         }
@@ -1807,9 +1791,8 @@ namespace IPv6SubnettingTool
         {
             SaveAsText saveas = new SaveAsText(this.StartEnd, this.checkBox2.CheckState, this.culture);
             saveas.Show();
-            ////
+            //
             windowsList.Add(new WindowsList(saveas, saveas.Name, saveas.GetHashCode()));
-            //AddMenuItem(saveas.Name, saveas.GetHashCode());
 
             this.ChangeUILanguage += saveas.SwitchLanguage;
         }
@@ -2021,9 +2004,8 @@ namespace IPv6SubnettingTool
                 DatabaseUI db = new DatabaseUI(snet, plen, parentpflen, this.MySQLconnection,
                     this.ServerInfo, this.culture);
                 db.Show();
-                ////
+                //
                 windowsList.Add(new WindowsList(db, db.Name, db.GetHashCode()));
-                //AddMenuItem(db.Name, db.GetHashCode());
 
                 this.changeDBstate += db.DBStateChange;
                 this.ChangeUILanguage += db.SwitchLanguage;
@@ -2409,9 +2391,8 @@ namespace IPv6SubnettingTool
                     this.trackBar1.Value, this.trackBar2.Value, this.MySQLconnection,
                     this.ServerInfo, this.culture);
             pflevels.Show();
-            ////
+            //
             windowsList.Add(new WindowsList(pflevels, pflevels.Name, pflevels.GetHashCode()));
-            //AddMenuItem(pflevels.Name, pflevels.GetHashCode());
 
             this.changeDBstate += pflevels.DBStateChange;
             this.ChangeUILanguage += pflevels.SwitchLanguage;
@@ -2470,9 +2451,8 @@ namespace IPv6SubnettingTool
         {
             CompressAddress compress = new CompressAddress(this.culture);
             compress.Show();
-            ////
+            //
             windowsList.Add(new WindowsList(compress, compress.Name, compress.GetHashCode()));
-            //AddMenuItem(compress.Name, compress.GetHashCode());
 
             this.ChangeUILanguage += compress.SwitchLanguage;
         }
@@ -2694,9 +2674,8 @@ namespace IPv6SubnettingTool
                     (short)this.trackBar1.Value, (short)this.trackBar2.Value,
                     this.checkBox2.CheckState, this.MySQLconnection, this.ServerInfo, this.culture);
                 stats.Show();
-                ////
+                //
                 windowsList.Add(new WindowsList(stats, stats.Name, stats.GetHashCode()));
-                //AddMenuItem(stats.Name, stats.GetHashCode());
 
                 this.ChangeUILanguage += stats.SwitchLanguage;
                 this.changeDBstate += stats.DBStateChange;
@@ -2722,9 +2701,8 @@ namespace IPv6SubnettingTool
             DatabaseUI db = new DatabaseUI(null, 0, parentpflen, this.MySQLconnection,
                 this.ServerInfo, this.culture);
             db.Show();
-            ////
+            //
             windowsList.Add(new WindowsList(db, db.Name, db.GetHashCode()));
-            //AddMenuItem(db.Name, db.GetHashCode());
 
             this.changeDBstate += db.DBStateChange;
             this.ChangeUILanguage += db.SwitchLanguage;
@@ -2734,34 +2712,14 @@ namespace IPv6SubnettingTool
         {
             ASNumberPlainDot asnum = new ASNumberPlainDot(this.culture);
             asnum.Show();
-            ////
+            //
             windowsList.Add(new WindowsList(asnum, asnum.Name, asnum.GetHashCode()));
-            //AddMenuItem(asnum.Name, asnum.GetHashCode());
 
             this.ChangeUILanguage += asnum.SwitchLanguage;
         }
 
         #region WindowsRegion
         
-        // Hersey calisti: TUM FORMLARA koyulacak olan fonks():
-        // IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode()); 
-        // ve ESCAPE tusuna basildiginda!
-        // ve FormClosing'e!!
-        // ve Acilmis olan bir daha acalim mi? Yoksa Javadaki gibi tek window mu?
-        // ve Windows icin diller..
-        // ve 'name'ler menuitemda gorunecek, uygun name degisikligi??
-
-        /*
-        public void AddMenuItem(String nm, int hc)
-        {
-            ToolStripMenuItem tsmi = new ToolStripMenuItem(nm);
-            tsmi.Name = nm;
-            this.windowstoolStripMenuItem.DropDownItems.Add(tsmi);
-            tsmi.Click += new EventHandler((sender, e) => tsi_Click(sender, e, hc));
-            // shorter:>>  tsmi.Click += (sender, e) => tsi_Click(sender, e, hc);
-            //UpdateWinList();
-        }*/
-
         void tsi_Click(object sender, EventArgs e, int hc)
         {
             foreach (WindowsList wl in windowsList)
@@ -2828,16 +2786,13 @@ namespace IPv6SubnettingTool
                     this.windowstoolStripMenuItem.DropDownItems.RemoveAt(i);
                 }
             }
-            //UpdateWinList();
         }
         #endregion WindowsRegion
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
-            // TEST:
             if (this.listBox1.Items.Count > 0)
             {
-
                 string first = this.listBox1.Items[0].ToString().Split(' ')[1].Split('/')[0].Trim();
 
                 if (this.checkBox2.CheckState == CheckState.Unchecked)
