@@ -241,6 +241,7 @@ namespace IPv6SubnettingTool
         {
             if (e.KeyCode == Keys.Escape)
             {
+                IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
                 this.Close();
             }
         }
@@ -266,6 +267,8 @@ namespace IPv6SubnettingTool
                 return;
             else
             {
+                IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
+
                 if (this is IDisposable)
                     this.Dispose();
                 else
@@ -279,10 +282,17 @@ namespace IPv6SubnettingTool
                 this.parentpflen, this.pflen, this.chks, this.MySQLconnection, 
                 this.ServerInfo, this.culture);
             listassigned.Show();
+            ////
+            IPv6SubnettingTool.Form1.windowsList.Add(new WindowsList(listassigned, listassigned.Name, listassigned.GetHashCode()));
 
             this.ChangeUILanguage += listassigned.SwitchLanguage;
             this.changeDBstate += listassigned.DBStateChange;
 
+        }
+
+        private void StatsUsage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
         }
     }
 }

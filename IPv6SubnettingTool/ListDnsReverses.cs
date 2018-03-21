@@ -692,7 +692,8 @@ namespace IPv6SubnettingTool
         {
             if (e.KeyCode == Keys.Escape)
             {
-                    this.Close();
+                IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
+                this.Close();
             }
         }
 
@@ -715,6 +716,10 @@ namespace IPv6SubnettingTool
         {
             SaveAsText saveastxt = new SaveAsText(StartEnd, this.is128Checked, this.culture);
             saveastxt.Show();
+            ////
+            IPv6SubnettingTool.Form1.windowsList.Add(new WindowsList(saveastxt, saveastxt.Name, saveastxt.GetHashCode()));
+            //AddMenuItem(saveastxt.Name, saveastxt.GetHashCode());
+
             this.ChangeUILanguage += saveastxt.SwitchLanguage;
         }
 
@@ -755,6 +760,11 @@ namespace IPv6SubnettingTool
             {
                 this.contextMenuStrip1.Items[2].Enabled = false; // saveas
             }
+        }
+
+        private void ListDnsReverses_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
         }
     }
 }

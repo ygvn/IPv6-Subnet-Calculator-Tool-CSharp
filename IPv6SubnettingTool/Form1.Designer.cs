@@ -88,7 +88,6 @@ namespace IPv6SubnettingTool
             this.whoisQueryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.workwithtoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.compressaddrtoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.statsusagetoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ASnumberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -104,6 +103,11 @@ namespace IPv6SubnettingTool
             this.opendbformtoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendtoDBtoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sublevelstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.statstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.windowstoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.closeAlltoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.EnglishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -120,6 +124,7 @@ namespace IPv6SubnettingTool
             this.Forwd = new System.Windows.Forms.Button();
             this.Last = new System.Windows.Forms.Button();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -171,7 +176,7 @@ namespace IPv6SubnettingTool
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(376, 30);
-            this.trackBar1.TabIndex = 5;
+            this.trackBar1.TabIndex = 7;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.trackBar1.Value = 1;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
@@ -219,7 +224,7 @@ namespace IPv6SubnettingTool
             this.ResetAll.Location = new System.Drawing.Point(351, 67);
             this.ResetAll.Name = "ResetAll";
             this.ResetAll.Size = new System.Drawing.Size(80, 23);
-            this.ResetAll.TabIndex = 15;
+            this.ResetAll.TabIndex = 18;
             this.ResetAll.Text = "&Reset";
             this.ResetAll.UseVisualStyleBackColor = true;
             this.ResetAll.Click += new System.EventHandler(this.ResetAll_Click);
@@ -315,7 +320,7 @@ namespace IPv6SubnettingTool
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBox1.Size = new System.Drawing.Size(60, 17);
-            this.checkBox1.TabIndex = 6;
+            this.checkBox1.TabIndex = 8;
             this.checkBox1.Text = "Subnet";
             this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip1.SetToolTip(this.checkBox1, "borrow bits");
@@ -338,7 +343,7 @@ namespace IPv6SubnettingTool
             this.Subnets.Location = new System.Drawing.Point(65, 246);
             this.Subnets.Name = "Subnets";
             this.Subnets.Size = new System.Drawing.Size(74, 23);
-            this.Subnets.TabIndex = 8;
+            this.Subnets.TabIndex = 11;
             this.Subnets.Text = "|<< Prefixes";
             this.toolTip1.SetToolTip(this.Subnets, "First Page");
             this.Subnets.UseVisualStyleBackColor = true;
@@ -361,6 +366,7 @@ namespace IPv6SubnettingTool
             this.toolsToolStripMenuItem,
             this.goToToolStripMenuItem,
             this.databasetoolStripMenuItem,
+            this.windowstoolStripMenuItem,
             this.languageToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -415,8 +421,7 @@ namespace IPv6SubnettingTool
             this.whoisQueryToolStripMenuItem,
             this.workwithtoolStripMenuItem1,
             this.compressaddrtoolStripMenuItem1,
-            this.ASnumberToolStripMenuItem,
-            this.statsusagetoolStripMenuItem1});
+            this.ASnumberToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
@@ -472,14 +477,6 @@ namespace IPv6SubnettingTool
             this.compressaddrtoolStripMenuItem1.Size = new System.Drawing.Size(259, 22);
             this.compressaddrtoolStripMenuItem1.Text = "&Compress/Uncompress address...";
             this.compressaddrtoolStripMenuItem1.Click += new System.EventHandler(this.compressaddrtoolStripMenuItem1_Click);
-            // 
-            // statsusagetoolStripMenuItem1
-            // 
-            this.statsusagetoolStripMenuItem1.Enabled = false;
-            this.statsusagetoolStripMenuItem1.Name = "statsusagetoolStripMenuItem1";
-            this.statsusagetoolStripMenuItem1.Size = new System.Drawing.Size(259, 22);
-            this.statsusagetoolStripMenuItem1.Text = "&Statistics/Utilization of this range...";
-            this.statsusagetoolStripMenuItem1.Click += new System.EventHandler(this.statsusagetoolStripMenuItem1_Click);
             // 
             // ASnumberToolStripMenuItem
             // 
@@ -539,7 +536,8 @@ namespace IPv6SubnettingTool
             this.toolStripSeparator7,
             this.opendbformtoolStripMenuItem,
             this.sendtoDBtoolStripMenuItem,
-            this.sublevelstoolStripMenuItem1});
+            this.sublevelstoolStripMenuItem1,
+            this.statstoolStripMenuItem1});
             this.databasetoolStripMenuItem.Name = "databasetoolStripMenuItem";
             this.databasetoolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.databasetoolStripMenuItem.Text = "&Database";
@@ -548,54 +546,90 @@ namespace IPv6SubnettingTool
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(202, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(253, 6);
             // 
             // connectDBtoolStripMenuItem
             // 
             this.connectDBtoolStripMenuItem.Name = "connectDBtoolStripMenuItem";
-            this.connectDBtoolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.connectDBtoolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.connectDBtoolStripMenuItem.Text = "&Connect...";
             this.connectDBtoolStripMenuItem.Click += new System.EventHandler(this.connectDBtoolStripMenuItem_Click);
             // 
             // closeDBtoolStripMenuItem
             // 
             this.closeDBtoolStripMenuItem.Name = "closeDBtoolStripMenuItem";
-            this.closeDBtoolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.closeDBtoolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.closeDBtoolStripMenuItem.Text = "&Close";
             this.closeDBtoolStripMenuItem.Click += new System.EventHandler(this.closeDBtoolStripMenuItem_Click);
             // 
             // statusofDBtoolStripMenuItem
             // 
             this.statusofDBtoolStripMenuItem.Name = "statusofDBtoolStripMenuItem";
-            this.statusofDBtoolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.statusofDBtoolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.statusofDBtoolStripMenuItem.Text = "&Status";
             this.statusofDBtoolStripMenuItem.Click += new System.EventHandler(this.statusofDBtoolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(202, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(253, 6);
             // 
             // opendbformtoolStripMenuItem
             // 
             this.opendbformtoolStripMenuItem.Name = "opendbformtoolStripMenuItem";
-            this.opendbformtoolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.opendbformtoolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.opendbformtoolStripMenuItem.Text = "&Open DB Form...";
             this.opendbformtoolStripMenuItem.Click += new System.EventHandler(this.opendbformtoolStripMenuItem_Click);
             // 
             // sendtoDBtoolStripMenuItem
             // 
             this.sendtoDBtoolStripMenuItem.Name = "sendtoDBtoolStripMenuItem";
-            this.sendtoDBtoolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.sendtoDBtoolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.sendtoDBtoolStripMenuItem.Text = "Send &Prefix to database...";
             this.sendtoDBtoolStripMenuItem.Click += new System.EventHandler(this.sendToDatabaseToolStripMenuItem1_Click);
             // 
             // sublevelstoolStripMenuItem1
             // 
             this.sublevelstoolStripMenuItem1.Name = "sublevelstoolStripMenuItem1";
-            this.sublevelstoolStripMenuItem1.Size = new System.Drawing.Size(205, 22);
+            this.sublevelstoolStripMenuItem1.Size = new System.Drawing.Size(256, 22);
             this.sublevelstoolStripMenuItem1.Text = "sub-&Levels of the prefix...";
             this.sublevelstoolStripMenuItem1.Click += new System.EventHandler(this.prefixsublevelstoolStripMenuItem1_Click);
+            // 
+            // statstoolStripMenuItem1
+            // 
+            this.statstoolStripMenuItem1.Enabled = false;
+            this.statstoolStripMenuItem1.Name = "statstoolStripMenuItem1";
+            this.statstoolStripMenuItem1.Size = new System.Drawing.Size(256, 22);
+            this.statstoolStripMenuItem1.Text = "&Statistics/Utilization of this range...";
+            this.statstoolStripMenuItem1.Click += new System.EventHandler(this.statstoolStripMenuItem1_Click);
+            // 
+            // windowstoolStripMenuItem
+            // 
+            this.windowstoolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripSeparator9,
+            this.closeAlltoolStripMenuItem,
+            this.toolStripSeparator10});
+            this.windowstoolStripMenuItem.Name = "windowstoolStripMenuItem";
+            this.windowstoolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.windowstoolStripMenuItem.Text = "Windows";
+            this.windowstoolStripMenuItem.DropDownOpening += new System.EventHandler(this.windowstoolStripMenuItem_DropDownOpening);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(169, 6);
+            // 
+            // closeAlltoolStripMenuItem
+            // 
+            this.closeAlltoolStripMenuItem.Name = "closeAlltoolStripMenuItem";
+            this.closeAlltoolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.closeAlltoolStripMenuItem.Text = "&Close All Windows";
+            this.closeAlltoolStripMenuItem.Click += new System.EventHandler(this.closeAlltoolStripMenuItem_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(169, 6);
             // 
             // languageToolStripMenuItem
             // 
@@ -698,7 +732,7 @@ namespace IPv6SubnettingTool
             this.Backwd.Location = new System.Drawing.Point(145, 246);
             this.Backwd.Name = "Backwd";
             this.Backwd.Size = new System.Drawing.Size(30, 23);
-            this.Backwd.TabIndex = 9;
+            this.Backwd.TabIndex = 12;
             this.Backwd.Text = "<<";
             this.toolTip1.SetToolTip(this.Backwd, "-128");
             this.Backwd.UseVisualStyleBackColor = true;
@@ -710,7 +744,7 @@ namespace IPv6SubnettingTool
             this.Forwd.Location = new System.Drawing.Point(181, 246);
             this.Forwd.Name = "Forwd";
             this.Forwd.Size = new System.Drawing.Size(30, 23);
-            this.Forwd.TabIndex = 10;
+            this.Forwd.TabIndex = 13;
             this.Forwd.Text = ">>";
             this.toolTip1.SetToolTip(this.Forwd, "+128");
             this.Forwd.UseVisualStyleBackColor = true;
@@ -722,7 +756,7 @@ namespace IPv6SubnettingTool
             this.Last.Location = new System.Drawing.Point(217, 246);
             this.Last.Name = "Last";
             this.Last.Size = new System.Drawing.Size(30, 23);
-            this.Last.TabIndex = 11;
+            this.Last.TabIndex = 14;
             this.Last.Text = ">>|";
             this.toolTip1.SetToolTip(this.Last, "Last Page");
             this.Last.UseVisualStyleBackColor = true;
@@ -735,11 +769,25 @@ namespace IPv6SubnettingTool
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBox2.Size = new System.Drawing.Size(60, 17);
-            this.checkBox2.TabIndex = 58;
+            this.checkBox2.TabIndex = 5;
             this.checkBox2.Text = "128bits";
             this.checkBox2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip1.SetToolTip(this.checkBox2, "Use 128 bits");
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.Enabled = false;
+            this.checkBox3.Location = new System.Drawing.Point(1, 250);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox3.Size = new System.Drawing.Size(60, 17);
+            this.checkBox3.TabIndex = 10;
+            this.checkBox3.Text = "?End    ";
+            this.checkBox3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.checkBox3, "Display Prefix End Addresses");
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // listBox1
             // 
@@ -754,7 +802,9 @@ namespace IPv6SubnettingTool
             this.listBox1.Name = "listBox1";
             this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listBox1.Size = new System.Drawing.Size(367, 184);
-            this.listBox1.TabIndex = 12;
+            this.listBox1.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.listBox1, "Double-click or press Enter on selected item\r\nto see /64 or /128 sub-level prefix" +
+        "es.");
             this.listBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox1_DrawItem);
             this.listBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBox1_KeyDown);
             this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
@@ -957,7 +1007,7 @@ namespace IPv6SubnettingTool
             this.trackBar2.Minimum = 1;
             this.trackBar2.Name = "trackBar2";
             this.trackBar2.Size = new System.Drawing.Size(376, 30);
-            this.trackBar2.TabIndex = 7;
+            this.trackBar2.TabIndex = 9;
             this.trackBar2.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.trackBar2.Value = 1;
             this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
@@ -969,7 +1019,7 @@ namespace IPv6SubnettingTool
             this.PrevSpace.Location = new System.Drawing.Point(279, 91);
             this.PrevSpace.Name = "PrevSpace";
             this.PrevSpace.Size = new System.Drawing.Size(30, 23);
-            this.PrevSpace.TabIndex = 13;
+            this.PrevSpace.TabIndex = 16;
             this.PrevSpace.Text = "<";
             this.PrevSpace.UseVisualStyleBackColor = true;
             this.PrevSpace.Click += new System.EventHandler(this.PrevSpace_Click);
@@ -981,7 +1031,7 @@ namespace IPv6SubnettingTool
             this.NextSpace.Location = new System.Drawing.Point(315, 91);
             this.NextSpace.Name = "NextSpace";
             this.NextSpace.Size = new System.Drawing.Size(30, 23);
-            this.NextSpace.TabIndex = 14;
+            this.NextSpace.TabIndex = 17;
             this.NextSpace.Text = ">";
             this.NextSpace.UseVisualStyleBackColor = true;
             this.NextSpace.Click += new System.EventHandler(this.NextSpace_Click);
@@ -995,7 +1045,7 @@ namespace IPv6SubnettingTool
             this.textBox4.ReadOnly = true;
             this.textBox4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBox4.Size = new System.Drawing.Size(152, 20);
-            this.textBox4.TabIndex = 16;
+            this.textBox4.TabIndex = 19;
             // 
             // label14
             // 
@@ -1038,7 +1088,7 @@ namespace IPv6SubnettingTool
             this.richTextBox1.ReadOnly = true;
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.richTextBox1.Size = new System.Drawing.Size(357, 13);
-            this.richTextBox1.TabIndex = 55;
+            this.richTextBox1.TabIndex = 6;
             this.richTextBox1.Text = "";
             // 
             // textBox7
@@ -1082,6 +1132,7 @@ namespace IPv6SubnettingTool
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(471, 498);
+            this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.listBox1);
@@ -1238,10 +1289,15 @@ namespace IPv6SubnettingTool
         private System.Windows.Forms.ToolStripMenuItem compressaddrtoolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem findprefixtoolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem findprefixtoolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem statsusagetoolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem statsusagetoolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem opendbformtoolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ASnumberToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem windowstoolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem closeAlltoolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem statstoolStripMenuItem1;
+        private System.Windows.Forms.CheckBox checkBox3;
     }
 }
 

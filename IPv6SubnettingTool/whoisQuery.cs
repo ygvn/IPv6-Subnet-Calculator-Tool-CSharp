@@ -157,6 +157,7 @@ namespace IPv6SubnettingTool
         {
             if (e.KeyCode == Keys.Escape)
             {
+                IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
                 this.Close();
             }
         }
@@ -170,6 +171,11 @@ namespace IPv6SubnettingTool
             this.buttonWhoisQuery.Text = StringsDictionary.KeyValue("whois_buttonWhoisQuery.Text", this.culture);
             this.label1.Text = StringsDictionary.KeyValue("whois_label1.Text", this.culture);
             this.label2.Text = StringsDictionary.KeyValue("whois_label2.Text", this.culture);
+        }
+
+        private void whoisQuery_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
         }
     }
 }

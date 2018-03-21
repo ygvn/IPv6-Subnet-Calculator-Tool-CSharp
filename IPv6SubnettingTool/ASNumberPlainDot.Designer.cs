@@ -160,6 +160,7 @@
             this.Name = "ASNumberPlainDot";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IPv6 Subnet Calculator - ASNumberPlainDot";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ASNumberPlainDot_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ASNumberPlainDot_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

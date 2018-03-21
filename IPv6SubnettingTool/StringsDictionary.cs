@@ -60,7 +60,10 @@ namespace IPv6SubnettingTool
 {"Form1_checkBox1.ToolTip","Alt Ağ için bitler"},
 {"Form1_checkBox2.Text","128bit   "},
 {"Form1_checkBox2.ToolTip","128 biti kullan"},
+{"Form1_checkBox3.Text","?Bitiş  "},
+{"Form1_checkBox3.ToolTip","Bitiş Adreslerini de göster"},
 {"Form1_copyToolStripMenuItem.Text","&Kopyala"},
+{"Form1_listBox1.ToolTip","/64 - /128 alt seviye öneklerini görmek için\r\n seçili önek'e çift tıklayın ya da Enter'a basın"},
 {"Form1_e_empty",""},
 {"Form1_e_ok","> adres doğru"},
 {"Form1_e0","> Boş Adres"},
@@ -151,7 +154,10 @@ namespace IPv6SubnettingTool
 {"Form1_findprefixtoolStripMenuItem1.Text","Önek &Ara..."},
 {"Form1_MsgBoxprefixnotfound","Önek bulunamadı"},
 {"Form1_statsusagetoolStripMenuItem.Text","Öneklerin &Kullanım Bilgisi"},
-{"Form1_statsusagetoolStripMenuItem1.Text","Öneklerin &Kullanım Bilgisi"},
+{"Form1_statstoolStripMenuItem1.Text","Öneklerin &Kullanım Bilgisi"},
+//
+{"Form1_windowstoolStripMenuItem.Text","&Pencereler"},
+{"Form1_closeAlltoolStripMenuItem.Text","&Tüm pencereleri kapat"},
 //
 {"Goto_button1.Text","Git"},
 {"Goto_Form.Text","IPv6 Ağ Hesap Makinesi - Git..."},
@@ -240,6 +246,8 @@ namespace IPv6SubnettingTool
 {"SaveAs_textBox2.Text","0"},
 {"SaveAs_textBox4.ToolTip","Hatırlatma: Dizin numarası sıfırdan başlıyor."},
 {"SaveAsText_Form","IPv6 Ağ Hesap Makinesi - Dosyaya Kaydet (txt)"},
+{"SaveAs_checkBox1.Text","Başlangıç ve Bitiş Adresleri ile Kaydet?"},
+//
 {"whois_bgw_RunWorkerCompleted_textBox2.Text","Sorgu:"},
 {"whois_buttonWhoisQuery.Text","&Sorgula"},
 {"whois_Form.Text","IPv6 Ağ Hesap Makinesi - Adres Sorgulaması (whois)"},
@@ -262,7 +270,7 @@ namespace IPv6SubnettingTool
 {"DBinfo_textBox6.Text","*Not: Eğer sunucu üzerinde veritabanı ve tablo yok ise yenisi oluşturulacaktır. "
     + "Kullanıcı hesabınızın, veritabanı ve tablo üzerinde gerekli olan yetkileri bulunmalıdır. "
     + "(sadece_MySQL_Server)"},
-{"FormDB_Form.Text","IPv6 Ağ Hesap Makinesi - FormDB"},
+{"FormDB_Form.Text","IPv6 Ağ Hesap Makinesi - VeriTabanı Formu"},
 {"FormDB_button1.Text","&Ekle/Güncelle"},
 {"FormDB_button2.Text","&Sorgula"},
 {"FormDB_button3.Text","&Sil"},
@@ -341,7 +349,10 @@ namespace IPv6SubnettingTool
 {"Form1_checkBox1.ToolTip","borrow bits"},
 {"Form1_checkBox2.Text","128bits"},
 {"Form1_checkBox2.ToolTip","Use 128 bits"},
+{"Form1_checkBox3.Text","?End    "},
+{"Form1_checkBox3.ToolTip","Display Prefix End Addresses"},
 {"Form1_copyToolStripMenuItem.Text","&Copy"},
+{"Form1_listBox1.ToolTip","Double-click or press Enter on selected item \r\n to see /64 or /128 sub-level prefixes"},
 {"Form1_e_empty",""},
 {"Form1_e_ok","> ok"},
 {"Form1_e0","> Empty address"},
@@ -419,7 +430,7 @@ namespace IPv6SubnettingTool
 {"Form1_closeDBtoolStripMenuItem_Click_noDB","There is no opened database connection!"},
 {"Form1_closeDBtoolStripMenuItem_Click_noDB_header","No DB connection"},
 {"Form1_closeDBtoolStripMenuItem_Click_closeDB","Closing database connection." 
-                    +"\r\nAll FormDB windows will be closed.\r\n\r\n"
+                    +"\r\nAll DBForm windows will be closed.\r\n\r\n"
                     + "Are you sure ?"},
 {"Form1_closeDBtoolStripMenuItem_Click_closeDB_header","Closing DB connection"},
 {"Form1_ConnectToDatabase","DB Connected!"},
@@ -433,7 +444,10 @@ namespace IPv6SubnettingTool
 {"Form1_findprefixtoolStripMenuItem1.Text","&Find prefix"},
 {"Form1_MsgBoxprefixnotfound","Prefix not found"},
 {"Form1_statsusagetoolStripMenuItem.Text","&Statistics/Utilization of this range..."},
-{"Form1_statsusagetoolStripMenuItem1.Text","&Statistics/Utilization of this range..."},
+{"Form1_statstoolStripMenuItem1.Text","&Statistics/Utilization of this range..."},
+//
+{"Form1_windowstoolStripMenuItem.Text","&Windows"},
+{"Form1_closeAlltoolStripMenuItem.Text","&Close All Windows"},
 //
 {"Goto_button1.Text","Go"},
 {"Goto_Form.Text","IPv6 Subnet Calculator - Go to..."},
@@ -523,6 +537,8 @@ namespace IPv6SubnettingTool
 {"SaveAs_textBox2.Text","0"},
 {"SaveAs_textBox4.ToolTip","Index number starts from zero"},
 {"SaveAsText_Form","IPv6 Subnet Calculator - Save Entries As A Text File"},
+{"SaveAs_checkBox1.Text","Save with Prefix End Addresses?"},
+//
 {"whois_bgw_RunWorkerCompleted_textBox2.Text","Query:"},
 {"whois_buttonWhoisQuery.Text","&Search"},
 {"whois_Form.Text","IPv6 Subnet Calculator - whois Query"},
@@ -545,7 +561,7 @@ namespace IPv6SubnettingTool
 {"DBinfo_textBox6.Text","*Please note that the database and table will be created IF they do not exist."
     + "  Your account must have sufficient privileges on the database and table. "
     + "(ps:Only_MySQL_Server)"},
-{"FormDB_Form.Text","IPv6 Subnet Calculator - FormDB"},
+{"FormDB_Form.Text","IPv6 Subnet Calculator - DatabaseUI"},
 {"FormDB_button1.Text","&Insert/Update"},
 {"FormDB_button2.Text","&Query"},
 {"FormDB_button3.Text","&Delete"},
@@ -572,7 +588,7 @@ namespace IPv6SubnettingTool
 {"FormDB_textBox9.Text","[ ]"},
 {"FormDB_toolStripStatusLabel1.Text",""},
 //
-{"PrefixSubLevelsForm.Text","IPv6 Subnet Calculator - PrefixSubLevelsForm"},
+{"PrefixSubLevelsForm.Text","IPv6 Subnet Calculator - PrefixSubLevels"},
 {"PrefixSubLevelsForm_label1.Text","Parent prefix:"},
 {"PrefixSubLevelsForm_label2.Text","Selected prefix:"},
 {"PrefixSubLevelsForm_recordlimit","Display Limit is 32768"},
@@ -625,7 +641,10 @@ namespace IPv6SubnettingTool
 {"Form1_checkBox1.ToolTip","Subnetz-bits"},
 {"Form1_checkBox2.Text","128bits"},
 {"Form1_checkBox2.ToolTip","nutzen 128 bits"},
+{"Form1_checkBox3.Text","?Ende   "},
+{"Form1_checkBox3.ToolTip","Präfix End-Adressen anzeigen"},
 {"Form1_copyToolStripMenuItem.Text","&Kopieren"},
+{"Form1_listBox1.ToolTip","Doppelklicken Sie auf oder drücken Sie Enter das ausgewählte element,\r\n um zu sehen /64 oder /128 sub-level präfixe"},
 {"Form1_e_empty",""},
 {"Form1_e_ok","> ok"},
 {"Form1_e0","> Leer addresse"},
@@ -703,7 +722,7 @@ namespace IPv6SubnettingTool
 {"Form1_closeDBtoolStripMenuItem_Click_noDB","keine geöffnete Datenbank-Verbindung!"},
 {"Form1_closeDBtoolStripMenuItem_Click_noDB_header","keine DB-V"},
 {"Form1_closeDBtoolStripMenuItem_Click_closeDB","Datenbank-Verbindung schließen." 
-                    +"\r\nAlle FormDB Fenster werden geschlossen.\r\n\r\n"
+                    +"\r\nAlle DBForm Fenster werden geschlossen.\r\n\r\n"
                     + "Sie sicher?"},
 {"Form1_closeDBtoolStripMenuItem_Click_closeDB_header","Datenbank-Verbindung schließen"},
 {"Form1_ConnectToDatabase","Datenbank verbunden!"},
@@ -717,7 +736,10 @@ namespace IPv6SubnettingTool
 {"Form1_findprefixtoolStripMenuItem1.Text","Präfix &Finden"},
 {"Form1_MsgBoxprefixnotfound","Präfix nicht gefunden"},
 {"Form1_statsusagetoolStripMenuItem.Text","&Auslastung/Stats dieses Bereichs..."},
-{"Form1_statsusagetoolStripMenuItem1.Text","&Auslastung/Stats dieses Bereichs..."},
+{"Form1_statstoolStripMenuItem1.Text","&Auslastung/Stats dieses Bereichs..."},
+//
+{"Form1_windowstoolStripMenuItem.Text","&Fenster"},
+{"Form1_closeAlltoolStripMenuItem.Text","alle Fenster &Schließen"},
 //
 {"Goto_button1.Text","&Gehe"},
 {"Goto_Form.Text","IPv6 Subnet Calculator - Gehe zu..."},
@@ -806,6 +828,8 @@ namespace IPv6SubnettingTool
 {"SaveAs_textBox2.Text","0"},
 {"SaveAs_textBox4.ToolTip","Index-Zahl beginnt mit 0"},
 {"SaveAsText_Form","IPv6 Subnet Calculator - Einträge als Textdatei speichern"},
+{"SaveAs_checkBox1.Text","mit Präfix-Endadresse speichern?"},
+//
 {"whois_bgw_RunWorkerCompleted_textBox2.Text","Abfrage:"},
 {"whois_buttonWhoisQuery.Text","&Suche"},
 {"whois_Form.Text","IPv6 Subnet Calculator - whois Abfrage"},
@@ -828,7 +852,7 @@ namespace IPv6SubnettingTool
 {"DBinfo_textBox6.Text","*Bitte beachten Sie dass die Datenbank und Tabelle erstellt werden,"
     + " wenn sie nicht vorhanden sind. Ihr Benutzerkonto muss ausreichende Berechtigungen"
     + " für die Datenbank und Tabelle. (ps: nur MySQL_Server)"},
-{"FormDB_Form.Text","IPv6 Subnet Calculator - FormDB"},
+{"FormDB_Form.Text","IPv6 Subnet Calculator - DatabaseUI"},
 {"FormDB_button1.Text","&Einfügen/aktualisieren"},
 {"FormDB_button2.Text","&Abfrage"},
 {"FormDB_button3.Text","&Löschen"},
@@ -854,7 +878,7 @@ namespace IPv6SubnettingTool
 {"FormDB_textBox9.Text","[ ]"},
 {"FormDB_toolStripStatusLabel1.Text",""},
 //
-{"PrefixSubLevelsForm.Text","IPv6 Subnet Calculator - PrefixSubLevelsForm"},
+{"PrefixSubLevelsForm.Text","IPv6 Subnet Calculator - PräfixSubLevels"},
 {"PrefixSubLevelsForm_label1.Text","Eltern-präfix:"},
 {"PrefixSubLevelsForm_label2.Text","gewählten Präfix:"},
 {"PrefixSubLevelsForm_recordlimit","Anzeigelimit: 32768"},

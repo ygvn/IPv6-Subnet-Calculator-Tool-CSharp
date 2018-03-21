@@ -109,6 +109,7 @@ namespace IPv6SubnettingTool
 
         private void button2_Click(object sender, EventArgs e)
         {
+            IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
             this.Close();
         }
 
@@ -116,8 +117,14 @@ namespace IPv6SubnettingTool
         {
             if (e.KeyCode == Keys.Escape)
             {
+                IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
                 this.Close();
             }
+        }
+
+        private void ASNumberPlainDot_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
         }
 
     }

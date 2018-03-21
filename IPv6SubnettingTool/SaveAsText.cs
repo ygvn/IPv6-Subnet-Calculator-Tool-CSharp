@@ -116,7 +116,9 @@ namespace IPv6SubnettingTool
             this.label9.Text = se;
 
             if (input.ID == 0 || input.ID == 2)
+            {
                 this.maxsubnet = (BigInteger.One << (this.StartEnd.subnetslash - this.StartEnd.slash));
+            }
             else if (input.ID == 1)
             {
                 if (this.is128Checked == CheckState.Unchecked)
@@ -136,6 +138,28 @@ namespace IPv6SubnettingTool
             this.textBox4.Text = (maxsubnet - 1).ToString();
 
             ShowDiskInfo();
+            
+            // Cases that we do not need 'End Addresses':
+            if (this.is128Checked == CheckState.Unchecked && input.subnetslash == 64 // working with '/64'!
+                ||
+                this.is128Checked == CheckState.Checked && input.subnetslash == 128  // working with '/128'!
+                ||
+                this.incomingID == 1
+                ||
+                this.incomingID == 2
+                )
+            {
+                this.checkBox1.Checked = false;
+                this.checkBox1.Enabled = false;
+            }
+            else
+                this.checkBox1.Enabled = true;
+
+            if (input.ID == 0 || input.ID == 1)
+                this.label1.Text = "(Prefixes)";
+            else if (input.ID == 2)
+                this.label1.Text = "(Reverse DNS)";
+
         }
 
         private void SaveAs_Click(object sender, EventArgs e)
@@ -408,6 +432,7 @@ namespace IPv6SubnettingTool
                             if (se.Length > 16)
                                 se = se.Substring(1, 16);
                             se = v6st.Kolonlar(se, this.is128Checked);
+                            se = v6st.CompressAddress(se);
 
                             //ss = "s" + StartEnd.subnetidx + "> " + ss + "/" +
                             ss = "p" + StartEnd.subnetidx + "> " + ss + "/" +
@@ -417,8 +442,14 @@ namespace IPv6SubnettingTool
 
                             if (StartEnd.subnetslash != 64)
                             {
-                                se = "e" + StartEnd.subnetidx + "> " + se + "/"
-                                    + StartEnd.subnetslash;
+                                if (this.checkBox1.CheckState == CheckState.Checked)
+                                {
+                                    se = "e" + StartEnd.subnetidx + "> " + se + "/"
+                                        + StartEnd.subnetslash;
+                                    TotalBytes += se.Length + 4;
+                                    saveAsName.WriteLine(se);
+                                    saveAsName.WriteLine("");
+                                }
                             }
                         }
                         else if (this.incomingID == 2)
@@ -457,6 +488,7 @@ namespace IPv6SubnettingTool
                             if (se.Length > 32)
                                 se = se.Substring(1, 32);
                             se = v6st.Kolonlar(se, this.is128Checked);
+                            se = v6st.CompressAddress(se);
 
                             //ss = "s" + StartEnd.subnetidx + "> " + ss + "/" +
                             ss = "p" + StartEnd.subnetidx + "> " + ss + "/" +
@@ -467,8 +499,14 @@ namespace IPv6SubnettingTool
 
                             if (StartEnd.subnetslash != 128)
                             {
-                                se = "e" + StartEnd.subnetidx + "> " + se + "/"
-                                    + StartEnd.subnetslash;
+                                if (this.checkBox1.CheckState == CheckState.Checked)
+                                {
+                                    se = "e" + StartEnd.subnetidx + "> " + se + "/"
+                                        + StartEnd.subnetslash;
+                                    TotalBytes += se.Length + 4;
+                                    saveAsName.WriteLine(se);
+                                    saveAsName.WriteLine("");
+                                }
                             }
                         }
                         else if (this.incomingID == 2)
@@ -642,11 +680,14 @@ namespace IPv6SubnettingTool
 
         private void exitButton_Click(object sender, EventArgs e)
         {
+            IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
             this.Close();
         }
 
         private void ExportToFile_FormClosing(object sender, FormClosingEventArgs e)
         {
+            IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
+
             if (this.backgroundWorker1.IsBusy || this.backgroundWorker2.IsBusy)
             {
                 this.backgroundWorker1.CancelAsync();
@@ -671,6 +712,7 @@ namespace IPv6SubnettingTool
                             + ioex.Message,
                             StringsDictionary.KeyValue("SaveAs_bgw_RunWorkerCompleted_head_file", this.culture),
                             MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                        
                         return;
                     }
                 }
@@ -712,6 +754,7 @@ namespace IPv6SubnettingTool
             this.SaveAs.Text = StringsDictionary.KeyValue("SaveAs_SaveAs.Text", this.culture);
             this.textBox1.Text = StringsDictionary.KeyValue("SaveAs_textBox1.Text", this.culture);
             this.textBox2.Text = StringsDictionary.KeyValue("SaveAs_textBox2.Text", this.culture);
+            this.checkBox1.Text = StringsDictionary.KeyValue("SaveAs_checkBox1.Text", this.culture);
             //
             this.toolTip1.SetToolTip(this.label8, StringsDictionary.KeyValue("SaveAs_label8.ToolTip", this.culture));
             this.toolTip1.SetToolTip(this.label9, StringsDictionary.KeyValue("SaveAs_label9.ToolTip", this.culture));

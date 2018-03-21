@@ -373,6 +373,7 @@ namespace IPv6SubnettingTool
             this.Name = "ListDnsReverses";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IPv6 Subnet Calculator - List DNS Reverse Zones";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ListDnsReverses_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListDnsReverses_KeyDown);
             this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

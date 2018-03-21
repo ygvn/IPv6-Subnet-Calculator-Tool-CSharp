@@ -225,6 +225,7 @@ namespace IPv6SubnettingTool
             this.Name = "ListAssignedfromDB";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IPv6 Subnet Calculator - List from Database";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ListAssignedfromDB_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListAssignedfromDB_KeyDown);
             this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

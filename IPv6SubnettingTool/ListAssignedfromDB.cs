@@ -404,6 +404,8 @@ namespace IPv6SubnettingTool
                 return;
             else
             {
+                IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
+
                 if (this is IDisposable)
                     this.Dispose();
                 else
@@ -602,8 +604,14 @@ namespace IPv6SubnettingTool
         {
             if (e.KeyCode == Keys.Escape)
             {
+                IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
                 this.Close();
             }
+        }
+
+        private void ListAssignedfromDB_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
         }
     }
 }

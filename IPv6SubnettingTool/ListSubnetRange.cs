@@ -563,6 +563,10 @@ namespace IPv6SubnettingTool
             ListDnsReverses dnsr = new ListDnsReverses(StartEnd, this.is128Checked, this.culture);
             StartEnd.subnetslash = tmp;
             dnsr.Show();
+            ////
+            IPv6SubnettingTool.Form1.windowsList.Add(new WindowsList(dnsr, dnsr.Name, dnsr.GetHashCode()));
+            //AddMenuItem(dnsr.Name, dnsr.GetHashCode());
+
             this.ChangeUILanguage += dnsr.SwitchLanguage;
         }
 
@@ -593,6 +597,7 @@ namespace IPv6SubnettingTool
             if (e.KeyCode == Keys.Escape)
             {
                 this.graph.Dispose();
+                IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
                 this.Close();
             }
 
@@ -716,6 +721,11 @@ namespace IPv6SubnettingTool
         {
             SaveAsText saveastxt = new SaveAsText(StartEnd, is128Checked, this.culture);
             saveastxt.Show();
+            ////
+            IPv6SubnettingTool.Form1.windowsList.Add(new WindowsList(saveastxt, saveastxt.Name, saveastxt.GetHashCode()));
+            //AddMenuItem(saveastxt.Name, saveastxt.GetHashCode());
+
+
             this.ChangeUILanguage += saveastxt.SwitchLanguage;
         }
 
@@ -750,7 +760,7 @@ namespace IPv6SubnettingTool
 
         private void SendToDatabase(string snet, short plen, short parentpflen)
         {
-            FormDB db = new FormDB(snet, plen, parentpflen, this.MySQLconnection, this.ServerInfo, this.culture);
+            DatabaseUI db = new DatabaseUI(snet, plen, parentpflen, this.MySQLconnection, this.ServerInfo, this.culture);
             db.Show();
             this.changeDBstate += db.DBStateChange;
             this.ChangeUILanguage += db.SwitchLanguage;
@@ -792,6 +802,7 @@ namespace IPv6SubnettingTool
         private void ListSubnetRange_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.graph.Dispose();
+            IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
             this.graph = null;
         }
 

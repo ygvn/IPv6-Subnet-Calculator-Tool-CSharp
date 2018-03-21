@@ -172,6 +172,7 @@ namespace IPv6SubnettingTool
             this.Name = "whoisQuery";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IPv6 Subnet Calculator - whois Query";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.whoisQuery_FormClosing);
             this.Load += new System.EventHandler(this.whoisQuery_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.whoisQuery_KeyDown);
             this.groupBox1.ResumeLayout(false);

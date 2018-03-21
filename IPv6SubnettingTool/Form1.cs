@@ -76,6 +76,7 @@ namespace IPv6SubnettingTool
         public delegate void ChangeDBState(OdbcConnection dbconn, DBServerInfo servinfo);
         public event ChangeDBState changeDBstate = delegate { };
         //
+        public static List<WindowsList> windowsList = new List<WindowsList>();
         #endregion
 
         public Form1()
@@ -83,6 +84,7 @@ namespace IPv6SubnettingTool
             InitializeComponent();
             
             #region special initials -yucel
+            //windowstoolStripMenuItem.Text = "Windows (" + Application.OpenForms.Count.ToString() + ")";
             label10.Text = label1.Text = trackBar1.Value.ToString();
             this.StartEnd.ID = ID; // ID of this Form. Form1 is the main Form.
             this.graph = this.CreateGraphics();
@@ -97,6 +99,11 @@ namespace IPv6SubnettingTool
             //this.TurkishToolStripMenuItem.Checked = false;
             this.culture = Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
         }
+
+       /* private void UpdateWinList()
+        {
+            windowstoolStripMenuItem.Text = "Windows (" + (Application.OpenForms.Count - 1).ToString() + ")";
+        }*/
 
         private void UpdateStatus()
         {
@@ -138,7 +145,12 @@ namespace IPv6SubnettingTool
 
         private void UpdateCount()
         {
-            this.updatecount = this.listBox1.Items.Count;
+            //this.updatecount = this.listBox1.Items.Count;
+            if (this.checkBox3.CheckState == CheckState.Checked)
+                this.updatecount = this.listBox1.Items.Count / 3;
+            else
+                this.updatecount = this.listBox1.Items.Count;
+
             this.textBox7.Text = "[" + this.updatecount.ToString()
                 + StringsDictionary.KeyValue("Form1_UpdateCount_entries", culture);
 
@@ -310,7 +322,7 @@ namespace IPv6SubnettingTool
         {
             label1.Text = trackBar1.Value.ToString();
 
-            Backwd.Enabled = Forwd.Enabled = Last.Enabled = false;
+            Backwd.Enabled = Forwd.Enabled = Last.Enabled = this.checkBox3.Enabled = false;
             trackBar2.Value = trackBar1.Value;
             label10.Text = trackBar1.Value.ToString();
             this.maxfontwidth = 0;
@@ -375,7 +387,7 @@ namespace IPv6SubnettingTool
             this.maxfontwidth = 0;
             this.listBox1.HorizontalExtent = 0;
 
-            Backwd.Enabled = Forwd.Enabled = Last.Enabled = false;
+            Backwd.Enabled = Forwd.Enabled = Last.Enabled = this.checkBox3.Enabled = false;
             textBox7.Text = "";
 
             delta = trackBar2.Value - trackBar1.Value;
@@ -406,13 +418,25 @@ namespace IPv6SubnettingTool
             this.maxfontwidth = 0;
             this.listBox1.HorizontalExtent = 0;
 
+            if (this.checkBox2.CheckState == CheckState.Unchecked && this.trackBar2.Value == 64 
+                ||
+                this.checkBox2.CheckState == CheckState.Checked && this.trackBar2.Value == 128 
+                )
+            {
+                this.checkBox3.Checked = false;
+                this.checkBox3.Enabled = false;
+            }
+            else
+                this.checkBox3.Enabled = true;
+
+
             int delta = this.trackBar2.Value - this.trackBar1.Value;
 
             StartEnd.slash = this.trackBar1.Value;
             StartEnd.subnetslash = this.trackBar2.Value;
             StartEnd.upto = upto;
 
-            subnets = v6st.ListFirstPage(StartEnd, this.checkBox2.CheckState);
+            subnets = v6st.ListFirstPage(StartEnd, this.checkBox2.CheckState, this.checkBox3.CheckState);
             this.page.End = subnets.End;
             this.listBox1.Items.AddRange(subnets.liste.ToArray());
 
@@ -449,7 +473,7 @@ namespace IPv6SubnettingTool
             subnets.UpperLimitAddress = StartEnd.UpperLimitAddress;
 
             subnets.End = page.End = page.Start - BigInteger.One;
-            subnets = v6st.ListPageBackward(subnets, this.checkBox2.CheckState);
+            subnets = v6st.ListPageBackward(subnets, this.checkBox2.CheckState, this.checkBox3.CheckState);
             page.Start = subnets.Start;
 
             this.listBox1.Items.AddRange(subnets.liste.ToArray());
@@ -484,7 +508,7 @@ namespace IPv6SubnettingTool
             subnets.UpperLimitAddress = StartEnd.UpperLimitAddress;
 
             subnets.Start = page.Start = page.End + BigInteger.One;
-            subnets = v6st.ListPageForward(subnets, this.checkBox2.CheckState);
+            subnets = v6st.ListPageForward(subnets, this.checkBox2.CheckState, this.checkBox3.CheckState);
             this.page.End = subnets.End;
 
             this.listBox1.Items.AddRange(subnets.liste.ToArray());
@@ -520,7 +544,7 @@ namespace IPv6SubnettingTool
 
 
             subnets.End = page.End = StartEnd.UpperLimitAddress;
-            subnets = v6st.ListLastPage(subnets, this.checkBox2.CheckState);
+            subnets = v6st.ListLastPage(subnets, this.checkBox2.CheckState, this.checkBox3.CheckState);
             page.Start = subnets.Start;
 
             this.listBox1.Items.AddRange(subnets.liste.ToArray());
@@ -546,6 +570,7 @@ namespace IPv6SubnettingTool
                 label12.Text = delta.ToString();
                 Subnets.Enabled = true;
                 goToSubnetNumberToolStripMenuItem1.Enabled = true;
+                //checkBox3.Enabled = true;
             }
             else
             {
@@ -555,6 +580,7 @@ namespace IPv6SubnettingTool
                 label10.Text = label12.Text = "";
                 Subnets.Enabled = Forwd.Enabled = Backwd.Enabled = Last.Enabled = false;
                 goToSubnetNumberToolStripMenuItem1.Enabled = false;
+                //checkBox3.Enabled = false;
             }
 
             UpdatePrintBin(StartEnd, this.checkBox2.CheckState);
@@ -782,6 +808,8 @@ namespace IPv6SubnettingTool
                     (this.checkBox2.CheckState == CheckState.Checked && this.trackBar2.Value == 128)
                     ||
                     listBox1.SelectedItem == null
+                    ||
+                    (string)listBox1.SelectedItem == ""
                     )
                 {
                     return;
@@ -805,6 +833,8 @@ namespace IPv6SubnettingTool
                 (this.checkBox2.CheckState == CheckState.Checked && this.trackBar2.Value == 128)
                 ||
                 listBox1.SelectedItem == null
+                ||
+                (string)listBox1.SelectedItem == ""
                 )
             {
                 return;
@@ -814,6 +844,10 @@ namespace IPv6SubnettingTool
                 ListSubnetRange lh = new ListSubnetRange(this.StartEnd, listBox1.SelectedItem.ToString(),
                     this.trackBar1.Value, this.trackBar2.Value, this.checkBox2.CheckState, this.culture, this.MySQLconnection, this.ServerInfo);
                 lh.Show();
+                ////
+                windowsList.Add(new WindowsList(lh, lh.Name, lh.GetHashCode()));
+                //AddMenuItem(lh.Name, lh.GetHashCode());
+
                 this.ChangeUILanguage += lh.SwitchLanguage;
                 this.changeDBstate += lh.DBStateChange;
             }
@@ -835,6 +869,10 @@ namespace IPv6SubnettingTool
                 ListSubnetRange lh = new ListSubnetRange(this.StartEnd, listBox1.SelectedItem.ToString(),
                     this.trackBar1.Value, this.trackBar2.Value, this.checkBox2.CheckState, this.culture, this.MySQLconnection, this.ServerInfo);
                 lh.Show();
+                ////
+                windowsList.Add(new WindowsList(lh, lh.Name, lh.GetHashCode()));
+                //AddMenuItem(lh.Name, lh.GetHashCode());
+
                 this.ChangeUILanguage += lh.SwitchLanguage;
                 this.changeDBstate += lh.DBStateChange;
             }
@@ -851,36 +889,74 @@ namespace IPv6SubnettingTool
             SolidBrush sfore = new SolidBrush(e.ForeColor);
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
 
-            if (e.Index % 2 == 0)
+            //if (e.Index % 2 == 0)
+            if (this.checkBox3.CheckState == CheckState.Unchecked)
             {
-                e.DrawBackground();
-                DrawItemState st = DrawItemState.Selected;
-
-                if ((e.State & st) != st)
+                if (e.Index % 2 == 0)
                 {
-                    // Turkuaz= FF40E0D0(ARGB)
-                    Color color = Color.FromArgb(30, 64, 224, 208);
-                    g.FillRectangle(new SolidBrush(color), e.Bounds);
-                    //g.FillRectangle(new SolidBrush(Color.WhiteSmoke), e.Bounds);
-                    g.DrawString(lb.Items[e.Index].ToString(), e.Font,
-                        sfore, new PointF(e.Bounds.X, e.Bounds.Y));
+                    e.DrawBackground();
+                    DrawItemState st = DrawItemState.Selected;
+
+                    if ((e.State & st) != st)
+                    {
+                        // Turkuaz= FF40E0D0(ARGB)
+                        Color color = Color.FromArgb(30, 64, 224, 208);
+                        g.FillRectangle(new SolidBrush(color), e.Bounds);
+                        //g.FillRectangle(new SolidBrush(Color.WhiteSmoke), e.Bounds);
+                        g.DrawString(lb.Items[e.Index].ToString(), e.Font,
+                            sfore, new PointF(e.Bounds.X, e.Bounds.Y));
+                    }
+                    else
+                    {
+                        g.FillRectangle(sback, e.Bounds);
+                        g.DrawString(lb.Items[e.Index].ToString(), e.Font,
+                            sfore, new PointF(e.Bounds.X, e.Bounds.Y));
+
+                    }
+                    e.DrawFocusRectangle();
                 }
                 else
                 {
+                    e.DrawBackground();
                     g.FillRectangle(sback, e.Bounds);
                     g.DrawString(lb.Items[e.Index].ToString(), e.Font,
                         sfore, new PointF(e.Bounds.X, e.Bounds.Y));
-
+                    e.DrawFocusRectangle();
                 }
-                e.DrawFocusRectangle();
             }
-            else
+            else if (this.checkBox3.CheckState == CheckState.Checked)
             {
-                e.DrawBackground();
-                g.FillRectangle(sback, e.Bounds);
-                g.DrawString(lb.Items[e.Index].ToString(), e.Font,
-                    sfore, new PointF(e.Bounds.X, e.Bounds.Y));
-                e.DrawFocusRectangle();
+                if (e.Index % 3 == 0)
+                {
+                    e.DrawBackground();
+                    DrawItemState st = DrawItemState.Selected;
+
+                    if ((e.State & st) != st)
+                    {
+                        // Turkuaz= FF40E0D0(ARGB)
+                        Color color = Color.FromArgb(30, 64, 224, 208);
+                        g.FillRectangle(new SolidBrush(color), e.Bounds);
+                        //g.FillRectangle(new SolidBrush(Color.WhiteSmoke), e.Bounds);
+                        g.DrawString(lb.Items[e.Index].ToString(), e.Font,
+                            sfore, new PointF(e.Bounds.X, e.Bounds.Y));
+                    }
+                    else
+                    {
+                        g.FillRectangle(sback, e.Bounds);
+                        g.DrawString(lb.Items[e.Index].ToString(), e.Font,
+                            sfore, new PointF(e.Bounds.X, e.Bounds.Y));
+
+                    }
+                    e.DrawFocusRectangle();
+                }
+                else
+                {
+                    e.DrawBackground();
+                    g.FillRectangle(sback, e.Bounds);
+                    g.DrawString(lb.Items[e.Index].ToString(), e.Font,
+                        sfore, new PointF(e.Bounds.X, e.Bounds.Y));
+                    e.DrawFocusRectangle();
+                }
             }
 
 
@@ -1115,6 +1191,7 @@ namespace IPv6SubnettingTool
                     if (se.Length > 32)
                         se = se.Substring(1, 32);
                     se = v6st.Kolonlar(se, this.checkBox2.CheckState);
+                    se = v6st.CompressAddress(se);
 
                     //ss = "s" + subnets.subnetidx + "> " + ss + "/" +
                     ss = "p" + subnets.subnetidx + "> " + ss + "/" +
@@ -1123,10 +1200,13 @@ namespace IPv6SubnettingTool
                     /* No need to print two times if slash=128 since start=end */
                     if (this.trackBar2.Value != 128)
                     {
-                        se = "e" + subnets.subnetidx + "> " + se + "/"
-                            + this.trackBar2.Value;
-                        //this.listBox1.Items.Add(se);
-                        //this.listBox1.Items.Add("");
+                        if (this.checkBox3.CheckState == CheckState.Checked)
+                        {
+                            se = "e" + subnets.subnetidx + "> " + se + "/"
+                                + this.trackBar2.Value;
+                            this.listBox1.Items.Add(se);
+                            this.listBox1.Items.Add("");
+                        }
                     }
                 }
                 else if (this.checkBox2.CheckState == CheckState.Unchecked)
@@ -1141,6 +1221,7 @@ namespace IPv6SubnettingTool
                     if (se.Length > 16)
                         se = se.Substring(1, 16);
                     se = v6st.Kolonlar(se, this.checkBox2.CheckState);
+                    se = v6st.CompressAddress(se);
 
                     //ss = "s" + subnets.subnetidx + "> " + ss + "/" +
                     ss = "p" + subnets.subnetidx + "> " + ss + "/" +
@@ -1149,10 +1230,13 @@ namespace IPv6SubnettingTool
                     /* No need to print two times if slash=64 since start=end */
                     if (this.trackBar2.Value != 64)
                     {
-                        se = "e" + subnets.subnetidx + "> " + se + "/"
-                            + this.trackBar2.Value;
-                        //this.listBox1.Items.Add(se);
-                        //this.listBox1.Items.Add("");
+                        if (this.checkBox3.CheckState == CheckState.Checked)
+                        {
+                            se = "e" + subnets.subnetidx + "> " + se + "/"
+                                + this.trackBar2.Value;
+                            this.listBox1.Items.Add(se);
+                            this.listBox1.Items.Add("");
+                        }
                     }
                 }
 
@@ -1196,6 +1280,10 @@ namespace IPv6SubnettingTool
                 StartEnd.subnetslash = this.trackBar2.Value;
                 ListDnsReverses dnsr = new ListDnsReverses(StartEnd, this.checkBox2.CheckState, this.culture);
                 dnsr.Show();
+                ////
+                windowsList.Add(new WindowsList(dnsr, dnsr.Name, dnsr.GetHashCode()));
+                //AddMenuItem(dnsr.Name, dnsr.GetHashCode());
+
                 this.ChangeUILanguage += dnsr.SwitchLanguage;
             }
         }
@@ -1216,6 +1304,10 @@ namespace IPv6SubnettingTool
                 ListSubnetRange lh = new ListSubnetRange(this.StartEnd, listBox1.SelectedItem.ToString(),
                     this.trackBar1.Value, this.trackBar2.Value, this.checkBox2.CheckState, this.culture, this.MySQLconnection, this.ServerInfo);
                 lh.Show();
+                ////
+                windowsList.Add(new WindowsList(lh, lh.Name, lh.GetHashCode()));
+                //AddMenuItem(lh.Name, lh.GetHashCode());
+
                 this.ChangeUILanguage += lh.SwitchLanguage;
                 this.changeDBstate += lh.DBStateChange;
             }
@@ -1229,6 +1321,10 @@ namespace IPv6SubnettingTool
                 StartEnd.subnetslash = this.trackBar2.Value;
                 ListDnsReverses dnsr = new ListDnsReverses(StartEnd, this.checkBox2.CheckState, this.culture);
                 dnsr.Show();
+                ////
+                windowsList.Add(new WindowsList(dnsr, dnsr.Name, dnsr.GetHashCode()));
+                //AddMenuItem(dnsr.Name, dnsr.GetHashCode());
+
                 this.ChangeUILanguage += dnsr.SwitchLanguage;
             }
         }
@@ -1252,12 +1348,12 @@ namespace IPv6SubnettingTool
             if (this.listBox1.Items.Count > 0)
             {
                 this.listAllDNSReverseZonesToolStripMenuItem.Enabled = true;
-
+                /*
                 if ((this.trackBar2.Value - this.trackBar1.Value > 0) && this.MySQLconnection != null)
                     this.statsusagetoolStripMenuItem1.Enabled = true;
                 else
                     this.statsusagetoolStripMenuItem1.Enabled = false;
-
+                */
                 if (this.listBox1.SelectedItem != null && this.listBox1.SelectedItem.ToString() != ""
                     && this.listBox1.SelectedIndex != -1)
                 {
@@ -1297,7 +1393,7 @@ namespace IPv6SubnettingTool
                 this.list128SubnetsToolStripMenuItem1.Enabled = false;
                 this.listAllDNSReverseZonesToolStripMenuItem.Enabled = false;
                 this.workwithtoolStripMenuItem1.Enabled = false;
-                this.statsusagetoolStripMenuItem1.Enabled = false;
+                //this.statsusagetoolStripMenuItem1.Enabled = false;
             }
         }
 
@@ -1430,9 +1526,11 @@ namespace IPv6SubnettingTool
             trackBar1.Enabled = false;
             this.goToAddrSpaceNumberToolStripMenuItem.Enabled = false;
 
-            if (checkBox1.Checked)
-                checkBox1.Checked = false;
+            checkBox1.Checked = false;
             checkBox1.Enabled = false;
+            checkBox3.Checked = false;
+            checkBox3.Enabled = false;
+
 
             richTextBox1.Text = " ";
             UpdateStatus();
@@ -1454,6 +1552,10 @@ namespace IPv6SubnettingTool
                 ListSubnetRange lh = new ListSubnetRange(this.StartEnd, listBox1.SelectedItem.ToString(),
                     this.trackBar1.Value, this.trackBar2.Value, this.checkBox2.CheckState, this.culture, this.MySQLconnection, this.ServerInfo);
                 lh.Show();
+                ////
+                windowsList.Add(new WindowsList(lh, lh.Name, lh.GetHashCode()));
+                //AddMenuItem(lh.Name, lh.GetHashCode());
+
                 this.ChangeUILanguage += lh.SwitchLanguage;
                 this.changeDBstate += lh.DBStateChange;
             }
@@ -1472,6 +1574,10 @@ namespace IPv6SubnettingTool
 
                         whoisQuery whoisquery = new whoisQuery(s, this.culture);
                         whoisquery.Show();
+                        ////
+                        windowsList.Add(new WindowsList(whoisquery, whoisquery.Name, whoisquery.GetHashCode()));
+                        //AddMenuItem(whoisquery.Name, whoisquery.GetHashCode());
+
                         this.ChangeUILanguage += whoisquery.SwitchLanguage;
                     }
                     catch (Exception ex)
@@ -1483,6 +1589,10 @@ namespace IPv6SubnettingTool
                 {
                     whoisQuery whoisquery = new whoisQuery(this.textBox1.Text, this.culture);
                     whoisquery.Show();
+                    ////
+                    windowsList.Add(new WindowsList(whoisquery, whoisquery.Name, whoisquery.GetHashCode()));
+                    //AddMenuItem(whoisquery.Name, whoisquery.GetHashCode());
+
                     this.ChangeUILanguage += whoisquery.SwitchLanguage;
                 }
             }
@@ -1490,6 +1600,10 @@ namespace IPv6SubnettingTool
             {
                 whoisQuery whoisquery = new whoisQuery(this.textBox1.Text, this.culture);
                 whoisquery.Show();
+                ////
+                windowsList.Add(new WindowsList(whoisquery, whoisquery.Name, whoisquery.GetHashCode()));
+                //AddMenuItem(whoisquery.Name, whoisquery.GetHashCode());
+
                 this.ChangeUILanguage += whoisquery.SwitchLanguage;
             }
         }
@@ -1591,6 +1705,7 @@ namespace IPv6SubnettingTool
                     if (se.Length > 32)
                         se = se.Substring(1, 32);
                     se = v6st.Kolonlar(se, this.checkBox2.CheckState);
+                    se = v6st.CompressAddress(se);
 
                     //ss = "s" + subnets.subnetidx + "> " + ss + "/" +
                     ss = "p" + subnets.subnetidx + "> " + ss + "/" +
@@ -1601,8 +1716,8 @@ namespace IPv6SubnettingTool
                     {
                         se = "e" + subnets.subnetidx + "> " + se + "/"
                             + this.trackBar2.Value;
-                        //this.listBox1.Items.Add(se);
-                        //this.listBox1.Items.Add("");
+                        this.listBox1.Items.Add(se);
+                        this.listBox1.Items.Add("");
                     }
                 }
                 else if (this.checkBox2.CheckState == CheckState.Unchecked)
@@ -1617,6 +1732,7 @@ namespace IPv6SubnettingTool
                     if (se.Length > 16)
                         se = se.Substring(1, 16);
                     se = v6st.Kolonlar(se, this.checkBox2.CheckState);
+                    se = v6st.CompressAddress(se);
 
                     //ss = "s" + subnets.subnetidx + "> " + ss + "/" +
                     ss = "p" + subnets.subnetidx + "> " + ss + "/" +
@@ -1627,8 +1743,8 @@ namespace IPv6SubnettingTool
                     {
                         se = "e" + subnets.subnetidx + "> " + se + "/"
                             + this.trackBar2.Value;
-                        //this.listBox1.Items.Add(se);
-                        //this.listBox1.Items.Add("");
+                        this.listBox1.Items.Add(se);
+                        this.listBox1.Items.Add("");
                     }
                 }
 
@@ -1668,6 +1784,10 @@ namespace IPv6SubnettingTool
         {
             SaveAsText exptofile = new SaveAsText(this.StartEnd, this.checkBox2.CheckState, this.culture);
             exptofile.Show();
+            ////
+            windowsList.Add(new WindowsList(exptofile, exptofile.Name, exptofile.GetHashCode()));
+            //AddMenuItem(exptofile.Name, exptofile.GetHashCode());
+
             this.ChangeUILanguage += exptofile.SwitchLanguage;
         }
 
@@ -1687,6 +1807,10 @@ namespace IPv6SubnettingTool
         {
             SaveAsText saveas = new SaveAsText(this.StartEnd, this.checkBox2.CheckState, this.culture);
             saveas.Show();
+            ////
+            windowsList.Add(new WindowsList(saveas, saveas.Name, saveas.GetHashCode()));
+            //AddMenuItem(saveas.Name, saveas.GetHashCode());
+
             this.ChangeUILanguage += saveas.SwitchLanguage;
         }
 
@@ -1753,6 +1877,7 @@ namespace IPv6SubnettingTool
             this.Backwd.Text = StringsDictionary.KeyValue("Form1_Backwd.Text", this.culture);
             this.checkBox1.Text = StringsDictionary.KeyValue("Form1_checkBox1.Text", this.culture);
             this.checkBox2.Text = StringsDictionary.KeyValue("Form1_checkBox2.Text", this.culture);
+            this.checkBox3.Text = StringsDictionary.KeyValue("Form1_checkBox3.Text", this.culture);
             this.copyToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_copyToolStripMenuItem.Text", this.culture);
             this.databasetoolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_databasetoolStripMenuItem.Text", this.culture);
             this.connectDBtoolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_connectDBtoolStripMenuItem.Text", this.culture);
@@ -1807,16 +1932,20 @@ namespace IPv6SubnettingTool
             this.findprefixtoolStripMenuItem1.Text = StringsDictionary.KeyValue("Form1_findprefixtoolStripMenuItem1.Text", this.culture);
             this.findprefixtoolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_findprefixtoolStripMenuItem1.Text", this.culture);
             this.statsusagetoolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_statsusagetoolStripMenuItem.Text", this.culture);
-            this.statsusagetoolStripMenuItem1.Text = StringsDictionary.KeyValue("Form1_statsusagetoolStripMenuItem1.Text", this.culture);
+            this.statstoolStripMenuItem1.Text = StringsDictionary.KeyValue("Form1_statstoolStripMenuItem1.Text", this.culture);
             this.ASnumberToolStripMenuItem.Text = StringsDictionary.KeyValue("ASNumberPlainDotForm_ASnumberToolStripMenuItem.Text", this.culture);
+            this.windowstoolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_windowstoolStripMenuItem.Text", this.culture);
+            this.closeAlltoolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_closeAlltoolStripMenuItem.Text", this.culture);
 
             // ToolTips
             this.toolTip1.SetToolTip(this.Backwd, StringsDictionary.KeyValue("Form1_Backwd.ToolTip", this.culture));
             this.toolTip1.SetToolTip(this.checkBox1, StringsDictionary.KeyValue("Form1_checkBox1.ToolTip", this.culture));
             this.toolTip1.SetToolTip(this.checkBox2, StringsDictionary.KeyValue("Form1_checkBox2.ToolTip", this.culture));
+            this.toolTip1.SetToolTip(this.checkBox3, StringsDictionary.KeyValue("Form1_checkBox3.ToolTip", this.culture));
             this.toolTip1.SetToolTip(this.Forwd, StringsDictionary.KeyValue("Form1_Forwd.ToolTip", this.culture));
             this.toolTip1.SetToolTip(this.Last, StringsDictionary.KeyValue("Form1_Last.ToolTip", this.culture));
             this.toolTip1.SetToolTip(this.Subnets, StringsDictionary.KeyValue("Form1_Subnets.ToolTip", this.culture));
+            this.toolTip1.SetToolTip(this.listBox1, StringsDictionary.KeyValue("Form1_listBox1.ToolTip", this.culture));
 
             // errmsg from checks. 
             if (v6ST.errmsg != "")
@@ -1889,9 +2018,13 @@ namespace IPv6SubnettingTool
             if (state)
             {
                 short parentpflen = (short)this.trackBar1.Value;
-                FormDB db = new FormDB(snet, plen, parentpflen, this.MySQLconnection,
+                DatabaseUI db = new DatabaseUI(snet, plen, parentpflen, this.MySQLconnection,
                     this.ServerInfo, this.culture);
                 db.Show();
+                ////
+                windowsList.Add(new WindowsList(db, db.Name, db.GetHashCode()));
+                //AddMenuItem(db.Name, db.GetHashCode());
+
                 this.changeDBstate += db.DBStateChange;
                 this.ChangeUILanguage += db.SwitchLanguage;
             }
@@ -1948,7 +2081,7 @@ namespace IPv6SubnettingTool
                             + "netname VARCHAR(40), "
                             + "person  VARCHAR(40), "
                             + "organization VARCHAR(60), "
-                            + "`as-num` SMALLINT UNSIGNED, "
+                            + "`as-num` INT UNSIGNED, "
                             + "phone VARCHAR(40), "
                             + "email VARCHAR(40), "
                             + "status VARCHAR(40), "
@@ -2003,7 +2136,7 @@ namespace IPv6SubnettingTool
                             + "netname VARCHAR(40), "
                             + "person  VARCHAR(40), "
                             + "organization VARCHAR(60), "
-                            + "`as-num` SMALLINT UNSIGNED, "
+                            + "`as-num` INT UNSIGNED, "
                             + "phone VARCHAR(40), "
                             + "email VARCHAR(40), "
                             + "status VARCHAR(40), "
@@ -2152,7 +2285,6 @@ namespace IPv6SubnettingTool
                 this.MySQLconnection.Dispose();
 
             this.MySQLconnection = null;
-            //this.ServerInfo.Initialize();
 
             this.changeDBstate.Invoke(this.MySQLconnection, this.ServerInfo);
         }
@@ -2212,11 +2344,17 @@ namespace IPv6SubnettingTool
                     this.sendtoDBtoolStripMenuItem.Enabled = false;
                     this.sublevelstoolStripMenuItem1.Enabled = false;
                 }
+
+                if ((this.trackBar2.Value - this.trackBar1.Value > 0) && this.MySQLconnection != null)
+                    this.statstoolStripMenuItem1.Enabled = true;
+                else
+                    this.statstoolStripMenuItem1.Enabled = false;
             }
             else
             {
                 this.sendtoDBtoolStripMenuItem.Enabled = false;
                 this.sublevelstoolStripMenuItem1.Enabled = false;
+                this.statstoolStripMenuItem1.Enabled = false;
             }
 
             if (this.MySQLconnection != null)
@@ -2266,11 +2404,15 @@ namespace IPv6SubnettingTool
 
             string parentprefix = this.v6st.FindParentNet(snet, ppflen, this.checkBox2.CheckState);
 
-            PrefixSubLevelsForm pflevels = 
-                new PrefixSubLevelsForm(snet, plen, parentprefix, this.checkBox2.CheckState,
+            PrefixSubLevels pflevels = 
+                new PrefixSubLevels(snet, plen, parentprefix, this.checkBox2.CheckState,
                     this.trackBar1.Value, this.trackBar2.Value, this.MySQLconnection,
                     this.ServerInfo, this.culture);
             pflevels.Show();
+            ////
+            windowsList.Add(new WindowsList(pflevels, pflevels.Name, pflevels.GetHashCode()));
+            //AddMenuItem(pflevels.Name, pflevels.GetHashCode());
+
             this.changeDBstate += pflevels.DBStateChange;
             this.ChangeUILanguage += pflevels.SwitchLanguage;
 
@@ -2326,8 +2468,12 @@ namespace IPv6SubnettingTool
 
         private void compressaddrtoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            CompressAddressForm compress = new CompressAddressForm(this.culture);
+            CompressAddress compress = new CompressAddress(this.culture);
             compress.Show();
+            ////
+            windowsList.Add(new WindowsList(compress, compress.Name, compress.GetHashCode()));
+            //AddMenuItem(compress.Name, compress.GetHashCode());
+
             this.ChangeUILanguage += compress.SwitchLanguage;
         }
 
@@ -2411,6 +2557,7 @@ namespace IPv6SubnettingTool
                             if (se.Length > 32)
                                 se = se.Substring(1, 32);
                             se = v6st.Kolonlar(se, this.checkBox2.CheckState);
+                            se = v6st.CompressAddress(se);
 
                             //ss = "s" + subnets.subnetidx + "> " + ss + "/" +
                             ss = "p" + subnets.subnetidx + "> " + ss + "/" +
@@ -2419,10 +2566,13 @@ namespace IPv6SubnettingTool
                             /* No need to print two times if slash=128 since start=end */
                             if (this.trackBar2.Value != 128)
                             {
-                                se = "e" + subnets.subnetidx + "> " + se + "/"
-                                    + this.trackBar2.Value;
-                                //this.listBox1.Items.Add(se);
-                                //this.listBox1.Items.Add("");
+                                if (this.checkBox3.CheckState == CheckState.Checked)
+                                {
+                                    se = "e" + subnets.subnetidx + "> " + se + "/"
+                                        + this.trackBar2.Value;
+                                    this.listBox1.Items.Add(se);
+                                    this.listBox1.Items.Add("");
+                                }
                             }
                         }
                         else if (this.checkBox2.CheckState == CheckState.Unchecked)
@@ -2437,6 +2587,7 @@ namespace IPv6SubnettingTool
                             if (se.Length > 16)
                                 se = se.Substring(1, 16);
                             se = v6st.Kolonlar(se, this.checkBox2.CheckState);
+                            se = v6st.CompressAddress(se);
 
                             //ss = "s" + subnets.subnetidx + "> " + ss + "/" +
                             ss = "p" + subnets.subnetidx + "> " + ss + "/" +
@@ -2445,10 +2596,13 @@ namespace IPv6SubnettingTool
                             /* No need to print two times if slash=64 since start=end */
                             if (this.trackBar2.Value != 64)
                             {
-                                se = "e" + subnets.subnetidx + "> " + se + "/"
-                                    + this.trackBar2.Value;
-                                //this.listBox1.Items.Add(se);
-                                //this.listBox1.Items.Add("");
+                                if (this.checkBox3.CheckState == CheckState.Checked)
+                                {
+                                    se = "e" + subnets.subnetidx + "> " + se + "/"
+                                        + this.trackBar2.Value;
+                                    this.listBox1.Items.Add(se);
+                                    this.listBox1.Items.Add("");
+                                }
                             }
                         }
 
@@ -2540,6 +2694,10 @@ namespace IPv6SubnettingTool
                     (short)this.trackBar1.Value, (short)this.trackBar2.Value,
                     this.checkBox2.CheckState, this.MySQLconnection, this.ServerInfo, this.culture);
                 stats.Show();
+                ////
+                windowsList.Add(new WindowsList(stats, stats.Name, stats.GetHashCode()));
+                //AddMenuItem(stats.Name, stats.GetHashCode());
+
                 this.ChangeUILanguage += stats.SwitchLanguage;
                 this.changeDBstate += stats.DBStateChange;
 
@@ -2553,12 +2711,21 @@ namespace IPv6SubnettingTool
             this.statsusagetoolStripMenuItem_Click(null, null);
         }
 
+        private void statstoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.statsusagetoolStripMenuItem_Click(null, null);
+        }
+
         private void opendbformtoolStripMenuItem_Click(object sender, EventArgs e)
         {
             short parentpflen = (short)this.trackBar1.Value;
-            FormDB db = new FormDB(null, 0, parentpflen, this.MySQLconnection,
+            DatabaseUI db = new DatabaseUI(null, 0, parentpflen, this.MySQLconnection,
                 this.ServerInfo, this.culture);
             db.Show();
+            ////
+            windowsList.Add(new WindowsList(db, db.Name, db.GetHashCode()));
+            //AddMenuItem(db.Name, db.GetHashCode());
+
             this.changeDBstate += db.DBStateChange;
             this.ChangeUILanguage += db.SwitchLanguage;
         }
@@ -2567,7 +2734,152 @@ namespace IPv6SubnettingTool
         {
             ASNumberPlainDot asnum = new ASNumberPlainDot(this.culture);
             asnum.Show();
+            ////
+            windowsList.Add(new WindowsList(asnum, asnum.Name, asnum.GetHashCode()));
+            //AddMenuItem(asnum.Name, asnum.GetHashCode());
+
             this.ChangeUILanguage += asnum.SwitchLanguage;
+        }
+
+        #region WindowsRegion
+        
+        // Hersey calisti: TUM FORMLARA koyulacak olan fonks():
+        // IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode()); 
+        // ve ESCAPE tusuna basildiginda!
+        // ve FormClosing'e!!
+        // ve Acilmis olan bir daha acalim mi? Yoksa Javadaki gibi tek window mu?
+        // ve Windows icin diller..
+        // ve 'name'ler menuitemda gorunecek, uygun name degisikligi??
+
+        /*
+        public void AddMenuItem(String nm, int hc)
+        {
+            ToolStripMenuItem tsmi = new ToolStripMenuItem(nm);
+            tsmi.Name = nm;
+            this.windowstoolStripMenuItem.DropDownItems.Add(tsmi);
+            tsmi.Click += new EventHandler((sender, e) => tsi_Click(sender, e, hc));
+            // shorter:>>  tsmi.Click += (sender, e) => tsi_Click(sender, e, hc);
+            //UpdateWinList();
+        }*/
+
+        void tsi_Click(object sender, EventArgs e, int hc)
+        {
+            foreach (WindowsList wl in windowsList)
+            {
+                if (wl.hc == hc)
+                {
+                    if (wl.form.WindowState == FormWindowState.Minimized)
+                        wl.form.WindowState = FormWindowState.Normal;
+                    wl.form.BringToFront();
+                    wl.form.Location = this.Location;
+                }
+            }
+        }
+
+        public static void RemoveForm(int hc)
+        {
+            WindowsList tmp = null;
+
+            foreach (WindowsList i in windowsList)
+            {
+                if (i.hc == hc)
+                {
+                    tmp = i;
+                }
+            }
+            if (tmp != null)
+                windowsList.Remove(tmp);
+        }
+
+        private void windowstoolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            this.windowstoolStripMenuItem.DropDownItems[1].Text =
+                StringsDictionary.KeyValue("Form1_closeAlltoolStripMenuItem.Text", this.culture)
+                + " (" + (Application.OpenForms.Count - 1) + ")";
+            
+            int c = this.windowstoolStripMenuItem.DropDownItems.Count - 1;
+            if (c >= 3)
+            {
+                for (int i = c; i > 2; i--)
+                {
+                    this.windowstoolStripMenuItem.DropDownItems.RemoveAt(i);
+                }
+            }
+
+            foreach (WindowsList i in windowsList)
+            {
+                ToolStripMenuItem tsmi = new ToolStripMenuItem(i.name);
+                tsmi.Name = i.name;
+                windowstoolStripMenuItem.DropDownItems.Add(tsmi);
+                tsmi.Click += new EventHandler((sender1, e1) => tsi_Click(sender1, e1, i.hc));
+            }            
+        }
+
+        private void closeAlltoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int w = Application.OpenForms.Count;
+
+            int c = this.windowstoolStripMenuItem.DropDownItems.Count - 1;
+            if (c >= 3)
+            {
+                for (int i = c; i > 2; i--)
+                {
+                    Application.OpenForms[this.windowstoolStripMenuItem.DropDownItems[i].Text].Close();
+                    this.windowstoolStripMenuItem.DropDownItems.RemoveAt(i);
+                }
+            }
+            //UpdateWinList();
+        }
+        #endregion WindowsRegion
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            // TEST:
+            if (this.listBox1.Items.Count > 0)
+            {
+
+                string first = this.listBox1.Items[0].ToString().Split(' ')[1].Split('/')[0].Trim();
+
+                if (this.checkBox2.CheckState == CheckState.Unchecked)
+                    first = v6st.FormalizeAddr(first).Substring(0, 16);
+                else
+                    first = v6st.FormalizeAddr(first);
+
+                SEaddress tmpse = new SEaddress();
+
+                tmpse.Start = BigInteger.Parse("0" + first, NumberStyles.AllowHexSpecifier);
+                tmpse = v6st.Subnetting(tmpse, this.checkBox2.CheckState);
+
+                this.listBox1.Items.Clear();
+                this.maxfontwidth = 0;
+                this.listBox1.HorizontalExtent = 0;
+
+                if (this.checkBox2.CheckState == CheckState.Unchecked && this.trackBar2.Value == 64
+                    ||
+                    this.checkBox2.CheckState == CheckState.Checked && this.trackBar2.Value == 128
+                    )
+                {
+                    this.checkBox3.Checked = false;
+                    this.checkBox3.Enabled = false;
+                }
+                else
+                    this.checkBox3.Enabled = true;
+
+
+                int delta = this.trackBar2.Value - this.trackBar1.Value;
+
+                tmpse.slash = this.trackBar1.Value;
+                tmpse.subnetslash = this.trackBar2.Value;
+                tmpse.upto = upto;
+                tmpse.UpperLimitAddress = StartEnd.End;
+
+                subnets = v6st.ListFirstPage(tmpse, this.checkBox2.CheckState, this.checkBox3.CheckState);
+                this.page.End = subnets.End;
+                this.listBox1.Items.AddRange(subnets.liste.ToArray());
+
+                /**/
+                UpdateCount();
+            }
         }
     }
 }

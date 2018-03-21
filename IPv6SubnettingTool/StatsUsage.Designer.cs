@@ -182,6 +182,7 @@ namespace IPv6SubnettingTool
             this.Name = "StatsUsage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IPv6 Subnet Calculator - Statistics of The Range";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StatsUsage_FormClosing);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.StatsUsage_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.StatsUsage_KeyDown);
             this.groupBox1.ResumeLayout(false);

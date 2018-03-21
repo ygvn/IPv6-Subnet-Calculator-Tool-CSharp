@@ -85,13 +85,15 @@ namespace IPv6SubnettingTool
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.textBox5 = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(5, 169);
+            this.label2.Location = new System.Drawing.Point(5, 147);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 13);
             this.label2.TabIndex = 1;
@@ -100,7 +102,7 @@ namespace IPv6SubnettingTool
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(19, 195);
+            this.label3.Location = new System.Drawing.Point(19, 173);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 13);
             this.label3.TabIndex = 2;
@@ -119,7 +121,7 @@ namespace IPv6SubnettingTool
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(76, 166);
+            this.textBox1.Location = new System.Drawing.Point(76, 144);
             this.textBox1.MaxLength = 41;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(331, 20);
@@ -130,7 +132,7 @@ namespace IPv6SubnettingTool
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(76, 192);
+            this.textBox2.Location = new System.Drawing.Point(76, 169);
             this.textBox2.MaxLength = 41;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(331, 20);
@@ -143,7 +145,7 @@ namespace IPv6SubnettingTool
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(94, 29);
+            this.label4.Location = new System.Drawing.Point(82, 28);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(176, 25);
             this.label4.TabIndex = 7;
@@ -180,7 +182,7 @@ namespace IPv6SubnettingTool
             // textBox4
             // 
             this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox4.Location = new System.Drawing.Point(76, 140);
+            this.textBox4.Location = new System.Drawing.Point(76, 118);
             this.textBox4.MaxLength = 41;
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
@@ -190,7 +192,7 @@ namespace IPv6SubnettingTool
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(3, 142);
+            this.label6.Location = new System.Drawing.Point(3, 120);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(72, 13);
             this.label6.TabIndex = 14;
@@ -344,11 +346,32 @@ namespace IPv6SubnettingTool
             this.textBox5.TabStop = false;
             this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(76, 195);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(182, 17);
+            this.checkBox1.TabIndex = 22;
+            this.checkBox1.Text = "Save with Prefix End Addresses?";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label1.Location = new System.Drawing.Point(84, 52);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(174, 22);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "(Reverse DNS Nibbles)";
+            // 
             // SaveAsText
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(419, 417);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.exitButton);
@@ -359,12 +382,12 @@ namespace IPv6SubnettingTool
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.SaveAs);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label6);
+            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "SaveAsText";
@@ -408,5 +431,7 @@ namespace IPv6SubnettingTool
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label1;
     }
 }

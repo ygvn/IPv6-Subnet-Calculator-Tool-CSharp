@@ -88,11 +88,11 @@
     <Compile Include="ASNumberPlainDot.Designer.cs">
       <DependentUpon>ASNumberPlainDot.cs</DependentUpon>
     </Compile>
-    <Compile Include="CompressAddressForm.cs">
+    <Compile Include="CompressAddress.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CompressAddressForm.Designer.cs">
-      <DependentUpon>CompressAddressForm.cs</DependentUpon>
+    <Compile Include="CompressAddress.Designer.cs">
+      <DependentUpon>CompressAddress.cs</DependentUpon>
     </Compile>
     <Compile Include="DBinfo.cs">
       <SubType>Form</SubType>
@@ -102,11 +102,11 @@
     </Compile>
     <Compile Include="DBServerInfo.cs" />
     <Compile Include="DiskSpace.cs" />
-    <Compile Include="FormDB.cs">
+    <Compile Include="DatabaseUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormDB.Designer.cs">
-      <DependentUpon>FormDB.cs</DependentUpon>
+    <Compile Include="DatabaseUI.Designer.cs">
+      <DependentUpon>DatabaseUI.cs</DependentUpon>
     </Compile>
     <Compile Include="ListAssignedfromDB.cs">
       <SubType>Form</SubType>
@@ -115,11 +115,11 @@
       <DependentUpon>ListAssignedfromDB.cs</DependentUpon>
     </Compile>
     <Compile Include="NetInfo.cs" />
-    <Compile Include="PrefixSubLevelsForm.cs">
+    <Compile Include="PrefixSubLevels.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PrefixSubLevelsForm.Designer.cs">
-      <DependentUpon>PrefixSubLevelsForm.cs</DependentUpon>
+    <Compile Include="PrefixSubLevels.Designer.cs">
+      <DependentUpon>PrefixSubLevels.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -158,7 +158,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.cs" />
     <Compile Include="StatsUsage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,6 +171,7 @@
       <DependentUpon>whoisQuery.cs</DependentUpon>
     </Compile>
     <Compile Include="StringsDictionary.cs" />
+    <Compile Include="WindowsList.cs" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -179,20 +179,20 @@
     <EmbeddedResource Include="ASNumberPlainDot.resx">
       <DependentUpon>ASNumberPlainDot.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CompressAddressForm.resx">
-      <DependentUpon>CompressAddressForm.cs</DependentUpon>
+    <EmbeddedResource Include="CompressAddress.resx">
+      <DependentUpon>CompressAddress.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DBinfo.resx">
       <DependentUpon>DBinfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormDB.resx">
-      <DependentUpon>FormDB.cs</DependentUpon>
+    <EmbeddedResource Include="DatabaseUI.resx">
+      <DependentUpon>DatabaseUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListAssignedfromDB.resx">
       <DependentUpon>ListAssignedfromDB.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PrefixSubLevelsForm.resx">
-      <DependentUpon>PrefixSubLevelsForm.cs</DependentUpon>
+    <EmbeddedResource Include="PrefixSubLevels.resx">
+      <DependentUpon>PrefixSubLevels.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SaveAsText.resx">
       <DependentUpon>SaveAsText.cs</DependentUpon>

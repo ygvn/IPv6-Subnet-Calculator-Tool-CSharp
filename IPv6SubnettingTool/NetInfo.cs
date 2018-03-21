@@ -39,7 +39,8 @@ namespace IPv6SubnettingTool
         public string netname = "";
         public string person = "";
         public string organization = "";
-        public ushort asnum = 0;
+        //public ushort asnum = 0;
+        public uint asnum = 0;
         public string phone = "";
         public string email = "";
         public string status = "";

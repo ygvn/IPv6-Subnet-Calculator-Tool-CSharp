@@ -1127,7 +1127,7 @@ namespace IPv6SubnettingTool
             return mask;
         }
 
-        public SEaddress ListFirstPage(SEaddress input, CheckState is128Checked)
+        public SEaddress ListFirstPage(SEaddress input, CheckState is128Checked, CheckState isEndChecked)
         {
             SEaddress subnets = new SEaddress();
 
@@ -1136,8 +1136,10 @@ namespace IPv6SubnettingTool
             subnets.subnetslash = input.subnetslash; // this.trackBar2.Value;
 
             subnets.liste.Clear();
-            //subnets.liste = new List<string>(input.upto * 3);
-            subnets.liste = new List<string>(input.upto);
+
+            subnets.liste = new List<string>(input.upto * 3);
+            //subnets.liste = new List<string>(input.upto);
+
             subnets.End = BigInteger.Zero;
             subnets.subnetidx = BigInteger.Zero;
 
@@ -1198,15 +1200,22 @@ namespace IPv6SubnettingTool
                     }
                     else //Value < 64
                     {
-                        se = String.Format("{0:x}", subnets.End);
-                        if (se.Length > 16)
-                            se = se.Substring(1, 16);
-                        se = Kolonlar(se, is128Checked);
-                        se = "e" + subnets.subnetidx + "> " + se + "/"
-                            + input.subnetslash.ToString();
                         subnets.liste.Add(ss);
-                        //subnets.liste.Add(se);
-                        //subnets.liste.Add("");
+
+                        if (isEndChecked == CheckState.Checked)
+                        {
+                            se = String.Format("{0:x}", subnets.End);
+                            if (se.Length > 16)
+                                se = se.Substring(1, 16);
+                            se = Kolonlar(se, is128Checked);
+                            se = this.CompressAddress(se);
+                            se = "e" + subnets.subnetidx + "> " + se + "/"
+                                + input.subnetslash.ToString();
+
+                            //subnets.liste.Add(ss);
+                            subnets.liste.Add(se);
+                            subnets.liste.Add("");
+                        }
                     }
                 }
                 else if (is128Checked == CheckState.Checked)
@@ -1226,16 +1235,22 @@ namespace IPv6SubnettingTool
                     }
                     else //Value < 128
                     {
-                        se = String.Format("{0:x}", subnets.End);
-                        if (se.Length > 32)
-                            se = se.Substring(1, 32);
-                        se = Kolonlar(se, is128Checked);
-                        se = "e" + subnets.subnetidx + "> " + se + "/"
-                            + input.subnetslash.ToString();
-
                         subnets.liste.Add(ss);
-                        //subnets.liste.Add(se);
-                        //subnets.liste.Add("");
+
+                        if (isEndChecked == CheckState.Checked)
+                        {
+                            se = String.Format("{0:x}", subnets.End);
+                            if (se.Length > 32)
+                                se = se.Substring(1, 32);
+                            se = Kolonlar(se, is128Checked);
+                            se = this.CompressAddress(se);
+                            se = "e" + subnets.subnetidx + "> " + se + "/"
+                                + input.subnetslash.ToString();
+
+                            //subnets.liste.Add(ss);
+                            subnets.liste.Add(se);
+                            subnets.liste.Add("");
+                        }
                     }
                 }
 
@@ -1252,13 +1267,13 @@ namespace IPv6SubnettingTool
             return subnets;
         }
 
-        public SEaddress ListPageBackward(SEaddress input, CheckState is128Checked)
+        public SEaddress ListPageBackward(SEaddress input, CheckState is128Checked, CheckState isEndChecked)
         {
             SEaddress subnets = new SEaddress();
             subnets = input;
 
-            //subnets.liste = new List<string>(input.upto * 3);
-            subnets.liste = new List<string>(input.upto);
+            subnets.liste = new List<string>(input.upto * 3);
+            //subnets.liste = new List<string>(input.upto);
 
             String ss = "", se = "";
             int count = 0;
@@ -1284,15 +1299,19 @@ namespace IPv6SubnettingTool
                     }
                     else //Value < 64
                     {
-                        se = String.Format("{0:x}", subnets.End);
-                        if (se.Length > 16)
-                            se = se.Substring(1, 16);
-                        se = Kolonlar(se, is128Checked);
-                        se = "e" + subnets.subnetidx + "> " + se + "/" +
-                            input.subnetslash.ToString();
+                        if (isEndChecked == CheckState.Checked)
+                        {
+                            se = String.Format("{0:x}", subnets.End);
+                            if (se.Length > 16)
+                                se = se.Substring(1, 16);
+                            se = Kolonlar(se, is128Checked);
+                            se = this.CompressAddress(se);
+                            se = "e" + subnets.subnetidx + "> " + se + "/" +
+                                input.subnetslash.ToString();
 
-                        //subnets.liste.Add("");
-                        //subnets.liste.Add(se);
+                            subnets.liste.Add("");
+                            subnets.liste.Add(se);
+                        }
                         subnets.liste.Add(ss);
 
                     }
@@ -1315,15 +1334,19 @@ namespace IPv6SubnettingTool
                     }
                     else //Value < 128
                     {
-                        se = String.Format("{0:x}", subnets.End);
-                        if (se.Length > 32)
-                            se = se.Substring(1, 32);
-                        se = Kolonlar(se, is128Checked);
-                        se = "e" + subnets.subnetidx + "> " + se + "/" +
-                            input.subnetslash.ToString();
+                        if (isEndChecked == CheckState.Checked)
+                        {
+                            se = String.Format("{0:x}", subnets.End);
+                            if (se.Length > 32)
+                                se = se.Substring(1, 32);
+                            se = Kolonlar(se, is128Checked);
+                            se = this.CompressAddress(se);
+                            se = "e" + subnets.subnetidx + "> " + se + "/" +
+                                input.subnetslash.ToString();
 
-                        //subnets.liste.Add("");
-                        //subnets.liste.Add(se);
+                            subnets.liste.Add("");
+                            subnets.liste.Add(se);
+                        }
                         subnets.liste.Add(ss);
                     }
                 }
@@ -1337,13 +1360,13 @@ namespace IPv6SubnettingTool
             return subnets;
         }
 
-        public SEaddress ListPageForward(SEaddress input, CheckState is128Checked)
+        public SEaddress ListPageForward(SEaddress input, CheckState is128Checked, CheckState isEndChecked)
         {
             SEaddress subnets = new SEaddress();
             subnets = input;
 
-            //subnets.liste = new List<string>(input.upto * 3);
-            subnets.liste = new List<string>(input.upto);
+            subnets.liste = new List<string>(input.upto * 3);
+            //subnets.liste = new List<string>(input.upto);
             String ss, se;
             int count = 0;
 
@@ -1368,15 +1391,22 @@ namespace IPv6SubnettingTool
                     }
                     else //Value < 64
                     {
-                        se = String.Format("{0:x}", subnets.End);
-                        if (se.Length > 16)
-                            se = se.Substring(1, 16);
-                        se = Kolonlar(se, is128Checked);
-                        se = "e" + subnets.subnetidx + "> " + se + "/" +
-                            input.subnetslash.ToString();
                         subnets.liste.Add(ss);
-                        //subnets.liste.Add(se);
-                        //subnets.liste.Add("");
+
+                        if (isEndChecked == CheckState.Checked)
+                        {
+                            se = String.Format("{0:x}", subnets.End);
+                            if (se.Length > 16)
+                                se = se.Substring(1, 16);
+                            se = Kolonlar(se, is128Checked);
+                            se = this.CompressAddress(se);
+                            se = "e" + subnets.subnetidx + "> " + se + "/" +
+                                input.subnetslash.ToString();
+
+                            subnets.liste.Add(se);
+                            subnets.liste.Add("");
+                        }
+
                     }
                 }
                 else if (is128Checked == CheckState.Checked)
@@ -1396,16 +1426,21 @@ namespace IPv6SubnettingTool
                     }
                     else //Value < 128
                     {
-                        se = String.Format("{0:x}", subnets.End);
-                        if (se.Length > 32)
-                            se = se.Substring(1, 32);
-                        se = Kolonlar(se, is128Checked);
-                        se = "e" + subnets.subnetidx + "> " + se + "/" +
-                            input.subnetslash.ToString();
-
                         subnets.liste.Add(ss);
-                        //subnets.liste.Add(se);
-                        //subnets.liste.Add("");
+
+                        if (isEndChecked == CheckState.Checked)
+                        {
+                            se = String.Format("{0:x}", subnets.End);
+                            if (se.Length > 32)
+                                se = se.Substring(1, 32);
+                            se = Kolonlar(se, is128Checked);
+                            se = this.CompressAddress(se);
+                            se = "e" + subnets.subnetidx + "> " + se + "/" +
+                                input.subnetslash.ToString();
+
+                            subnets.liste.Add(se);
+                            subnets.liste.Add("");
+                        }
                     }
                 }
 
@@ -1420,7 +1455,7 @@ namespace IPv6SubnettingTool
             return subnets;
         }
 
-        public SEaddress ListLastPage(SEaddress input, CheckState is128Checked)
+        public SEaddress ListLastPage(SEaddress input, CheckState is128Checked, CheckState isEndChecked)
         {
             SEaddress subnets = new SEaddress();
             subnets = input;
@@ -1454,15 +1489,19 @@ namespace IPv6SubnettingTool
                     }
                     else //Value < 64
                     {
-                        se = String.Format("{0:x}", subnets.End);
-                        if (se.Length > 16)
-                            se = se.Substring(1, 16);
-                        se = Kolonlar(se, is128Checked);
-                        se = "e" + subnets.subnetidx + "> " + se + "/" +
-                            input.subnetslash.ToString();
+                        if (isEndChecked == CheckState.Checked)
+                        {
+                            se = String.Format("{0:x}", subnets.End);
+                            if (se.Length > 16)
+                                se = se.Substring(1, 16);
+                            se = Kolonlar(se, is128Checked);
+                            se = this.CompressAddress(se);
+                            se = "e" + subnets.subnetidx + "> " + se + "/" +
+                                input.subnetslash.ToString();
 
-                        //subnets.liste.Add("");
-                        //subnets.liste.Add(se);
+                            subnets.liste.Add("");
+                            subnets.liste.Add(se);
+                        }
                         subnets.liste.Add(ss);
                     }
                 }
@@ -1487,11 +1526,12 @@ namespace IPv6SubnettingTool
                         if (se.Length > 32)
                             se = se.Substring(1, 32);
                         se = Kolonlar(se, is128Checked);
+                        se = this.CompressAddress(se);
                         se = "e" + subnets.subnetidx + "> " + se + "/" +
                             input.subnetslash.ToString();
 
-                        //subnets.liste.Add("");
-                        //subnets.liste.Add(se);
+                        subnets.liste.Add("");
+                        subnets.liste.Add(se);
                         subnets.liste.Add(ss);
                     }
                 }
