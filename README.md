@@ -1,6 +1,6 @@
 IPv6 Subnet Calculator / Tool
 
-Latest Version: v3.7
+Latest Version: v3.8
 
 IPv6 Subnet Calculator / Tool application lets you plan/subnet your assigned address for all 128 bits.   
 We are in the transition phase of our networks' addressing structure from IPv4 to IPv6, and I believe that the network engineers should easily plan their IPv6 addressing /subnetting infrastructure without any error. For this purpose, I wrote and distributed a free IPv6 Subnetting Tool / Calculator both with C# and Java JDK 1.8 based on JavaFX Application Frameworks.    
@@ -28,7 +28,7 @@ I will try to develop the software continuously, so please don't hesitate to com
 * English, Turkish, German languages.
 
 You can download from:   
-https://github.com/ygvn/IPv6-Subnet-Calculator-Tool/blob/master/IPv6-Subnet-Calculator-EXE-v3.7.zip
+https://github.com/ygvn/IPv6-Subnet-Calculator-Tool/blob/master/IPv6-Subnet-Calculator-EXE-v3.8.zip
 
 
 Copyright (c) 2010-2018, Yücel Güven   
