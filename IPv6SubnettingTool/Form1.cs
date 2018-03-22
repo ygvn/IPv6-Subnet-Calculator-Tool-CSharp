@@ -82,7 +82,7 @@ namespace IPv6SubnettingTool
         public Form1()
         {
             InitializeComponent();
-            
+             
             #region special initials -yucel
             label10.Text = label1.Text = trackBar1.Value.ToString();
             this.StartEnd.ID = ID; // ID of this Form. Form1 is the main Form.
