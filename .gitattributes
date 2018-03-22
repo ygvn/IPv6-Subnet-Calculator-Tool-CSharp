@@ -44,6 +44,8 @@
 #*.png   binary
 #*.gif   binary
 
+*.zip binary
+
 ###############################################################################
 # diff behavior for common document formats
 # 
