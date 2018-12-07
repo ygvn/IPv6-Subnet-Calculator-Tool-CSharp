@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2018 Yucel Guven
+ * Copyright (c) 2010-2019 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -77,12 +77,13 @@ namespace IPv6SubnettingTool
         public event ChangeDBState changeDBstate = delegate { };
         //
         public static List<WindowsList> windowsList = new List<WindowsList>();
+        //
         #endregion
 
         public Form1()
         {
             InitializeComponent();
-             
+            
             #region special initials -yucel
             label10.Text = label1.Text = trackBar1.Value.ToString();
             this.StartEnd.ID = ID; // ID of this Form. Form1 is the main Form.
@@ -1606,8 +1607,7 @@ namespace IPv6SubnettingTool
                 else
                     return;
             }
-
-            if (e.Control && e.KeyCode == Keys.F)
+            else if ((e.Control && e.KeyCode == Keys.F) || (e.KeyCode == Keys.F3))
             {
                 if (this.listBox1.Items.Count > 0)
                 {
@@ -1615,6 +1615,10 @@ namespace IPv6SubnettingTool
                 }
                 else
                     return;
+            }
+            else if (e.KeyCode == Keys.F4)
+            {
+                AddressTypeInfotoolStripMenuItem_Click(null, null);
             }
         }
 
@@ -1799,11 +1803,54 @@ namespace IPv6SubnettingTool
 
         private void textBox1_MouseEnter(object sender, EventArgs e)
         {
-            string s = this.textBox1.Text;
-            s = s.Replace(":", "");
-            string addrtype = StringsDictionary.KeyValue("Form1_Address_Type", this.culture)
-                + v6st.AddressType(BigInteger.Parse("0" + s, NumberStyles.AllowHexSpecifier));
-            this.toolTip1.SetToolTip(this.textBox1, addrtype);
+            if (this.textBox1.Text.Trim() != "")
+            {
+                //string s = this.textBox1.Text;
+                //s = s.Replace(":", "");
+                //string addrtype = StringsDictionary.KeyValue("Form1_Address_Type", this.culture)
+                //    + v6st.AddressType(BigInteger.Parse("0" + s, NumberStyles.AllowHexSpecifier));
+
+                string addrname = "";
+
+                AttributeValues attribs =
+                    v6st.AddressType(BigInteger.Parse("0" + this.textBox1.Text.Replace(":", ""), NumberStyles.AllowHexSpecifier),
+                    this.trackBar1.Value, this.checkBox2.CheckState);
+
+                if (attribs.Name == "Global Unicast")
+                {
+                    addrname = "Name: " + attribs.Name + Environment.NewLine;
+                    addrname += "SelectedPrefixLength: " + this.trackBar1.Value.ToString() + Environment.NewLine;
+                    addrname += "RFC: " + attribs.RFC;
+                }
+                else if (attribs.isMulticast)
+                {
+                    addrname = "Name: " + attribs.Name + Environment.NewLine;
+                    addrname += "Address Block:  " + attribs.strAddressBlock + Environment.NewLine;
+                    addrname += "AssignedPrefixLength: " + attribs.AssignedPrefixLength.ToString() + Environment.NewLine;
+                    addrname += "SelectedPrefixLength: " + this.trackBar1.Value.ToString() + Environment.NewLine;
+                    addrname += "RFC: " + attribs.RFC + Environment.NewLine;
+                    addrname += "Allocation Date: " + attribs.AllocationDate + Environment.NewLine;
+                    addrname += "Termination Date: " + attribs.TerminationDate;
+                }
+                else
+                {
+                    addrname = "Name: " + attribs.Name + Environment.NewLine;
+                    addrname += "Address Block:  " + attribs.strAddressBlock + Environment.NewLine;
+                    addrname += "AssignedPrefixLength: " + attribs.AssignedPrefixLength.ToString() + Environment.NewLine;
+                    addrname += "SelectedPrefixLength: " + this.trackBar1.Value.ToString() + Environment.NewLine;
+                    addrname += "RFC: " + attribs.RFC + Environment.NewLine;
+                    addrname += "Allocation Date: " + attribs.AllocationDate + Environment.NewLine;
+                    addrname += "Termination Date: " + attribs.TerminationDate + Environment.NewLine;
+                    addrname += "Source: " + attribs.Source + Environment.NewLine;
+                    addrname += "Destination: " + attribs.Destination + Environment.NewLine;
+                    addrname += "Forwardable: " + attribs.Forwardable + Environment.NewLine;
+                    addrname += "Global: " + attribs.Global + Environment.NewLine;
+                    addrname += "Reserved-by-Protocol: " + attribs.ReservedByProtocol;
+                }
+                this.toolTip1.SetToolTip(this.textBox1, addrname);
+            }
+            else
+                this.toolTip1.SetToolTip(this.textBox1, "");
         }
 
         private void EnglishToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1907,6 +1954,7 @@ namespace IPv6SubnettingTool
             this.toolsToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_toolsToolStripMenuItem.Text", this.culture);
             this.whoisQueryToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_whoisQueryToolStripMenuItem.Text", this.culture);
             this.whoisQueryToolStripMenuItem1.Text = StringsDictionary.KeyValue("Form1_whoisQueryToolStripMenuItem1.Text", this.culture);
+            this.AddressTypeInfotoolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_AddressTypeInfotoolStripMenuItem.Text", this.culture);
             this.workwithToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_workwithToolStripMenuItem.Text", this.culture);
             this.workwithtoolStripMenuItem1.Text = StringsDictionary.KeyValue("Form1_workwithToolStripMenuItem.Text", this.culture);
             this.sublevelstoolStripMenuItem1.Text = StringsDictionary.KeyValue("Form1_sublevelstoolStripMenuItem1.Text", this.culture);
@@ -2820,7 +2868,6 @@ namespace IPv6SubnettingTool
                 else
                     this.checkBox3.Enabled = true;
 
-
                 int delta = this.trackBar2.Value - this.trackBar1.Value;
 
                 tmpse.slash = this.trackBar1.Value;
@@ -2836,5 +2883,26 @@ namespace IPv6SubnettingTool
                 UpdateCount();
             }
         }
+
+        private void AddressTypeInfotoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.textBox1.Text.Trim() != "")
+            {
+                AddressTypeInfo addrnameinfo =
+                    new AddressTypeInfo(
+                        v6st.AddressType(
+                        BigInteger.Parse("0" + this.textBox1.Text.Replace(":", ""), NumberStyles.AllowHexSpecifier),
+                        this.trackBar1.Value, this.checkBox2.CheckState),
+                        this.textBox1.Text
+                        );
+                addrnameinfo.Show();
+                //
+                windowsList.Add(new WindowsList(addrnameinfo, addrnameinfo.Name, addrnameinfo.GetHashCode()));
+            }
+            else
+                MessageBox.Show("IPv6 Address field is empty.\r\nPlease click on Calculate button.", "Empty Address",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
     }
 }

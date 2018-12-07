@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2018 Yucel Guven
+ * Copyright (c) 2010-2019 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -41,7 +41,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("IPv6 Subnet Calculator / IPv6 Að Hesap Makinesi")]
-[assembly: AssemblyCopyright("Copyright © 2010-2018 Yücel Güven")]
+[assembly: AssemblyCopyright("Copyright © 2010-2019 Yücel Güven")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -63,6 +63,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.8")]
-[assembly: AssemblyFileVersion("3.8")]
+[assembly: AssemblyVersion("3.9")]
+[assembly: AssemblyFileVersion("3.9")]
 [assembly: NeutralResourcesLanguageAttribute("")]

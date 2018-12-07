@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2018 Yucel Guven
+ * Copyright (c) 2010-2019 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -111,6 +111,7 @@ namespace IPv6SubnettingTool
             SEaddress se = new SEaddress();
             string end = "";
             string start = v6st.FormalizeAddr(snet);
+            
             if (this.chks == CheckState.Checked) /* 128 bits */
             {
                 if (start.Length == 32)

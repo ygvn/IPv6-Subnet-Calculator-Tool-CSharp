@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2018 Yucel Guven
+ * Copyright (c) 2010-2019 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -43,22 +43,27 @@ namespace IPv6SubnettingTool
         public v6ST() { }
 
         #region specific variables -yucel
+        //
+        public AddressRegistries addrRegs = new AddressRegistries();
+        public AttributeValues attribs = new AttributeValues();
         public static String errmsg = "";
         public const string arpa = "ip6.arpa.";
         private BigInteger mask = BigInteger.Zero;
+
         /// <summary>
         /// Indicates AS number conversion type.
         /// <b>toASplain</b>: Input will be converted from as-dot to as-plain notation.
         /// Pass it like 'v6ST.toASplain'.
         /// </summary>
-
         public const Boolean toASplain = true;
+        
         /// <summary>
         /// Indicates AS number conversion type.
         /// <b>toASdot</b>: Input will be converted from as-plain to as-dot notation.
         /// Pass it like 'v6ST.toASdot'.
         /// </summary>
         public const Boolean toASdot = false;
+        
         private const long asMax = 4294967295;
         #endregion
 
@@ -320,7 +325,8 @@ namespace IPv6SubnettingTool
             string s = "";
             if (this.IsAddressCorrect(sin))
             {
-                sin = this.Kolonlar(this.FormalizeAddr(sin), CheckState.Checked);
+                //sin = this.Kolonlar(this.FormalizeAddr(sin), CheckState.Checked);
+                sin = this.Kolonlar(FormalizeAddr(sin), CheckState.Checked);
 
                 string p = "";
                 UInt16[] pref = new UInt16[8];
@@ -2021,16 +2027,20 @@ namespace IPv6SubnettingTool
                 return false;
         }
 
-        public string AddressType(BigInteger input)
+        public AttributeValues AddressType(BigInteger input, int inpfLen, CheckState is128Checked)
         {
-            string s = "";
+            /* Reference RFCs: RFC4291, RFC6890, RFC8190
+             */
+
+            AttributeValues attribs = new AttributeValues();
+            attribs.SelectedPrefixLength = inpfLen;
+
             BigInteger multicast_type = BigInteger.Zero;
             BigInteger linklocal_type = BigInteger.Zero;
             List<int> multicast_bits = new List<int>();
             List<int> linklocal_bits = new List<int>();
             BigInteger bitOne = (BigInteger.One << 127);
 
-            /* RFC 4291 */
             multicast_bits = new List<int> { 127, 126, 125, 124, 123, 122, 121, 120 };
             linklocal_bits = new List<int> { 127, 126, 125, 124, 123, 122, 121, 119 };
 
@@ -2040,84 +2050,160 @@ namespace IPv6SubnettingTool
             foreach (int i in linklocal_bits)
                 linklocal_type = (linklocal_type | (BigInteger.One << i));
 
-            /* Link-local deals only with upper 64bits: */
-            bool eq = true;
-            for (int k = 0; k < 63; k++)
+            bool eq = false;
+            if ((input & linklocal_type) == linklocal_type)
+                eq = true;
+
+            if (!eq && (input & multicast_type) == multicast_type)
             {
-                if (((bitOne >> k) & input) == ((bitOne >> k) & linklocal_type))
-                    continue;
+                attribs.isMulticast = true;
+                attribs.Name = "Multicast (IANA IPv6-Multicast-Addresses)";
+
+                int i = 0, k = 0;
+                bool found = false, inside = false;
+
+                foreach (object o in this.addrRegs.McastAddresses)
+                {
+                    BigInteger mask = PrepareMask(this.addrRegs.McastAddresses[i].AssignedPrefixLength);
+                    BigInteger invmask = BigInteger.Zero;
+                    string sinvmask = String.Format("{0:X}", ~mask);
+                    sinvmask = sinvmask.TrimStart('F');
+                    invmask = BigInteger.Parse(sinvmask, NumberStyles.AllowHexSpecifier);
+
+                    BigInteger start = (this.addrRegs.McastAddresses[i].AddressBlock & mask);
+                    BigInteger end = (this.addrRegs.McastAddresses[i].AddressBlock | invmask);
+
+                    if ((input ^ this.addrRegs.McastAddresses[i].AddressBlock) == 0  // exact match AND prefix=128?
+                        &&
+                        this.addrRegs.McastAddresses[i].AssignedPrefixLength == 128
+                        )
+                    {
+                        found = true;
+                        break;
+                    }
+
+                    if ((input ^ this.addrRegs.McastAddresses[i].AddressBlock) == 0) // exact match?
+                    {
+                        if (inpfLen == this.addrRegs.McastAddresses[i].AssignedPrefixLength)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (input >= start && input <= end) // inside the range?
+                    {
+                        if (inpfLen >= this.addrRegs.McastAddresses[i].AssignedPrefixLength)
+                        {
+                            inside = true;
+                            k = i;
+                            i++;
+                            continue;
+                        }
+                    }
+
+                    i++;
+                }
+                if (found)
+                {
+                    attribs.strAddressBlock = this.addrRegs.McastAddresses[i].strAddressBlock.ToLower();
+                    attribs.Name = this.addrRegs.McastAddresses[i].Name;
+                    attribs.AssignedPrefixLength = this.addrRegs.McastAddresses[i].AssignedPrefixLength;
+                    attribs.RFC = this.addrRegs.McastAddresses[i].RFC;
+                    attribs.AllocationDate = this.addrRegs.McastAddresses[i].AllocationDate;
+                    attribs.TerminationDate = this.addrRegs.McastAddresses[i].TerminationDate;
+                }
+                else if (inside)
+                {
+                    attribs.strAddressBlock = this.addrRegs.McastAddresses[k].strAddressBlock.ToLower();
+                    attribs.Name = this.addrRegs.McastAddresses[k].Name;
+                    attribs.AssignedPrefixLength = this.addrRegs.McastAddresses[k].AssignedPrefixLength;
+                    attribs.RFC = this.addrRegs.McastAddresses[k].RFC;
+                    attribs.AllocationDate = this.addrRegs.McastAddresses[k].AllocationDate;
+                    attribs.TerminationDate = this.addrRegs.McastAddresses[k].TerminationDate;
+                }
                 else
                 {
-                    eq = false;
-                    break;
+                    attribs.Name = "Multicast (IANA IPv6-Multicast-Addresses)";
                 }
             }
-            if (eq)
-                s = "Link-Local Unicast";
-            else if ((input & multicast_type) == multicast_type)
-            {
-                s = "Multicast";
-
-                /* Some Special/Reserved Multicast Addresses: */
-                if
-                    ((input ^ BigInteger.Parse("0FF010000000000000000000000000001", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / All Nodes interface-local";
-                else if
-                    ((input ^ BigInteger.Parse("0FF020000000000000000000000000001", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / All Nodes link-local";
-                else if
-                    ((input ^ BigInteger.Parse("0FF010000000000000000000000000002", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / All Routers interface-local";
-                else if
-                    ((input ^ BigInteger.Parse("0FF020000000000000000000000000002", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / All Routers link-local";
-                else if
-                    ((input ^ BigInteger.Parse("0FF050000000000000000000000000002", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / All Routers site-local";
-                else if
-                    ((input ^ BigInteger.Parse("0FF020000000000000000000000000005", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / OSPFv3 All SPF routers";
-                else if
-                    ((input ^ BigInteger.Parse("0FF020000000000000000000000000006", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / OSPFv3 All DR routers";
-                else if
-                    ((input ^ BigInteger.Parse("0FF020000000000000000000000000008", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / IS-IS for IPv6 routers";
-                else if
-                    ((input ^ BigInteger.Parse("0FF020000000000000000000000000009", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / RIP routers";
-                else if
-                    ((input ^ BigInteger.Parse("0FF02000000000000000000000000000a", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / EIGRP routers";
-                else if
-                    ((input ^ BigInteger.Parse("0FF02000000000000000000000000000d", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / PIM routers";
-                else if
-                    ((input ^ BigInteger.Parse("0FF020000000000000000000000000016", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / MLDv2 reports-RFC3810";
-                else if
-                    ((input ^ BigInteger.Parse("0FF020000000000000000000000010002", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / All DHCP servers and relay agents -local";
-                else if
-                    ((input ^ BigInteger.Parse("0FF020000000000000000000000010003", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / All LLMNR hosts -local-RFC4795";
-                else if
-                    ((input ^ BigInteger.Parse("0FF050000000000000000000000010003", NumberStyles.AllowHexSpecifier)) == 0)
-                    s += " / All DHCP servers local network side-RFC3315";
-
-                // others to add...
-            }
-
-            else if ((input ^ BigInteger.One) == 0)
-                s = "Loopback";
-
-            else if (input == BigInteger.Zero)
-                s = "Unspecified '::'";
-
             else
-                s = "Global Unicast";
+            {
+                int i = 0, k = 0;
+                bool found = false, inside = false;
 
-            return s;
+                foreach (object o in this.addrRegs.Spars)
+                {
+                    BigInteger mask = PrepareMask(this.addrRegs.Spars[i].AssignedPrefixLength);
+                    BigInteger invmask = BigInteger.Zero;
+                    string sinvmask = String.Format("{0:X}", ~mask);
+                    sinvmask = sinvmask.TrimStart('F');
+                    invmask = BigInteger.Parse(sinvmask, NumberStyles.AllowHexSpecifier);
+
+                    BigInteger start = (this.addrRegs.Spars[i].AddressBlock & mask);
+                    BigInteger end = (this.addrRegs.Spars[i].AddressBlock | invmask);
+
+                    if ((input ^ this.addrRegs.Spars[i].AddressBlock) == 0) // exact match?
+                    {
+                        if (inpfLen == this.addrRegs.Spars[i].AssignedPrefixLength)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (input >= start && input <= end) // inside the range?
+                    {
+                        if (inpfLen >= this.addrRegs.Spars[i].AssignedPrefixLength)
+                        {
+                            inside = true;
+                            k = i;
+                            i++;
+                            continue;
+                        }
+                    }
+
+                    i++;
+                }
+
+                if (found)
+                {
+                    attribs.strAddressBlock = this.addrRegs.Spars[i].strAddressBlock.ToLower();
+                    attribs.Name = this.addrRegs.Spars[i].Name;
+                    attribs.AssignedPrefixLength = this.addrRegs.Spars[i].AssignedPrefixLength;
+                    attribs.RFC = this.addrRegs.Spars[i].RFC;
+                    attribs.AllocationDate = this.addrRegs.Spars[i].AllocationDate;
+                    attribs.TerminationDate = this.addrRegs.Spars[i].TerminationDate;
+                    attribs.Source = this.addrRegs.Spars[i].Source;
+                    attribs.Destination = this.addrRegs.Spars[i].Destination;
+                    attribs.Forwardable = this.addrRegs.Spars[i].Forwardable;
+                    attribs.Global = this.addrRegs.Spars[i].Global;
+                    attribs.ReservedByProtocol = this.addrRegs.Spars[i].ReservedByProtocol;
+                }
+                else if (inside)
+                {
+                    attribs.strAddressBlock = this.addrRegs.Spars[k].strAddressBlock.ToLower();
+                    attribs.Name = this.addrRegs.Spars[k].Name;
+                    attribs.AssignedPrefixLength = this.addrRegs.Spars[k].AssignedPrefixLength;
+                    attribs.RFC = this.addrRegs.Spars[k].RFC;
+                    attribs.AllocationDate = this.addrRegs.Spars[k].AllocationDate;
+                    attribs.TerminationDate = this.addrRegs.Spars[k].TerminationDate;
+                    attribs.Source = this.addrRegs.Spars[k].Source;
+                    attribs.Destination = this.addrRegs.Spars[k].Destination;
+                    attribs.Forwardable = this.addrRegs.Spars[k].Forwardable;
+                    attribs.Global = this.addrRegs.Spars[k].Global;
+                    attribs.ReservedByProtocol = this.addrRegs.Spars[k].ReservedByProtocol;
+                }
+                else
+                {
+                    if (input == BigInteger.Zero)
+                        attribs.Name = "Unspecified Address";
+                    else
+                        attribs.Name = "Global Unicast";
+
+                    attribs.SelectedPrefixLength = inpfLen;
+                    attribs.RFC = "4291";
+                }
+            }
+            return attribs;
         }
 
         /// <summary>
@@ -2138,10 +2224,9 @@ namespace IPv6SubnettingTool
 
         public static String ConvertASnum(String asin, Boolean b) {
             if (b) {
-                char[] chars = asin.Trim().ToCharArray(); //.toCharArray();
+                char[] chars = asin.Trim().ToCharArray();
                 if (chars.Length != 0) {
                     int c = asin.Trim().Split('.').Length - 1;
-                    //int c = Regex.Matches(asin.Trim(), ".").Count;
 
                 if (chars[0] == '.' || chars[chars.Length - 1] == '.' || c != 1) {
                     v6ST.errmsg = "Input Error!";
@@ -2188,6 +2273,10 @@ namespace IPv6SubnettingTool
             }
         }
     }
+
+
+
+
 
     } // END of Class
 } //END of namespace

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2018 Yucel Guven
+ * Copyright (c) 2010-2019 Yucel Guven
  * All rights reserved.
  *
  * This file is part of IPv6 Subnetting Tool.
@@ -855,7 +855,7 @@ namespace IPv6SubnettingTool
             int count = 0;
 
             string Resv6 = v6st.FormalizeAddr(this.findpfx);
-
+            
             if (this.is128Checked == CheckState.Checked) /* 128 bits */
             {
                 if (Resv6.Length == 32)

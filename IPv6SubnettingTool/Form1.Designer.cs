@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2018 Yucel Guven
+ * Copyright (c) 2010-2019 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -86,6 +86,7 @@ namespace IPv6SubnettingTool
             this.list128SubnetsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.listAllDNSReverseZonesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.whoisQueryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AddressTypeInfotoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.workwithtoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.compressaddrtoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ASnumberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -333,7 +334,7 @@ namespace IPv6SubnettingTool
             this.Find.Name = "Find";
             this.Find.Size = new System.Drawing.Size(80, 23);
             this.Find.TabIndex = 1;
-            this.Find.Text = "Find";
+            this.Find.Text = "&Calculate";
             this.Find.UseVisualStyleBackColor = true;
             this.Find.Click += new System.EventHandler(this.Find_Click);
             // 
@@ -419,6 +420,7 @@ namespace IPv6SubnettingTool
             this.list128SubnetsToolStripMenuItem1,
             this.listAllDNSReverseZonesToolStripMenuItem,
             this.whoisQueryToolStripMenuItem,
+            this.AddressTypeInfotoolStripMenuItem,
             this.workwithtoolStripMenuItem1,
             this.compressaddrtoolStripMenuItem1,
             this.ASnumberToolStripMenuItem});
@@ -445,7 +447,7 @@ namespace IPv6SubnettingTool
             this.list128SubnetsToolStripMenuItem1.Enabled = false;
             this.list128SubnetsToolStripMenuItem1.Name = "list128SubnetsToolStripMenuItem1";
             this.list128SubnetsToolStripMenuItem1.Size = new System.Drawing.Size(259, 22);
-            this.list128SubnetsToolStripMenuItem1.Text = "List /128 &Addresses";
+            this.list128SubnetsToolStripMenuItem1.Text = "&List /128 Addresses";
             this.list128SubnetsToolStripMenuItem1.Click += new System.EventHandler(this.list128SubnetsToolStripMenuItem_Click);
             // 
             // listAllDNSReverseZonesToolStripMenuItem
@@ -462,6 +464,13 @@ namespace IPv6SubnettingTool
             this.whoisQueryToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
             this.whoisQueryToolStripMenuItem.Text = "&whois Query";
             this.whoisQueryToolStripMenuItem.Click += new System.EventHandler(this.whoisQueryToolStripMenuItem_Click);
+            // 
+            // AddressTypeInfotoolStripMenuItem
+            // 
+            this.AddressTypeInfotoolStripMenuItem.Name = "AddressTypeInfotoolStripMenuItem";
+            this.AddressTypeInfotoolStripMenuItem.Size = new System.Drawing.Size(259, 22);
+            this.AddressTypeInfotoolStripMenuItem.Text = "Address &Type Info...        F4";
+            this.AddressTypeInfotoolStripMenuItem.Click += new System.EventHandler(this.AddressTypeInfotoolStripMenuItem_Click);
             // 
             // workwithtoolStripMenuItem1
             // 
@@ -515,7 +524,7 @@ namespace IPv6SubnettingTool
             this.goToSubnetNumberToolStripMenuItem1.Enabled = false;
             this.goToSubnetNumberToolStripMenuItem1.Name = "goToSubnetNumberToolStripMenuItem1";
             this.goToSubnetNumberToolStripMenuItem1.Size = new System.Drawing.Size(181, 22);
-            this.goToSubnetNumberToolStripMenuItem1.Text = "&Prefix Number";
+            this.goToSubnetNumberToolStripMenuItem1.Text = "&Prefix Number...";
             this.goToSubnetNumberToolStripMenuItem1.Click += new System.EventHandler(this.goToSubnetNumberToolStripMenuItem1_Click);
             // 
             // findprefixtoolStripMenuItem1
@@ -523,7 +532,7 @@ namespace IPv6SubnettingTool
             this.findprefixtoolStripMenuItem1.Enabled = false;
             this.findprefixtoolStripMenuItem1.Name = "findprefixtoolStripMenuItem1";
             this.findprefixtoolStripMenuItem1.Size = new System.Drawing.Size(181, 22);
-            this.findprefixtoolStripMenuItem1.Text = "&Find prefix";
+            this.findprefixtoolStripMenuItem1.Text = "&Search prefix...     F3";
             this.findprefixtoolStripMenuItem1.Click += new System.EventHandler(this.findprefixtoolStripMenuItem1_Click);
             // 
             // databasetoolStripMenuItem
@@ -906,7 +915,7 @@ namespace IPv6SubnettingTool
             this.findprefixtoolStripMenuItem.Enabled = false;
             this.findprefixtoolStripMenuItem.Name = "findprefixtoolStripMenuItem";
             this.findprefixtoolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.findprefixtoolStripMenuItem.Text = "&Find prefix...";
+            this.findprefixtoolStripMenuItem.Text = "&Search prefix...     F3";
             this.findprefixtoolStripMenuItem.Click += new System.EventHandler(this.findprefixtoolStripMenuItem_Click);
             // 
             // statsusagetoolStripMenuItem
@@ -1298,6 +1307,7 @@ namespace IPv6SubnettingTool
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem statstoolStripMenuItem1;
         private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.ToolStripMenuItem AddressTypeInfotoolStripMenuItem;
     }
 }
 

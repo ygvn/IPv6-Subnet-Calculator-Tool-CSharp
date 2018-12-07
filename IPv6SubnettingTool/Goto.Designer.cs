@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2018 Yucel Guven
+ * Copyright (c) 2010-2019 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -67,7 +67,7 @@ namespace IPv6SubnettingTool
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(13, 13);
             this.label1.TabIndex = 0;
@@ -76,10 +76,10 @@ namespace IPv6SubnettingTool
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(12, 25);
+            this.textBox1.Location = new System.Drawing.Point(12, 33);
             this.textBox1.MaxLength = 39;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(260, 20);
+            this.textBox1.Size = new System.Drawing.Size(275, 20);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = "0";
             this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
@@ -88,15 +88,15 @@ namespace IPv6SubnettingTool
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 64);
+            this.label3.Location = new System.Drawing.Point(10, 89);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 13);
+            this.label3.Size = new System.Drawing.Size(30, 13);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Max.:";
+            this.label3.Text = "Max:";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(67, 51);
+            this.button1.Location = new System.Drawing.Point(69, 59);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -109,16 +109,16 @@ namespace IPv6SubnettingTool
             this.textBox2.BackColor = System.Drawing.SystemColors.Control;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.textBox2.Location = new System.Drawing.Point(15, 80);
+            this.textBox2.Location = new System.Drawing.Point(43, 89);
             this.textBox2.MaxLength = 39;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(260, 13);
+            this.textBox2.Size = new System.Drawing.Size(245, 13);
             this.textBox2.TabIndex = 3;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(171, 51);
+            this.button2.Location = new System.Drawing.Point(158, 59);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
@@ -131,9 +131,9 @@ namespace IPv6SubnettingTool
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(284, 112);
-            this.Controls.Add(this.button2);
+            this.ClientSize = new System.Drawing.Size(299, 112);
             this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox1);

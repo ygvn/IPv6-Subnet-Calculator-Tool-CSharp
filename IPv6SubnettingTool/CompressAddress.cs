@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2018 Yucel Guven
+ * Copyright (c) 2010-2019 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -99,7 +99,6 @@ namespace IPv6SubnettingTool
                 textBox4.Text = v6st.PrintBin(seaddress, 128, CheckState.Checked).Replace(':', ' ');
                 textBox5.Text = "0x" + Resv6;
                 textBox6.Text = v6st.DnsRev(seaddress.Resultv6, 128, CheckState.Checked)[0];
-                textBox7.Text = v6st.AddressType(seaddress.Resultv6);
                 textBox8.Text = seaddress.Resultv6.ToString();
                 textBox9.Text = veryformal;
             }
@@ -111,7 +110,6 @@ namespace IPv6SubnettingTool
                 textBox4.Clear();
                 textBox5.Clear();
                 textBox6.Clear();
-                textBox7.Clear();
                 textBox8.Clear();
                 textBox9.Clear();
             }

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2018 Yucel Guven
+ * Copyright (c) 2010-2019 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -71,8 +71,6 @@ namespace IPv6SubnettingTool
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -156,7 +154,7 @@ namespace IPv6SubnettingTool
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(11, 253);
+            this.label5.Location = new System.Drawing.Point(11, 227);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(88, 16);
             this.label5.TabIndex = 10;
@@ -166,17 +164,17 @@ namespace IPv6SubnettingTool
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(105, 253);
+            this.textBox4.Location = new System.Drawing.Point(105, 227);
             this.textBox4.MaxLength = 40;
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(340, 58);
-            this.textBox4.TabIndex = 8;
+            this.textBox4.TabIndex = 9;
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(11, 227);
+            this.label6.Location = new System.Drawing.Point(11, 201);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 16);
             this.label6.TabIndex = 12;
@@ -186,63 +184,44 @@ namespace IPv6SubnettingTool
             // textBox5
             // 
             this.textBox5.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(105, 227);
+            this.textBox5.Location = new System.Drawing.Point(105, 201);
             this.textBox5.MaxLength = 40;
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
             this.textBox5.Size = new System.Drawing.Size(340, 20);
-            this.textBox5.TabIndex = 7;
+            this.textBox5.TabIndex = 8;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(105, 175);
+            this.textBox6.Location = new System.Drawing.Point(105, 149);
             this.textBox6.MaxLength = 40;
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
             this.textBox6.Size = new System.Drawing.Size(340, 20);
-            this.textBox6.TabIndex = 5;
+            this.textBox6.TabIndex = 6;
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(11, 176);
+            this.label7.Location = new System.Drawing.Point(11, 150);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(88, 16);
             this.label7.TabIndex = 14;
             this.label7.Text = "Reverse DNS:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBox7
-            // 
-            this.textBox7.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox7.Location = new System.Drawing.Point(105, 149);
-            this.textBox7.MaxLength = 40;
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(340, 20);
-            this.textBox7.TabIndex = 4;
-            // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(11, 149);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(88, 16);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "Type:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // textBox8
             // 
             this.textBox8.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox8.Location = new System.Drawing.Point(105, 201);
+            this.textBox8.Location = new System.Drawing.Point(105, 175);
             this.textBox8.MaxLength = 40;
             this.textBox8.Name = "textBox8";
             this.textBox8.ReadOnly = true;
             this.textBox8.Size = new System.Drawing.Size(340, 20);
-            this.textBox8.TabIndex = 6;
+            this.textBox8.TabIndex = 7;
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(11, 201);
+            this.label9.Location = new System.Drawing.Point(11, 175);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(88, 16);
             this.label9.TabIndex = 18;
@@ -266,19 +245,17 @@ namespace IPv6SubnettingTool
             this.textBox9.Name = "textBox9";
             this.textBox9.ReadOnly = true;
             this.textBox9.Size = new System.Drawing.Size(340, 20);
-            this.textBox9.TabIndex = 20;
+            this.textBox9.TabIndex = 4;
             // 
             // CompressAddress
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(457, 323);
+            this.ClientSize = new System.Drawing.Size(457, 297);
             this.Controls.Add(this.textBox9);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.textBox7);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox5);
@@ -322,8 +299,6 @@ namespace IPv6SubnettingTool
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
