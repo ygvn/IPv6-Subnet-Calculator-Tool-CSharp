@@ -32,7 +32,7 @@ You can download from:
 https://github.com/ygvn/IPv6-Subnet-Calculator-Tool/blob/master/IPv6SubnetCalculator_v3.9.1.zip
 
 
-Copyright (c) 2010-2019, Yücel Güven   
+Copyright (c) 2010-2019, Yucel Guven   
 All rights reserved.
 
 This file is part of IPv6 Subnetting Tool.
