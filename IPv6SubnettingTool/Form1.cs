@@ -2200,7 +2200,7 @@ namespace IPv6SubnettingTool
                         }
                         // and index it if not indexed
                         MyCommand.CommandText = "SHOW INDEX from "
-                            + "`" + this.ServerInfo.DBname + "`" + ".`" + this.ServerInfo.Tablename + "` "
+                            + "`" + this.ServerInfo.DBname + "`" + ".`" + this.ServerInfo.Tablename + "` " 
                             + " WHERE Key_name = 'idx_index';";
                         int s = MyCommand.ExecuteNonQuery();
                         if (s == 0)
