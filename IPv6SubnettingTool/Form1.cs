@@ -2103,7 +2103,7 @@ namespace IPv6SubnettingTool
 
                         // create table if not exists:
                         MyCommand.CommandText = "CREATE TABLE IF NOT EXISTS "
-                            + "`" + this.ServerInfo.Tablename + "`"
+                            + "`" + this.ServerInfo.DBname + "`" + ".`" + this.ServerInfo.Tablename + "` "
                             + " ( "
                             + "prefix VARBINARY(16), "
                             + "pflen TINYINT UNSIGNED, "
@@ -2126,7 +2126,7 @@ namespace IPv6SubnettingTool
                         if (MyCommand.ExecuteNonQuery() == 0)
                         {
                             MyCommand.CommandText = "CREATE TRIGGER trig_insert BEFORE INSERT ON "
-                                + "`" + this.ServerInfo.Tablename + "`"
+                                + "`" + this.ServerInfo.DBname + "`" + ".`" + this.ServerInfo.Tablename + "` "
                                 + " FOR EACH ROW BEGIN SET NEW.`created`=IF(ISNULL(NEW.`created`) OR "
                                 + "NEW.`created`='0000-00-00 00:00:00', CURRENT_TIMESTAMP, "
                                 + "IF(NEW.`created` < CURRENT_TIMESTAMP, NEW.`created`, "
@@ -2138,7 +2138,7 @@ namespace IPv6SubnettingTool
                         if (MyCommand.ExecuteNonQuery() == 0)
                         {
                             MyCommand.CommandText = "CREATE trigger trig_update BEFORE UPDATE ON "
-                                + "`" + this.ServerInfo.Tablename + "`"
+                                + "`" + this.ServerInfo.DBname + "`" + ".`" + this.ServerInfo.Tablename + "` "
                                 + " FOR EACH ROW "
                                 + "SET NEW.`last-updated` = IF(NEW.`last-updated` < OLD.`last-updated`, "
                                 + "OLD.`last-updated`, CURRENT_TIMESTAMP);";
@@ -2146,7 +2146,7 @@ namespace IPv6SubnettingTool
                         }
                         //create index:
                         MyCommand.CommandText = " CREATE INDEX idx_index ON "
-                            + "`" + this.ServerInfo.Tablename + "`"
+                            + "`" + this.ServerInfo.DBname + "`" + ".`" + this.ServerInfo.Tablename + "` "
                             + " (prefix, pflen) USING BTREE;";
                         MyCommand.ExecuteNonQuery();
                     }
@@ -2158,7 +2158,7 @@ namespace IPv6SubnettingTool
 
                         // create table if not exists:
                         MyCommand.CommandText = "CREATE TABLE IF NOT EXISTS "
-                            + "`" + this.ServerInfo.Tablename + "`"
+                            + "`" + this.ServerInfo.DBname + "`" + ".`" + this.ServerInfo.Tablename + "` "
                             + " ( "
                             + "prefix VARBINARY(16), "
                             + "pflen TINYINT UNSIGNED, "
@@ -2181,7 +2181,7 @@ namespace IPv6SubnettingTool
                         if (MyCommand.ExecuteNonQuery() == 0)
                         {
                             MyCommand.CommandText = "CREATE TRIGGER trig_insert BEFORE INSERT ON "
-                                + "`" + this.ServerInfo.Tablename + "`"
+                                + "`" + this.ServerInfo.DBname + "`" + ".`" + this.ServerInfo.Tablename + "` "
                                 + " FOR EACH ROW BEGIN SET NEW.`created`=IF(ISNULL(NEW.`created`) OR "
                                 + "NEW.`created`='0000-00-00 00:00:00', CURRENT_TIMESTAMP, "
                                 + "IF(NEW.`created` < CURRENT_TIMESTAMP, NEW.`created`, "
@@ -2192,7 +2192,7 @@ namespace IPv6SubnettingTool
                         if (MyCommand.ExecuteNonQuery() == 0)
                         {
                             MyCommand.CommandText = "CREATE trigger trig_update BEFORE UPDATE ON "
-                                + "`" + this.ServerInfo.Tablename + "`"
+                                + "`" + this.ServerInfo.DBname + "`" + ".`" + this.ServerInfo.Tablename + "` "
                                 + " FOR EACH ROW "
                                 + "SET NEW.`last-updated` = IF(NEW.`last-updated` < OLD.`last-updated`, "
                                 + "OLD.`last-updated`, CURRENT_TIMESTAMP);";
@@ -2200,13 +2200,14 @@ namespace IPv6SubnettingTool
                         }
                         // and index it if not indexed
                         MyCommand.CommandText = "SHOW INDEX from "
-                            + this.ServerInfo.DBname
+                            + "`" + this.ServerInfo.DBname + "`" + ".`" + this.ServerInfo.Tablename + "` "
                             + " WHERE Key_name = 'idx_index';";
                         int s = MyCommand.ExecuteNonQuery();
                         if (s == 0)
                         {
                             MyCommand.CommandText =
-                            " CREATE INDEX idx_index ON " + this.ServerInfo.Tablename
+                            " CREATE INDEX idx_index ON " 
+                            + "`" + this.ServerInfo.DBname + "`" + ".`" + this.ServerInfo.Tablename + "` "
                             + " (prefix, pflen) USING BTREE;";
                             MyCommand.ExecuteNonQuery();
                         }
@@ -2461,7 +2462,8 @@ namespace IPv6SubnettingTool
             }
 
             string MySQLcmd = "SELECT inet6_ntoa(prefix), pflen, parentpflen "
-                + " from " + this.ServerInfo.Tablename
+                + " from " + "`" + this.ServerInfo.DBname + "`" + ".`" + this.ServerInfo.Tablename + "` "
+                //this.ServerInfo.Tablename
                 + " WHERE ( prefix=inet6_aton('" + inprefix + "') "
                 + " AND pflen=" + pflen + " );";
 

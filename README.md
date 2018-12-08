@@ -1,4 +1,4 @@
-ï»¿IPv6 Subnet Calculator / Tool
+IPv6 Subnet Calculator / Tool
 
 Latest Version: v3.9
 
@@ -9,13 +9,13 @@ I distributed the application in the hope that it will be useful for your subnet
 I will try to develop the software continuously, so please don't hesitate to comment/inform for any bugs or new feature suggestions. 
 
 ![Screenshot1](https://raw.githubusercontent.com/ygvn/IPv6-Subnet-Calculator-Tool-CSharp/master/Screenshot1.png)   
-![S2.png](https://raw.githubusercontent.com/ygvn/IPv6-Subnet-Calculator-Tool-CSharp/master/S2.png) Â  
-![S3.png](https://raw.githubusercontent.com/ygvn/IPv6-Subnet-Calculator-Tool-CSharp/master/S3.png) Â  
-![S4.png](https://raw.githubusercontent.com/ygvn/IPv6-Subnet-Calculator-Tool-CSharp/master/S4.png) Â  
+![S2.png](https://raw.githubusercontent.com/ygvn/IPv6-Subnet-Calculator-Tool-CSharp/master/S2.png)   
+![S3.png](https://raw.githubusercontent.com/ygvn/IPv6-Subnet-Calculator-Tool-CSharp/master/S3.png)   
+![S4.png](https://raw.githubusercontent.com/ygvn/IPv6-Subnet-Calculator-Tool-CSharp/master/S4.png)   
 ![S5.png](https://raw.githubusercontent.com/ygvn/IPv6-Subnet-Calculator-Tool-CSharp/master/S5.png)   
 
 
-* MySQL Database Connection support Â    
+* MySQL Database Connection support     
   .Store/update/manage IPv6 prefixes with MySQL database server   
   .Tested with MySQL Connector/ODBC 5.3.6   
   .DriverName: MySQL ODBC 5.3 Unicode Driver (myodbc5w.dll)   
@@ -28,10 +28,10 @@ I will try to develop the software continuously, so please don't hesitate to com
 * English, Turkish, German languages.
 
 You can download from:   
-https://github.com/ygvn/IPv6-Subnet-Calculator-Tool/blob/master/IPv6-Subnet-Calculator-EXE-v3.8.zip
+https://github.com/ygvn/IPv6-Subnet-Calculator-Tool/blob/master/IPv6-Subnet-Calculator-EXE-v3.9.zip
 
 
-Copyright (c) 2010-2019, YÃ¼cel GÃ¼ven   
+Copyright (c) 2010-2019, Yücel Güven   
 All rights reserved.
 
 This file is part of IPv6 Subnetting Tool.
