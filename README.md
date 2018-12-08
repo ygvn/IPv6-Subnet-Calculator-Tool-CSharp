@@ -15,21 +15,21 @@ I will try to develop the software continuously, so please do not hesitate to co
 ![S5.png](https://raw.githubusercontent.com/ygvn/IPv6-Subnet-Calculator-Tool-CSharp/master/S5.png)   
 
 
-* MySQL Database Connection support
-  .Store/update/manage IPv6 prefixes with MySQL database server
-  .Tested with MySQL Connector/ODBC 5.3.6
-  .DriverName: MySQL ODBC 5.3 Unicode Driver (myodbc5w.dll)
-* Statistical View of Assigned/Available Prefixes
-  .Note: Assigned prefixes must exist in the database
-* 4-Bytes AS Number plain/dot Conversion Tool
-  .Convert Autonomous System Numbers from asplain to asdot and vice versa.
-* List Reverse DNS
-* Compress / Uncompress IPv6 Address Tool
-* IPv6 Address Type Information (20181208)
-* English, Turkish, German languages.
+* MySQL Database Connection support    
+  .Store/update/manage IPv6 prefixes with MySQL database server    
+  .Tested with MySQL Connector/ODBC 5.3.6    
+  .DriverName: MySQL ODBC 5.3 Unicode Driver (myodbc5w.dll)    
+* Statistical View of Assigned/Available Prefixes    
+  .Note: Assigned prefixes must exist in the database    
+* 4-Bytes AS Number plain/dot Conversion Tool    
+  .Convert Autonomous System Numbers from asplain to asdot and vice versa.    
+* List Reverse DNS    
+* Compress / Uncompress IPv6 Address Tool    
+* IPv6 Address Type Information (20181208)    
+* English, Turkish, German languages.    
 
-You can download from:
-https://github.com/ygvn/IPv6-Subnet-Calculator-Tool/blob/master/IPv6SubnetCalculator_v3.9.1.zip
+You can download from:    
+https://github.com/ygvn/IPv6-Subnet-Calculator-Tool/blob/master/IPv6SubnetCalculator_v3.9.1.zip    
 
 
 Copyright (c) 2010-2019, Yucel Guven   
