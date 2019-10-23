@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2019 Yucel Guven
+ * Copyright (c) 2010-2020 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -63,6 +63,7 @@ namespace IPv6SubnettingTool
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.labelEmail = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.labelNET = new System.Windows.Forms.Label();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -120,15 +121,17 @@ namespace IPv6SubnettingTool
             this.tableLayoutPanel.Controls.Add(this.labelProductName, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.labelVersion, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.labelCopyright, 0, 2);
-            this.tableLayoutPanel.Controls.Add(this.label2, 0, 4);
+            this.tableLayoutPanel.Controls.Add(this.label2, 0, 5);
+            this.tableLayoutPanel.Controls.Add(this.labelNET, 0, 4);
             this.tableLayoutPanel.Location = new System.Drawing.Point(9, 9);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.RowCount = 5;
+            this.tableLayoutPanel.RowCount = 6;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 76F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 77F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(281, 185);
             this.tableLayoutPanel.TabIndex = 0;
             // 
@@ -143,13 +146,23 @@ namespace IPv6SubnettingTool
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(3, 60);
+            this.label2.Location = new System.Drawing.Point(3, 79);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(275, 98);
             this.label2.TabIndex = 1;
             this.label2.Text = "\r\n\r\n IPv4> FF.FF.FF.FF              \r\n           4294967295\r\n \r\nIPv6> FFFF:FFFF:F" +
     "FFF:FFFF:FFFF:FFFF:FFFF:FFFF                   340282366920938463463374607431768" +
     "211455";
+            // 
+            // labelNET
+            // 
+            this.labelNET.AutoSize = true;
+            this.labelNET.Location = new System.Drawing.Point(3, 60);
+            this.labelNET.Name = "labelNET";
+            this.labelNET.Size = new System.Drawing.Size(35, 13);
+            this.labelNET.TabIndex = 25;
+            this.labelNET.Text = ".NET ";
+            this.labelNET.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // AboutBox1
             // 
@@ -186,6 +199,6 @@ namespace IPv6SubnettingTool
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private System.Windows.Forms.Label labelEmail;
         private System.Windows.Forms.Label label2;
-
+        private System.Windows.Forms.Label labelNET;
     }
 }

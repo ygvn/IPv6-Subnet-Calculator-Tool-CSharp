@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2019 Yucel Guven
+ * Copyright (c) 2010-2020 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -33,13 +33,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Globalization;
 using System.Numerics;
 using System.Threading;
 using System.Data.Odbc;
+using System.Xml;
+using System.IO;
 
 namespace IPv6SubnettingTool
 {
@@ -78,26 +78,172 @@ namespace IPv6SubnettingTool
         //
         public static List<WindowsList> windowsList = new List<WindowsList>();
         //
+        public string xmlFilename = "IPv6SubnetCalculatorInfo.xml"; // Default last settings/info xml file name
         #endregion
 
         public Form1()
         {
             InitializeComponent();
-            
+
             #region special initials -yucel
             label10.Text = label1.Text = trackBar1.Value.ToString();
             this.StartEnd.ID = ID; // ID of this Form. Form1 is the main Form.
             this.graph = this.CreateGraphics();
             this.graph.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
             #endregion
+
+            if (File.Exists(this.xmlFilename))
+            {
+                try
+                {
+                    XmlDocument xmldoc = new XmlDocument();
+                    xmldoc.Load(this.xmlFilename);
+
+                    /* Load UI_info */
+                    
+                    //XmlNodeList nodes = xmldoc.GetElementsByTagName("UI_Info");
+                    XmlNode node = xmldoc.SelectSingleNode("INFO/UI_Info");
+
+                    foreach (XmlNode n in node.ChildNodes)
+                    {
+                        switch (n.Name)
+                        {
+                            case "Culture":
+                                {
+                                    this.culture = Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(n.InnerText);
+                                    if (n.InnerText == "en-US")
+                                    {
+                                        this.EnglishToolStripMenuItem_Click(this.EnglishToolStripMenuItem, null);
+                                    }
+                                    else if (n.InnerText == "tr-TR")
+                                    {
+                                        this.TurkishToolStripMenuItem_Click(this.TurkishToolStripMenuItem, null);
+                                    }
+                                    else if (n.InnerText == "de-DE")
+                                    {
+                                        this.GermanToolStripMenuItem_Click(this.GermanToolStripMenuItem, null);
+                                    }
+                                    break;
+                                }
+                            default:
+                                break;
+                        }
+                    }
+                    
+                    /* Load DBServerInfo into this.ServerInfo */
+                    
+                    node = xmldoc.SelectSingleNode("INFO/DBServerInfo");
+                    foreach (XmlNode n in node.ChildNodes)
+                    {
+                        switch (n.Name)
+                        {
+                            case "DriverName":
+                                if (n.InnerText.Trim() != "")
+                                    this.ServerInfo.DriverName = n.InnerText.Trim();
+                                break;
+                            case "ServerIP":
+                                if (n.InnerText.Trim() != "")
+                                    this.ServerInfo.ServerIP = System.Net.IPAddress.Parse(n.InnerText.Trim());
+                                break;
+                            case "PortNumber":
+                                if (n.InnerText.Trim() != "")
+                                    this.ServerInfo.PortNum = UInt16.Parse(n.InnerText.Trim());
+                                break;
+                            case "DatabaseName":
+                                if (n.InnerText.Trim() != "")
+                                    this.ServerInfo.DBname = n.InnerText.Trim();
+                                break;
+                            case "TableName":
+                                if (n.InnerText.Trim() != "")
+                                    this.ServerInfo.Tablename = n.InnerText.Trim();
+                                break;
+                            case "UserName":
+                                if (n.InnerText.Trim() != "")
+                                    this.ServerInfo.Username = n.InnerText.Trim();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Exception:\r\n" + ex.Message, "Exception:XMLFile", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    this.EnglishToolStripMenuItem_Click(this.EnglishToolStripMenuItem, null);
+                    this.culture = Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+                }
+            }
+            else
+            {
+                this.EnglishToolStripMenuItem_Click(this.EnglishToolStripMenuItem, null);
+                this.culture = Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             this.textBox2.AutoCompleteCustomSource = autocomp;
-            this.EnglishToolStripMenuItem.Checked = true;
-            //this.TurkishToolStripMenuItem.Checked = true;
-            this.culture = Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            
+            /* this.EnglishToolStripMenuItem.Checked = true;
+               this.culture = Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            */
+        }
+
+        private void WriteInfoXMLFile()
+        {
+            /* Write Info into the XML file. This file is used like Registry 
+             * to help user not to enter the same informations repeatedly.
+             */
+
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.ConformanceLevel = ConformanceLevel.Auto;
+
+            using (XmlWriter writer = XmlWriter.Create(this.xmlFilename, settings))
+            {
+                writer.WriteStartElement("INFO");
+
+                writer.WriteStartElement("UI_Info");
+                writer.WriteElementString("Culture", this.culture.Name);
+                writer.WriteEndElement();
+
+                writer.WriteStartElement("DBServerInfo");
+                
+                if (this.ServerInfo.DriverName != null)
+                    writer.WriteElementString("DriverName", this.ServerInfo.DriverName);
+                else
+                    writer.WriteElementString("DriverName", "");
+
+                if (this.ServerInfo.ServerIP != null)
+                    writer.WriteElementString("ServerIP", this.ServerInfo.ServerIP.ToString());
+                else
+                    writer.WriteElementString("ServerIP", "");
+
+                if (this.ServerInfo.PortNum.ToString() != null)
+                    writer.WriteElementString("PortNumber", this.ServerInfo.PortNum.ToString());
+                else
+                    writer.WriteElementString("PortNumber", "");
+
+                if (this.ServerInfo.DBname != null)
+                    writer.WriteElementString("DatabaseName", this.ServerInfo.DBname);
+                else
+                    writer.WriteElementString("DatabaseName", "");
+
+                if (this.ServerInfo.Tablename != null)
+                    writer.WriteElementString("TableName", this.ServerInfo.Tablename);
+                else
+                    writer.WriteElementString("TableName", "");
+
+                if (this.ServerInfo.Username != null)
+                    writer.WriteElementString("UserName", this.ServerInfo.Username);
+                else
+                    writer.WriteElementString("UserName", "");
+
+                writer.WriteEndElement();
+
+                writer.Flush();
+            }
         }
 
         private void UpdateStatus()
@@ -132,7 +278,7 @@ namespace IPv6SubnettingTool
             else
             {
                 if (this.MySQLconnection.State == ConnectionState.Open)
-                    toolStripStatusLabel2.Text = "db=UP";
+                    toolStripStatusLabel2.Text = "db=Up";
                 else if (this.MySQLconnection.State == ConnectionState.Closed)
                     toolStripStatusLabel2.Text = "db=Down";
             }
@@ -271,6 +417,7 @@ namespace IPv6SubnettingTool
 
                 UpdatePrintBin(StartEnd, this.checkBox2.CheckState);
                 autocomp.Add(strinp);
+                MaskValue();
                 this.Find.Focus();
             }
             else
@@ -374,6 +521,9 @@ namespace IPv6SubnettingTool
             UpdatePrintBin(StartEnd, this.checkBox2.CheckState);
 
             delta = trackBar2.Value - trackBar1.Value;
+
+            // Mask:
+            MaskValue();
         }
 
         private void trackBar2_Scroll(object sender, EventArgs e)
@@ -405,6 +555,15 @@ namespace IPv6SubnettingTool
             UpdatePrintBin(StartEnd, this.checkBox2.CheckState);
             graph.FillRectangle(new SolidBrush(Form1.DefaultBackColor), 250, 256, 0, 11);
             Form1_Paint(null, null);
+
+            // Mask:
+            MaskValue();
+        }
+
+        private void MaskValue()
+        {
+            BigInteger mask = v6st.PrepareMask((short)trackBar2.Value);
+            textBox8.Text = v6st.CompressAddress(v6st.Kolonlar(mask.ToString("x").TrimStart('0'), CheckState.Checked));
         }
 
         private void Subnets_Click(object sender, EventArgs e)
@@ -971,14 +1130,16 @@ namespace IPv6SubnettingTool
             if (this.listBox1.Items.Count > 0)
             {
                 this.contextMenuStrip1.Items[4].Enabled = true;
-                this.contextMenuStrip1.Items[8].Enabled = true;
-                this.contextMenuStrip1.Items[9].Enabled = true;
-                if ( (this.trackBar2.Value - this.trackBar1.Value > 0) && this.MySQLconnection != null)
+                this.contextMenuStrip1.Items[12].Enabled = true;
+                this.contextMenuStrip1.Items[13].Enabled = true;
+                
+                if ( (this.trackBar2.Value - this.trackBar1.Value >= 0) && this.MySQLconnection != null)
                     this.contextMenuStrip1.Items[10].Enabled = true;
                 else
                     this.contextMenuStrip1.Items[10].Enabled = false;
-                this.contextMenuStrip1.Items[11].Enabled = true;
-                this.contextMenuStrip1.Items[13].Enabled = true;
+
+                this.contextMenuStrip1.Items[14].Enabled = true;
+                this.contextMenuStrip1.Items[16].Enabled = true;
 
                 if (this.listBox1.SelectedItem != null && this.listBox1.SelectedItem.ToString() != ""
                     && this.listBox1.SelectedIndex != -1)
@@ -992,10 +1153,12 @@ namespace IPv6SubnettingTool
                     {
                         this.contextMenuStrip1.Items[2].Enabled = false;
                         this.contextMenuStrip1.Items[3].Enabled = false;
+                        
                         if (this.MySQLconnection != null)
                         {
-                            this.contextMenuStrip1.Items[6].Enabled = true;
                             this.contextMenuStrip1.Items[7].Enabled = true;
+                            this.contextMenuStrip1.Items[8].Enabled = true;
+                            this.contextMenuStrip1.Items[9].Enabled = true;
                         }
                     }
                     else
@@ -1012,13 +1175,15 @@ namespace IPv6SubnettingTool
 
                         if (this.MySQLconnection != null)
                         {
-                            this.contextMenuStrip1.Items[6].Enabled = true;
                             this.contextMenuStrip1.Items[7].Enabled = true;
+                            this.contextMenuStrip1.Items[8].Enabled = true;
+                            this.contextMenuStrip1.Items[9].Enabled = true;
                         }
                         else
                         {
-                            this.contextMenuStrip1.Items[6].Enabled = false;
                             this.contextMenuStrip1.Items[7].Enabled = false;
+                            this.contextMenuStrip1.Items[8].Enabled = false;
+                            this.contextMenuStrip1.Items[9].Enabled = false;
                         }
                     }
                 }
@@ -1027,8 +1192,9 @@ namespace IPv6SubnettingTool
                     this.contextMenuStrip1.Items[2].Enabled = false;
                     this.contextMenuStrip1.Items[3].Enabled = false;
                     this.contextMenuStrip1.Items[5].Enabled = false;
-                    this.contextMenuStrip1.Items[6].Enabled = false;
                     this.contextMenuStrip1.Items[7].Enabled = false;
+                    this.contextMenuStrip1.Items[8].Enabled = false;
+                    this.contextMenuStrip1.Items[9].Enabled = false;
                 }
             }
             else
@@ -1037,13 +1203,16 @@ namespace IPv6SubnettingTool
                 this.contextMenuStrip1.Items[3].Enabled = false;
                 this.contextMenuStrip1.Items[4].Enabled = false;
                 this.contextMenuStrip1.Items[5].Enabled = false;
-                this.contextMenuStrip1.Items[6].Enabled = false;
+                //this.contextMenuStrip1.Items[6].Enabled = false; //seperator
                 this.contextMenuStrip1.Items[7].Enabled = false;
                 this.contextMenuStrip1.Items[8].Enabled = false;
                 this.contextMenuStrip1.Items[9].Enabled = false;
                 this.contextMenuStrip1.Items[10].Enabled = false;
-                this.contextMenuStrip1.Items[11].Enabled = false;
+                //this.contextMenuStrip1.Items[11].Enabled = false; //seperator
+                this.contextMenuStrip1.Items[12].Enabled = false;
                 this.contextMenuStrip1.Items[13].Enabled = false;
+                this.contextMenuStrip1.Items[14].Enabled = false;
+                this.contextMenuStrip1.Items[16].Enabled = false;
             }
         }
 
@@ -1132,7 +1301,7 @@ namespace IPv6SubnettingTool
         }
 
         private void goToSubnetNumberToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
+        {//BURAMI
             Goto gsn = new Goto(this,
                 goToToolStripMenuItem.DropDownItems.IndexOf
                 (goToSubnetNumberToolStripMenuItem1), this.submaxval, ID, this.culture);
@@ -1510,6 +1679,7 @@ namespace IPv6SubnettingTool
             textBox4.Text = "";
             textBox5.Text = "";
             textBox7.Text = "";
+            textBox8.Text = "";
             listBox1.Items.Clear();
             PrevSpace.Enabled = false;
             NextSpace.Enabled = false;
@@ -1645,128 +1815,7 @@ namespace IPv6SubnettingTool
 
         private void goToToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Goto gsn = new Goto(this,
-                goToToolStripMenuItem.DropDownItems.IndexOf(goToSubnetNumberToolStripMenuItem1),
-                this.submaxval, ID, this.culture);
-
-            this.label8.Text = "";
-            gsn.ShowDialog();
-            this.ChangeUILanguage += gsn.SwitchLanguage;
-
-            String ss = "", se = "";
-            int count = 0;
-
-            string newidx = this.label8.Text;
-            if (newidx == "")
-                return;
-
-            subnets.subnetidx = BigInteger.Parse(newidx, NumberStyles.Number);
-            subnets.slash = this.trackBar1.Value;
-            subnets.subnetslash = this.trackBar2.Value;
-            subnets.Start = StartEnd.Start;
-            subnets.Resultv6 = StartEnd.Resultv6;
-
-            subnets = v6st.GoToSubnet(subnets, this.checkBox2.CheckState);
-
-            page.Start = subnets.Start;
-            page.End = BigInteger.Zero;
-
-            if (subnets.End.Equals(StartEnd.End))
-            {
-                this.Forwd.Enabled = false;
-            }
-
-            this.listBox1.Items.Clear();
-
-            for (count = 0; count < upto; count++)
-            {
-                subnets = v6st.Subnetting(subnets, this.checkBox2.CheckState);
-
-                if (this.checkBox2.CheckState == CheckState.Checked)
-                {
-                    ss = String.Format("{0:x}", subnets.Start);
-                    if (ss.Length > 32)
-                        ss = ss.Substring(1, 32);
-                    ss = v6st.Kolonlar(ss, this.checkBox2.CheckState);
-                    ss = v6st.CompressAddress(ss);
-
-                    se = String.Format("{0:x}", subnets.End);
-                    if (se.Length > 32)
-                        se = se.Substring(1, 32);
-                    se = v6st.Kolonlar(se, this.checkBox2.CheckState);
-                    se = v6st.CompressAddress(se);
-
-                    //ss = "s" + subnets.subnetidx + "> " + ss + "/" +
-                    ss = "p" + subnets.subnetidx + "> " + ss + "/" +
-                        this.trackBar2.Value;
-                    this.listBox1.Items.Add(ss);
-                    /* No need to print two times if slash=128 since start=end */
-                    if (this.trackBar2.Value != 128)
-                    {
-                        se = "e" + subnets.subnetidx + "> " + se + "/"
-                            + this.trackBar2.Value;
-                        this.listBox1.Items.Add(se);
-                        this.listBox1.Items.Add("");
-                    }
-                }
-                else if (this.checkBox2.CheckState == CheckState.Unchecked)
-                {
-                    ss = String.Format("{0:x}", subnets.Start);
-                    if (ss.Length > 16)
-                        ss = ss.Substring(1, 16);
-                    ss = v6st.Kolonlar(ss, this.checkBox2.CheckState);
-                    ss = v6st.CompressAddress(ss);
-
-                    se = String.Format("{0:x}", subnets.End);
-                    if (se.Length > 16)
-                        se = se.Substring(1, 16);
-                    se = v6st.Kolonlar(se, this.checkBox2.CheckState);
-                    se = v6st.CompressAddress(se);
-
-                    //ss = "s" + subnets.subnetidx + "> " + ss + "/" +
-                    ss = "p" + subnets.subnetidx + "> " + ss + "/" +
-                        this.trackBar2.Value;
-                    this.listBox1.Items.Add(ss);
-                    /* No need to print two times if slash=64 since start=end */
-                    if (this.trackBar2.Value != 64)
-                    {
-                        se = "e" + subnets.subnetidx + "> " + se + "/"
-                            + this.trackBar2.Value;
-                        this.listBox1.Items.Add(se);
-                        this.listBox1.Items.Add("");
-                    }
-                }
-
-                if (subnets.End.Equals(StartEnd.End))
-                {
-                    this.Forwd.Enabled = false;
-                    break;
-                }
-                else
-                {
-                    subnets.Start = subnets.End + BigInteger.One;
-                }
-            }
-            page.End = subnets.End;
-
-            if (BigInteger.Parse(newidx, NumberStyles.Number) == 0)
-            {
-                this.Backwd.Enabled = false;
-            }
-            else
-                this.Backwd.Enabled = true;
-            if (subnets.subnetidx == this.submaxval)
-            {
-                this.Forwd.Enabled = false;
-                this.Last.Enabled = false;
-            }
-            else
-            {
-                this.Forwd.Enabled = true;
-                this.Last.Enabled = true;
-            }
-            UpdateCount();
-            UpdatePrintBin(StartEnd, this.checkBox2.CheckState);
+            this.goToSubnetNumberToolStripMenuItem1_Click(null, null);
         }
 
         private void exportToFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1915,6 +1964,8 @@ namespace IPv6SubnettingTool
             this.statusofDBtoolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_statusofDBtoolStripMenuItem.Text", this.culture);
             this.opendbformtoolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_opendbformtoolStripMenuItem.Text", this.culture);
             this.sendtoDBtoolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_sendtoDBtoolStripMenuItem.Text", this.culture);
+            this.getPrefixInfoFromDatabaseToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_getPrefixInfoFromDB.Text", this.culture);
+            this.getPrefixInfoFromDBToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_getPrefixInfoFromDB.Text", this.culture);
             this.exitToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_exitToolStripMenuItem.Text", this.culture);
             this.exportToFileToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_exportToFileToolStripMenuItem.Text", this.culture);
             this.fileToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_fileToolStripMenuItem.Text", this.culture);
@@ -2116,6 +2167,7 @@ namespace IPv6SubnettingTool
                             + "email VARCHAR(40), "
                             + "status VARCHAR(40), "
                             + "`created` TIMESTAMP NOT NULL default '0000-00-00 00:00:00', "
+                            //+ "`created` TIMESTAMP NOT NULL default '1970-01-01 00:00:01', "
                             + "`last-updated` TIMESTAMP NOT NULL default NOW() ON UPDATE NOW(), "
                             + "PRIMARY KEY(prefix, pflen) "
                             + "); ";
@@ -2129,6 +2181,7 @@ namespace IPv6SubnettingTool
                                 + "`" + this.ServerInfo.DBname + "`" + ".`" + this.ServerInfo.Tablename + "` "
                                 + " FOR EACH ROW BEGIN SET NEW.`created`=IF(ISNULL(NEW.`created`) OR "
                                 + "NEW.`created`='0000-00-00 00:00:00', CURRENT_TIMESTAMP, "
+                                //+ "NEW.`created`='1970-01-01 00:00:01', CURRENT_TIMESTAMP, "
                                 + "IF(NEW.`created` < CURRENT_TIMESTAMP, NEW.`created`, "
                                 + "CURRENT_TIMESTAMP));SET NEW.`last-updated`=NEW.`created`; END;";
                             MyCommand.ExecuteNonQuery();
@@ -2171,6 +2224,7 @@ namespace IPv6SubnettingTool
                             + "email VARCHAR(40), "
                             + "status VARCHAR(40), "
                             + "`created` TIMESTAMP NOT NULL default '0000-00-00 00:00:00', "
+                            //+ "`created` TIMESTAMP NOT NULL default '1970-01-01 00:00:01', "
                             + "`last-updated` TIMESTAMP NOT NULL default NOW() ON UPDATE NOW(), "
                             + "PRIMARY KEY(prefix, pflen) "
                             + "); ";
@@ -2184,6 +2238,7 @@ namespace IPv6SubnettingTool
                                 + "`" + this.ServerInfo.DBname + "`" + ".`" + this.ServerInfo.Tablename + "` "
                                 + " FOR EACH ROW BEGIN SET NEW.`created`=IF(ISNULL(NEW.`created`) OR "
                                 + "NEW.`created`='0000-00-00 00:00:00', CURRENT_TIMESTAMP, "
+                                //+ "NEW.`created`='1970-01-01 00:00:01', CURRENT_TIMESTAMP, "
                                 + "IF(NEW.`created` < CURRENT_TIMESTAMP, NEW.`created`, "
                                 + "CURRENT_TIMESTAMP));SET NEW.`last-updated`=NEW.`created`; END;";
                             MyCommand.ExecuteNonQuery();
@@ -2215,8 +2270,10 @@ namespace IPv6SubnettingTool
 
                     //
                     this.ServerInfo.Trytoconnect = false;
-                    this.toolStripStatusLabel2.Text = "db=UP";
-                    
+                    this.toolStripStatusLabel2.Text = "db=Up";
+                    this.opendbformtoolStripMenuItem_Click(null, null);
+
+
                     this.MySQLconnection.StateChange += new StateChangeEventHandler(MySQLconnection_StateChange);
                     this.MySQLconnection.ChangeDatabase(this.ServerInfo.DBname);
                     this.changeDBstate.Invoke(this.MySQLconnection, this.ServerInfo);
@@ -2246,8 +2303,7 @@ namespace IPv6SubnettingTool
                 this.MySQLconnection = null;
             }
 
-            DBinfo dbinfo = new DBinfo(this.culture);
-            dbinfo.ServerInfo = this.ServerInfo;
+            DBinfo dbinfo = new DBinfo(this.culture, this.ServerInfo);
             dbinfo.ShowDialog();
             this.ServerInfo = dbinfo.ServerInfo;
             this.ChangeUILanguage += dbinfo.SwitchLanguage;
@@ -2259,7 +2315,9 @@ namespace IPv6SubnettingTool
             else
             {
                 MySQLconnectionString =
-                "Driver={MySQL ODBC 5.3 Unicode Driver};"
+                //"Driver={MySQL ODBC 5.3 Unicode Driver};"
+                //"Driver={MySQL ODBC 8.0 Unicode Driver};"
+                "Driver={" + ServerInfo.DriverName + "};"
                 + "Server=" + ServerInfo.ServerIP.ToString() + ";"
                 + "Port=" + ServerInfo.PortNum.ToString() + ";"
                 + "User=" + ServerInfo.Username + ";"
@@ -2280,7 +2338,7 @@ namespace IPv6SubnettingTool
             if (e.CurrentState == ConnectionState.Closed)
                 this.toolStripStatusLabel2.Text = "db=Down";
             if (e.CurrentState == ConnectionState.Open)
-                this.toolStripStatusLabel2.Text = "db=UP";
+                this.toolStripStatusLabel2.Text = "db=Up";
             
             this.changeDBstate.Invoke(this.MySQLconnection, this.ServerInfo);
         }
@@ -2302,6 +2360,8 @@ namespace IPv6SubnettingTool
                     )
                 {
                     this.MySQLconnection.Close();
+                    MessageBox.Show(StringsDictionary.KeyValue("Form1_DBclosed.Text", this.culture), "",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                     return;
@@ -2363,20 +2423,23 @@ namespace IPv6SubnettingTool
                     {
                         this.sendtoDBtoolStripMenuItem.Enabled = true;
                         this.sublevelstoolStripMenuItem1.Enabled = true;
+                        this.getPrefixInfoFromDatabaseToolStripMenuItem.Enabled = true;
                     }
                     else
                     {
                         this.sendtoDBtoolStripMenuItem.Enabled = false;
                         this.sublevelstoolStripMenuItem1.Enabled = false;
+                        this.getPrefixInfoFromDatabaseToolStripMenuItem.Enabled = false;
                     }
                 }
                 else
                 {
                     this.sendtoDBtoolStripMenuItem.Enabled = false;
                     this.sublevelstoolStripMenuItem1.Enabled = false;
+                    this.getPrefixInfoFromDatabaseToolStripMenuItem.Enabled = false;
                 }
 
-                if ((this.trackBar2.Value - this.trackBar1.Value > 0) && this.MySQLconnection != null)
+                if ((this.trackBar2.Value - this.trackBar1.Value >= 0) && this.MySQLconnection != null)
                     this.statstoolStripMenuItem1.Enabled = true;
                 else
                     this.statstoolStripMenuItem1.Enabled = false;
@@ -2386,6 +2449,7 @@ namespace IPv6SubnettingTool
                 this.sendtoDBtoolStripMenuItem.Enabled = false;
                 this.sublevelstoolStripMenuItem1.Enabled = false;
                 this.statstoolStripMenuItem1.Enabled = false;
+                this.getPrefixInfoFromDatabaseToolStripMenuItem.Enabled = false;
             }
 
             if (this.MySQLconnection != null)
@@ -2906,5 +2970,21 @@ namespace IPv6SubnettingTool
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void getPrefixInfoFromDBToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string pfx = this.listBox1.SelectedItem.ToString().Split(' ')[1];
+            GetPrefixInfoFromDB getPfxInfo = new GetPrefixInfoFromDB(pfx, this.MySQLconnection, this.ServerInfo, this.culture);
+            getPfxInfo.ShowDialog();
+        }
+
+        private void getPrefixInfoFromDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getPrefixInfoFromDBToolStripMenuItem_Click(null, null);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            WriteInfoXMLFile();
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2019 Yucel Guven
+ * Copyright (c) 2010-2020 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -32,12 +32,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Data.Odbc;
-using System.Numerics;
-using System.Net;
 using System.Globalization;
 
 namespace IPv6SubnettingTool
@@ -86,13 +82,13 @@ namespace IPv6SubnettingTool
             this.comboBox1.SelectedIndex = 0;
 
             if (this.MySQLconnection == null)
-                toolStripStatusLabel2.Text = "db=DOWN";
+                toolStripStatusLabel2.Text = "db=Down";
             else
             {
                 if (this.MySQLconnection.State == ConnectionState.Open)
-                    toolStripStatusLabel2.Text = "db=UP";
+                    toolStripStatusLabel2.Text = "db=Up";
                 else if (this.MySQLconnection.State == ConnectionState.Closed)
-                    toolStripStatusLabel2.Text = "db=DOWN";
+                    toolStripStatusLabel2.Text = "db=Down";
             }
         }
 
@@ -833,13 +829,13 @@ namespace IPv6SubnettingTool
             this.ServerInfo = servinfo;
 
             if (this.MySQLconnection == null)
-                toolStripStatusLabel2.Text = "db=DOWN";
+                toolStripStatusLabel2.Text = "db=Down";
             else
             {
                 if (this.MySQLconnection.State == ConnectionState.Open)
-                    toolStripStatusLabel2.Text = "db=UP";
+                    toolStripStatusLabel2.Text = "db=Up";
                 else if (this.MySQLconnection.State == ConnectionState.Closed)
-                    toolStripStatusLabel2.Text = "db=DOWN";
+                    toolStripStatusLabel2.Text = "db=Down";
             }
 
             if (this.MySQLconnection != null)

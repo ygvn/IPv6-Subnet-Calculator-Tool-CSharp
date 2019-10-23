@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2019 Yucel Guven
+ * Copyright (c) 2010-2020 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -27,10 +27,7 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Globalization;
 
 namespace IPv6SubnettingTool
@@ -135,9 +132,11 @@ namespace IPv6SubnettingTool
 {"Form1_databasetoolStripMenuItem.Text","&Veritabanı"},
 {"Form1_connectDBtoolStripMenuItem.Text","&Bağlan..."},
 {"Form1_closeDBtoolStripMenuItem.Text","&Kapat"},
+{"Form1_DBclosed.Text","Veritabanı bağlantısı kapatıldı."},
 {"Form1_statusofDBtoolStripMenuItem.Text","&Durum"},
 {"Form1_opendbformtoolStripMenuItem.Text","Veritabanı &Formunu Aç..."},
 {"Form1_sendtoDBtoolStripMenuItem.Text","Öneki Veritabanına &Ekle"},
+{"Form1_getPrefixInfoFromDB.Text","Öneki Veritabanından sorgula..."},
 {"Form1_closeDBtoolStripMenuItem_Click_noDB","Veritabanı bağlantısı bulunmuyor."},
 {"Form1_closeDBtoolStripMenuItem_Click_noDB_header","Bağlantı yok"},
 {"Form1_closeDBtoolStripMenuItem_Click_closeDB","Veritabanı Bağlantısı kapatılıyor." 
@@ -157,6 +156,8 @@ namespace IPv6SubnettingTool
 {"Form1_statsusagetoolStripMenuItem.Text","Öneklerin &Kullanım Bilgisi"},
 {"Form1_statstoolStripMenuItem1.Text","Öneklerin &Kullanım Bilgisi"},
 //
+{"Form1_prefixNotFoundinDB.Text"," > Kayıt bulunamadı. Önek veritabanında bulunmuyor."},
+//
 {"Form1_windowstoolStripMenuItem.Text","&Pencereler"},
 {"Form1_closeAlltoolStripMenuItem.Text","&Tüm pencereleri kapat"},
 //
@@ -165,7 +166,7 @@ namespace IPv6SubnettingTool
 {"Goto_label1.Text1","Adres Alanı Numarası:"},
 {"Goto_label1.Text2","Önek Numarası:"},
 {"Goto_label1.Text3","Önek:"},
-{"Goto_label3.Text","En Fazla:"},
+{"Goto_label3.Text","Max:"},
 {"ListDNSRev_copyToolStripMenuItem.Text","&Kopyala"},
 {"ListDNSRev_FirstPage.Text","|<< 1. Sayfa"},
 {"ListDNSRev_FirstPage.ToolTip","1. Sayfa"},
@@ -426,9 +427,11 @@ namespace IPv6SubnettingTool
 {"Form1_databasetoolStripMenuItem.Text","&Database"},
 {"Form1_connectDBtoolStripMenuItem.Text","&Connect..."},
 {"Form1_closeDBtoolStripMenuItem.Text","&Close"},
+{"Form1_DBclosed.Text","Database connection closed."},
 {"Form1_statusofDBtoolStripMenuItem.Text","&Status"},
 {"Form1_opendbformtoolStripMenuItem.Text","&Open DB Form..."},
 {"Form1_sendtoDBtoolStripMenuItem.Text","&Send prefix to database..."},
+{"Form1_getPrefixInfoFromDB.Text","&Get prefix info from database..."},
 {"Form1_closeDBtoolStripMenuItem_Click_noDB","There is no opened database connection!"},
 {"Form1_closeDBtoolStripMenuItem_Click_noDB_header","No DB connection"},
 {"Form1_closeDBtoolStripMenuItem_Click_closeDB","Closing database connection." 
@@ -448,6 +451,8 @@ namespace IPv6SubnettingTool
 {"Form1_MsgBoxprefixnotfound","Prefix not found"},
 {"Form1_statsusagetoolStripMenuItem.Text","&Statistics/Utilization of this range..."},
 {"Form1_statstoolStripMenuItem1.Text","&Statistics/Utilization of this range..."},
+//
+{"Form1_prefixNotFoundinDB.Text"," > Not found. Prefix is not in the database."},
 //
 {"Form1_windowstoolStripMenuItem.Text","&Windows"},
 {"Form1_closeAlltoolStripMenuItem.Text","&Close All Windows"},
@@ -720,9 +725,11 @@ namespace IPv6SubnettingTool
 {"Form1_databasetoolStripMenuItem.Text","&Datenbank"},
 {"Form1_connectDBtoolStripMenuItem.Text","&Verbinden..."},
 {"Form1_closeDBtoolStripMenuItem.Text","&Schließen"},
+{"Form1_DBclosed.Text","Datenbankverbindung geschlossen."},
 {"Form1_statusofDBtoolStripMenuItem.Text","&Status"},
 {"Form1_opendbformtoolStripMenuItem.Text","Datenbank &Form öffnen"},
 {"Form1_sendtoDBtoolStripMenuItem.Text","&Präfix an Datenbank senden..."},
+{"Form1_getPrefixInfoFromDB.Text","&Präfix informationen aus der Datenbank..."},
 {"Form1_closeDBtoolStripMenuItem_Click_noDB","keine geöffnete Datenbank-Verbindung!"},
 {"Form1_closeDBtoolStripMenuItem_Click_noDB_header","keine DB-V"},
 {"Form1_closeDBtoolStripMenuItem_Click_closeDB","Datenbank-Verbindung schließen." 
@@ -742,6 +749,8 @@ namespace IPv6SubnettingTool
 {"Form1_MsgBoxprefixnotfound","Präfix nicht gefunden"},
 {"Form1_statsusagetoolStripMenuItem.Text","&Auslastung/Stats dieses Bereichs..."},
 {"Form1_statstoolStripMenuItem1.Text","&Auslastung/Stats dieses Bereichs..."},
+//
+{"Form1_prefixNotFoundinDB.Text"," > Nicht gefunden. Präfix ist nicht in der Datenbank."},
 //
 {"Form1_windowstoolStripMenuItem.Text","&Fenster"},
 {"Form1_closeAlltoolStripMenuItem.Text","alle Fenster &Schließen"},

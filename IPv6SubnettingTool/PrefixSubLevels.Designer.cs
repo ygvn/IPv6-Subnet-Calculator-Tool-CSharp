@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2019 Yucel Guven
+ * Copyright (c) 2010-2020 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -57,7 +57,10 @@ namespace IPv6SubnettingTool
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.dBInfoAboutPrefixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -65,18 +68,36 @@ namespace IPv6SubnettingTool
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeView1
             // 
             this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.treeView1.ContextMenuStrip = this.contextMenuStrip1;
             this.treeView1.Location = new System.Drawing.Point(12, 66);
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(420, 392);
             this.treeView1.TabIndex = 0;
             this.treeView1.BeforeCollapse += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeCollapse);
             this.treeView1.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeExpand);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem,
+            this.dBInfoAboutPrefixToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(206, 70);
+            // 
+            // dBInfoAboutPrefixToolStripMenuItem
+            // 
+            this.dBInfoAboutPrefixToolStripMenuItem.Name = "dBInfoAboutPrefixToolStripMenuItem";
+            this.dBInfoAboutPrefixToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.dBInfoAboutPrefixToolStripMenuItem.Text = "&Get prefix info from DB...";
+            this.dBInfoAboutPrefixToolStripMenuItem.Click += new System.EventHandler(this.dBInfoAboutPrefixToolStripMenuItem_Click);
             // 
             // groupBox1
             // 
@@ -151,6 +172,13 @@ namespace IPv6SubnettingTool
             this.label4.Text = "db=";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.copyToolStripMenuItem.Text = "&Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
             // PrefixSubLevels
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -168,6 +196,7 @@ namespace IPv6SubnettingTool
             this.Text = "IPv6 Subnet Calculator - Prefix SubLevels";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PrefixSubLevelsForm_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PrefixSubLevelsForm_KeyDown);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -184,5 +213,8 @@ namespace IPv6SubnettingTool
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem dBInfoAboutPrefixToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
     }
 }

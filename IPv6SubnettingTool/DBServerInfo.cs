@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2019 Yucel Guven
+ * Copyright (c) 2010-2020 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -28,9 +28,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Net;
 
 namespace IPv6SubnettingTool
@@ -39,6 +36,7 @@ namespace IPv6SubnettingTool
     {
         public DBServerInfo() { }
 
+        public string DriverName = "MySQL ODBC 8.0 Unicode Driver";
         public IPAddress ServerIP = null;
         public UInt16 PortNum = 3306;
         public string DBname = "";
@@ -50,6 +48,7 @@ namespace IPv6SubnettingTool
         
         public void Initialize()
         {
+            this.DriverName = "MySQL ODBC 8.0 Unicode Driver";
             this.ServerIP = null;
             this.PortNum = 3306;
             this.DBname = "";

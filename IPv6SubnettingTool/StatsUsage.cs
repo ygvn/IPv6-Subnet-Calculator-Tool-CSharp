@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2019 Yucel Guven
+ * Copyright (c) 2010-2020 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -28,12 +28,8 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Globalization;
 using System.Data.Odbc;
@@ -94,13 +90,13 @@ namespace IPv6SubnettingTool
                 + StringsDictionary.KeyValue("StatsUsageForm_groupBox2.Text", this.culture);
 
             if (this.MySQLconnection == null)
-                this.label4.Text = "db=DOWN";
+                this.label4.Text = "db=Down";
             else
             {
                 if (this.MySQLconnection.State == ConnectionState.Open)
-                    this.label4.Text = "db=UP";
+                    this.label4.Text = "db=Up";
                 else if (this.MySQLconnection.State == ConnectionState.Closed)
-                    this.label4.Text = "db=DOWN";
+                    this.label4.Text = "db=Down";
             }
 
             this.Calculate();
@@ -252,13 +248,13 @@ namespace IPv6SubnettingTool
             this.ServerInfo = servinfo;
 
             if (this.MySQLconnection == null)
-                this.label4.Text = "db=DOWN";
+                this.label4.Text = "db=Down";
             else
             {
                 if (this.MySQLconnection.State == ConnectionState.Open)
-                    this.label4.Text = "db=UP";
+                    this.label4.Text = "db=Up";
                 else if (this.MySQLconnection.State == ConnectionState.Closed)
-                    this.label4.Text = "db=DOWN";
+                    this.label4.Text = "db=Down";
             }
 
             this.changeDBstate.Invoke(this.MySQLconnection, this.ServerInfo);
@@ -288,6 +284,11 @@ namespace IPv6SubnettingTool
             this.ChangeUILanguage += listassigned.SwitchLanguage;
             this.changeDBstate += listassigned.DBStateChange;
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Calculate();
         }
 
         private void StatsUsage_FormClosing(object sender, FormClosingEventArgs e)

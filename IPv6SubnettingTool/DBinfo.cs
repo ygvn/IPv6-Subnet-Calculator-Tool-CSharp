@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2019 Yucel Guven
+ * Copyright (c) 2010-2020 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -29,14 +29,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.Globalization;
+using Microsoft.Win32;
 
 namespace IPv6SubnettingTool
 {
@@ -44,17 +41,35 @@ namespace IPv6SubnettingTool
     {
         #region special variables - yucel
         public DBServerInfo ServerInfo = new DBServerInfo();
+
         public CultureInfo culture;
         public delegate void ChangeWinFormStringsDelegate(CultureInfo culture);
         public event ChangeWinFormStringsDelegate ChangeUILanguage = delegate { };
         #endregion
 
-        public DBinfo(CultureInfo culture)
+        public DBinfo(CultureInfo culture, DBServerInfo servinfo)
         {
             InitializeComponent();
 
             this.culture = culture;
             this.SwitchLanguage(this.culture);
+            this.ServerInfo = servinfo;
+
+            if (this.ServerInfo.DriverName != null)
+            {
+                this.comboBox1.Items.Add(this.ServerInfo.DriverName);
+                this.comboBox1.SelectedItem = this.comboBox1.Items[0];
+            }
+            if (this.ServerInfo.ServerIP != null)
+                this.textBox1.Text = this.ServerInfo.ServerIP.ToString();
+            if (this.ServerInfo.PortNum.ToString() != null)
+                this.textBox7.Text = this.ServerInfo.PortNum.ToString();
+            if (this.ServerInfo.DBname != null)
+                this.textBox2.Text = this.ServerInfo.DBname;
+            if (this.ServerInfo.Tablename != null)
+                this.textBox5.Text = this.ServerInfo.Tablename;
+            if (this.ServerInfo.Username != null)
+                this.textBox3.Text = this.ServerInfo.Username;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -79,9 +94,19 @@ namespace IPv6SubnettingTool
                 return;
             }
 
-            if (! UInt16.TryParse(this.textBox7.Text.Trim(), out this.ServerInfo.PortNum))
+            if (!UInt16.TryParse(this.textBox7.Text.Trim(), out this.ServerInfo.PortNum))
             {
                 this.textBox7.BackColor = Color.Yellow;
+                return;
+            }
+
+            if (this.comboBox1.SelectedItem != null)
+            {
+                this.ServerInfo.DriverName = this.comboBox1.SelectedItem.ToString().Trim();
+            }
+            else
+            {
+                this.comboBox1.BackColor = Color.Yellow;
                 return;
             }
 
@@ -89,6 +114,12 @@ namespace IPv6SubnettingTool
             this.ServerInfo.Username = this.textBox3.Text.Trim();
             this.ServerInfo.Password = this.textBox4.Text.Trim();
             this.ServerInfo.Tablename = this.textBox5.Text.Trim();
+
+            if (this.ServerInfo.DriverName == "")
+            {
+                this.comboBox1.BackColor = Color.Yellow;
+                return;
+            }
 
             if (this.ServerInfo.DBname == "")
             {
@@ -110,7 +141,7 @@ namespace IPv6SubnettingTool
                 this.textBox4.BackColor = Color.Yellow;
                 return;
             }
-            
+
             if (this is IDisposable)
                 this.Dispose();
             else
@@ -170,6 +201,21 @@ namespace IPv6SubnettingTool
             }
         }
 
+        private void comboBox1_Enter(object sender, EventArgs e)
+        {
+            this.comboBox1.BackColor = Color.White;
+        }
+
+        private void comboBox1_Leave(object sender, EventArgs e)
+        {
+            string s = this.comboBox1.Text.Trim();
+            if (!this.comboBox1.Items.Contains(s) && s.Trim() != "")
+            {
+                this.comboBox1.Items.Add(s);
+                this.comboBox1.SelectedItem = this.comboBox1.Items[this.comboBox1.Items.Count - 1];
+            }
+        }
+
         private void textBox1_Enter(object sender, EventArgs e)
         {
             this.textBox1.BackColor = Color.White;
@@ -200,14 +246,40 @@ namespace IPv6SubnettingTool
             this.textBox4.BackColor = Color.White;
         }
 
-        private void DBinfo_Load(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
-            if (this.ServerInfo.ServerIP != null)
-                this.textBox1.Text = this.ServerInfo.ServerIP.ToString();
-            this.textBox7.Text = this.ServerInfo.PortNum.ToString();
-            this.textBox2.Text = this.ServerInfo.DBname;
-            this.textBox5.Text = this.ServerInfo.Tablename;
-            this.textBox3.Text = this.ServerInfo.Username;
+            this.comboBox1.Items.Clear();
+            
+            List<string> odbcdriverNames = this.OdbcDriverNames();
+            
+            if (odbcdriverNames.Count != 0)
+                this.comboBox1.Items.AddRange(odbcdriverNames.ToArray());
+
+            this.comboBox1.SelectedItem = this.comboBox1.Items[0];
+            //this.label9.Text = "[" + this.comboBox1.Items.Count.ToString() + "]";
+        }
+
+        private List<string> OdbcDriverNames()
+        {
+            List<string> driverNames = new List<string>();
+
+            // 64bit & 32bit installed drivers:
+            string[] regkeys = { @"SOFTWARE\ODBC\ODBCINST.INI\ODBC Drivers", 
+                                 @"SOFTWARE\WOW6432Node\ODBC\ODBCINST.INI\ODBC Drivers" };
+
+            foreach (string s in regkeys)
+            {
+                using (RegistryKey HKLMRegistry = Registry.LocalMachine)
+                using (RegistryKey odbcDrivers = HKLMRegistry.OpenSubKey(s))
+                {
+                    if (odbcDrivers != null)
+                    {
+                        driverNames.AddRange(odbcDrivers.GetValueNames());
+                    }
+                }
+            }
+
+            return driverNames;
         }
     }
 }

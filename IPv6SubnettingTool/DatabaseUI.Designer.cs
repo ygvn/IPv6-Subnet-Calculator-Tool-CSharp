@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2019 Yucel Guven
+ * Copyright (c) 2010-2020 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -294,34 +294,34 @@ namespace IPv6SubnettingTool
             this.deletetoolStripMenuItem1,
             this.modifytoolStripMenuItem1});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(145, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(146, 92);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // selectAlltoolStripMenuItem1
             // 
             this.selectAlltoolStripMenuItem1.Name = "selectAlltoolStripMenuItem1";
-            this.selectAlltoolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.selectAlltoolStripMenuItem1.Size = new System.Drawing.Size(145, 22);
             this.selectAlltoolStripMenuItem1.Text = "Select &All";
             this.selectAlltoolStripMenuItem1.Click += new System.EventHandler(this.selectAlltoolStripMenuItem1_Click);
             // 
             // copytoolStripMenuItem1
             // 
             this.copytoolStripMenuItem1.Name = "copytoolStripMenuItem1";
-            this.copytoolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.copytoolStripMenuItem1.Size = new System.Drawing.Size(145, 22);
             this.copytoolStripMenuItem1.Text = "&Copy";
             this.copytoolStripMenuItem1.Click += new System.EventHandler(this.copytoolStripMenuItem1_Click);
             // 
             // deletetoolStripMenuItem1
             // 
             this.deletetoolStripMenuItem1.Name = "deletetoolStripMenuItem1";
-            this.deletetoolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.deletetoolStripMenuItem1.Size = new System.Drawing.Size(145, 22);
             this.deletetoolStripMenuItem1.Text = "&Delete prefix";
             this.deletetoolStripMenuItem1.Click += new System.EventHandler(this.deletetoolStripMenuItem1_Click);
             // 
             // modifytoolStripMenuItem1
             // 
             this.modifytoolStripMenuItem1.Name = "modifytoolStripMenuItem1";
-            this.modifytoolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.modifytoolStripMenuItem1.Size = new System.Drawing.Size(145, 22);
             this.modifytoolStripMenuItem1.Text = "&Modify prefix";
             this.modifytoolStripMenuItem1.Click += new System.EventHandler(this.modifytoolStripMenuItem1_Click);
             // 

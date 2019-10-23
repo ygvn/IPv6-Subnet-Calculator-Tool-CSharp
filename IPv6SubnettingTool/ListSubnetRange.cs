@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2019 Yucel Guven
+ * Copyright (c) 2010-2020 Yucel Guven
  * All rights reserved.
  *
  * This file is part of IPv6 Subnetting Tool.
@@ -30,10 +30,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Globalization;
 using System.Numerics;
@@ -80,7 +77,8 @@ namespace IPv6SubnettingTool
             set { this.findpfx = value; }
         }
 
-        public ListSubnetRange(SEaddress input, string sin, int slash, int subnetslash, CheckState is128Checked, CultureInfo culture, OdbcConnection sqlcon, DBServerInfo servinfo)
+        public ListSubnetRange(SEaddress input, string sin, int slash, int subnetslash, CheckState is128Checked, 
+            CultureInfo culture, OdbcConnection sqlcon, DBServerInfo servinfo)
         {
             InitializeComponent();
             this.graph = this.CreateGraphics();
@@ -439,6 +437,7 @@ namespace IPv6SubnettingTool
                     // Turquaz= FF(A) 40E0D0(RGB)
                     Color color = Color.FromArgb(30, 64, 224, 208);
                     g.FillRectangle(new SolidBrush(color), e.Bounds);
+                    //g.FillRectangle(new SolidBrush(Color.WhiteSmoke), e.Bounds);
                     g.DrawString(lb.Items[e.Index].ToString(), e.Font,
                         sfore, new PointF(e.Bounds.X, e.Bounds.Y));
                 }
@@ -574,21 +573,30 @@ namespace IPv6SubnettingTool
         {
             if (this.listBox1.Items.Count > 0)
             {
-                this.contextMenuStrip1.Items[2].Enabled = true; // revdns
-                this.contextMenuStrip1.Items[4].Enabled = true; // findpfx
-                this.contextMenuStrip1.Items[6].Enabled = true; // saveas
-                
+                this.contextMenuStrip1.Items[2].Enabled = true; // findpfx
+                this.contextMenuStrip1.Items[3].Enabled = true; // revdns
+                this.contextMenuStrip1.Items[7].Enabled = true; // saveas
+                this.contextMenuStrip1.Items[8].Enabled = true; // fonts
+
                 if (this.listBox1.SelectedItem != null && this.listBox1.SelectedItem.ToString() != ""
-                    && this.listBox1.SelectedIndex != -1)
-                    this.contextMenuStrip1.Items[3].Enabled = true; // dbase
+                    && this.listBox1.SelectedIndex != -1 && this.MySQLconnection != null)
+                {
+                    this.contextMenuStrip1.Items[4].Enabled = true; // dbase
+                    this.contextMenuStrip1.Items[5].Enabled = true; // getinfofromdb
+                }
                 else
-                    this.contextMenuStrip1.Items[3].Enabled = false; // dbase
+                {
+                    this.contextMenuStrip1.Items[4].Enabled = false; // dbase
+                    this.contextMenuStrip1.Items[5].Enabled = false; // getinfofromdb
+                }
             }
             else
             {
                 this.contextMenuStrip1.Items[2].Enabled = false;
+                this.contextMenuStrip1.Items[3].Enabled = false;
                 this.contextMenuStrip1.Items[4].Enabled = false;
-                this.contextMenuStrip1.Items[6].Enabled = false;
+                this.contextMenuStrip1.Items[5].Enabled = false;
+                this.contextMenuStrip1.Items[7].Enabled = false;
             }
         }
 
@@ -791,6 +799,7 @@ namespace IPv6SubnettingTool
             this.savetoolStripMenuItem1.Text = StringsDictionary.KeyValue("ListSubnetRange_savetoolStripMenuItem1.Text", this.culture);
             this.selectAllToolStripMenuItem.Text = StringsDictionary.KeyValue("ListSubnetRange_selectAllToolStripMenuItem.Text", this.culture);
             this.sendtodatabasetoolStripMenuItem1.Text = StringsDictionary.KeyValue("ListSubnetRange_sendtodatabasetoolStripMenuItem1.Text", this.culture);
+            this.getPrefixInfoFromDBToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_getPrefixInfoFromDB.Text", this.culture);
             this.findprefixtoolStripMenuItem1.Text = StringsDictionary.KeyValue("Form1_findprefixtoolStripMenuItem1.Text", this.culture);
             //
             this.toolTip1.SetToolTip(this.FirstPage, StringsDictionary.KeyValue("ListSubnetRange_FirstPage.ToolTip", this.culture));
@@ -983,6 +992,18 @@ namespace IPv6SubnettingTool
                 MessageBox.Show("Out of [Start-End] interval", "Out of range",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+        }
+
+        private void getPrefixInfoFromDBToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.listBox1.SelectedItem != null && this.listBox1.SelectedItem.ToString() != ""
+                && this.listBox1.SelectedIndex != -1 && this.MySQLconnection != null)
+            {
+                string pfx = this.listBox1.SelectedItem.ToString().Split(' ')[1];
+                GetPrefixInfoFromDB getpfxinfo = new GetPrefixInfoFromDB(pfx, this.MySQLconnection, this.ServerInfo, this.culture);
+                getpfxinfo.ShowDialog();
+
             }
         }
     }

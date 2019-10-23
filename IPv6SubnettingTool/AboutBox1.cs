@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2010-2019 Yucel Guven
+ * Copyright (c) 2010-2020 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
@@ -28,10 +28,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -47,7 +43,7 @@ namespace IPv6SubnettingTool
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelEmail.Text = " yucelguven@hotmail.com ";
-            //this.labelCompanyName.Text = AssemblyCompany;
+            this.labelNET.Text = "Target .NET Framework Version=4.7.2"; //AppDomain.CurrentDomain.SetupInformation.TargetFrameworkName;
             //this.textBoxDescription.Text = AssemblyDescription;
         }
 
