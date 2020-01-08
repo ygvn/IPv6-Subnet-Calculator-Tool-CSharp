@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.1
- * Published Date: 6 January 2020
+ * Version: 4.2
+ * Published Date: 7 January 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -66,6 +66,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.1")]
-[assembly: AssemblyFileVersion("4.1")]
+[assembly: AssemblyVersion("4.2")]
+[assembly: AssemblyFileVersion("4.2")]
 [assembly: NeutralResourcesLanguageAttribute("")]

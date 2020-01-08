@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.1
- * Published Date: 6 January 2020
+ * Version: 4.2
+ * Published Date: 7 January 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -203,6 +203,11 @@ namespace IPv6SubnettingTool
 
                 string s = String.Format("{0:x}", StartEnd.Start);
                 
+                s = v6ST.IPv4Format(s);
+                this.label5.Text = s + "/" + StartEnd.subnetslash.ToString();
+
+                s = String.Format("{0:x}", StartEnd.End);
+
                 s = v6ST.IPv4Format(s);
                 this.label6.Text = s + "/" + StartEnd.subnetslash.ToString();
 

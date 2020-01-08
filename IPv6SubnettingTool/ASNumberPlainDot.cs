@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.1
- * Published Date: 6 January 2020
+ * Version: 4.2
+ * Published Date: 7 January 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -33,8 +33,6 @@
 using System;
 using System.Windows.Forms;
 using System.Globalization;
-using System.ComponentModel;
-using System.Drawing;
 
 namespace IPv6SubnettingTool
 {

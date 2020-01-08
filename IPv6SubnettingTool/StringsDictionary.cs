@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.1
- * Published Date: 6 January 2020
+ * Version: 4.2
+ * Published Date: 7 January 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -54,7 +54,6 @@ namespace IPv6SubnettingTool
         static Dictionary<string, string> dict_tr = new Dictionary<string, string>() {
 {"Form1_aboutToolStripMenuItem.Text","&Hakkında..."},
 {"Form1_Address_Type","Tipi: "},
-//{"Form1_Backwd.Text","<<"},
 {"Form1_Backwd.Text",""},
 {"Form1_Backwd.ToolTip","-128"},
 {"Form1_checkBox1.Text","AltAğ   "},
@@ -91,7 +90,6 @@ namespace IPv6SubnettingTool
 {"Form1_GermanToolStripMenuItem","&Deutsch"},
 {"Form1_KeyDown_header","ÇIKIŞ - IPv6 Ağ Hesap Makinesi"},
 {"Form1_KeyDown_msg","Programdan Çıkış"},
-//{"Form1_Forwd.Text",">>"},
 {"Form1_Forwd.Text",""},
 {"Form1_Forwd.ToolTip","+128"},
 {"Form1_goToAddrSpaceNumberToolStripMenuItem.Text","&Adres Numarasına..."},
@@ -109,7 +107,6 @@ namespace IPv6SubnettingTool
 {"Form1_label7.Text","Bitiş:"},
 {"Form1_label9.Text","/"},
 {"Form1_languageToolStripMenuItem","&Dil"},
-//{"Form1_Last.Text",">>|"},
 {"Form1_Last.Text",""},
 {"Form1_Last.ToolTip","Son Sayfa"},
 {"Form1_list128SubnetsToolStripMenuItem.Text","/128 Adreslerini &listele"},
