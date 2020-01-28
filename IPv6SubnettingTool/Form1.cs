@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.2
- * Published Date: 7 January 2020
+ * Version: 4.3
+ * Published Date: 28 January 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -1606,7 +1606,7 @@ namespace IPv6SubnettingTool
 
                 lh = new ListSubnetRange(this.StartEnd, listBox1.SelectedItem.ToString(),
                     this.trackBar1.Value, this.trackBar2.Value, this.checkBox2.CheckState, this.culture, MySQLconnection,
-                    this.ServerInfo, ipmode, this.listBox1.Font);
+                    this.ServerInfo, ipmode, this.listBox1.Font, false);
 
                 if (!lh.IsDisposed)
                 {
@@ -1651,7 +1651,7 @@ namespace IPv6SubnettingTool
 
             lh = new ListSubnetRange(this.StartEnd, listBox1.SelectedItem.ToString(),
                 this.trackBar1.Value, this.trackBar2.Value, this.checkBox2.CheckState, this.culture, MySQLconnection,
-                this.ServerInfo, ipmode, this.listBox1.Font);
+                this.ServerInfo, ipmode, this.listBox1.Font, false);
 
 
             if (!lh.IsDisposed)
@@ -1682,7 +1682,7 @@ namespace IPv6SubnettingTool
 
                     lh = new ListSubnetRange(this.StartEnd, listBox1.SelectedItem.ToString(),
                         this.trackBar1.Value, this.trackBar2.Value, this.checkBox2.CheckState, this.culture, MySQLconnection,
-                        this.ServerInfo, ipmode, this.listBox1.Font);
+                        this.ServerInfo, ipmode, this.listBox1.Font, false);
                 
 
                 if (!lh.IsDisposed)
@@ -1824,9 +1824,12 @@ namespace IPv6SubnettingTool
                         {
                             listSubnetRangeToolStripMenuItem.Enabled = false;
                             list128SubnetsToolStripMenuItem.Enabled = false;
+                            this.listcurrentRangetoolStripMenuItem1.Enabled = false;
                         }
                         else
                         {
+                            this.listcurrentRangetoolStripMenuItem1.Enabled = true;
+
                             if (this.checkBox2.CheckState == CheckState.Unchecked)
                                 listSubnetRangeToolStripMenuItem.Enabled = true;
                             else
@@ -1843,6 +1846,7 @@ namespace IPv6SubnettingTool
                     {
                         this.list32AddrToolStripMenuItem1.Enabled = true;
                         listSubnetRangeToolStripMenuItem.Enabled = false;
+                        this.listcurrentRangetoolStripMenuItem1.Enabled = true;
                     }
                     
                     if (MySQLconnection != null)
@@ -1867,6 +1871,7 @@ namespace IPv6SubnettingTool
                     sendToDatabaseToolStripMenuItem1.Enabled = false;
                     getPrefixInfoFromDBToolStripMenuItem.Enabled = false;
                     prefixsublevelstoolStripMenuItem1.Enabled = false;
+                    this.listcurrentRangetoolStripMenuItem1.Enabled = false;
                 }
             }
             else
@@ -1883,6 +1888,7 @@ namespace IPv6SubnettingTool
                 findprefixtoolStripMenuItem.Enabled = false;
                 whoisQueryToolStripMenuItem1.Enabled = false;
                 savetoolStripMenuItem1.Enabled = false;
+                this.listcurrentRangetoolStripMenuItem1.Enabled = false;
             }
         }
 
@@ -2273,6 +2279,31 @@ namespace IPv6SubnettingTool
             }
         }
 
+        private void listcurrentRangeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.listBox1.SelectedItem != null && this.listBox1.SelectedItem.ToString() != ""
+                && this.listBox1.SelectedIndex != -1)
+            {
+
+                ListSubnetRange lh = null;
+
+                lh = new ListSubnetRange(this.StartEnd, listBox1.SelectedItem.ToString(),
+                    this.trackBar1.Value, this.trackBar2.Value, this.checkBox2.CheckState, this.culture, MySQLconnection,
+                    this.ServerInfo, ipmode, this.listBox1.Font, true);
+
+
+                if (!lh.IsDisposed)
+                {
+                    lh.Show();
+                    //
+                    windowsList.Add(new WindowsList(lh, lh.Name, lh.GetHashCode(), ipmode));
+
+                    this.ChangeUILanguage += lh.SwitchLanguage;
+                    this.changeDBstate += lh.DBStateChange;
+                }
+            }
+        }
+
         private void list32AddrToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.listBox1_MouseDoubleClick(null, null);
@@ -2300,7 +2331,7 @@ namespace IPv6SubnettingTool
 
                 lh = new ListSubnetRange(this.StartEnd, listBox1.SelectedItem.ToString(),
                     this.trackBar1.Value, this.trackBar2.Value, this.checkBox2.CheckState, this.culture, MySQLconnection,
-                    this.ServerInfo, ipmode, this.listBox1.Font);
+                    this.ServerInfo, ipmode, this.listBox1.Font, false);
 
 
                 if (!lh.IsDisposed)
@@ -2356,9 +2387,12 @@ namespace IPv6SubnettingTool
                         {
                             this.list64SubnetsToolStripMenuItem.Enabled = false;
                             this.list128SubnetsToolStripMenuItem1.Enabled = false;
+                            this.listcurrentRangeToolStripMenuItem.Enabled = false;
                         }
                         else
                         {
+                            this.listcurrentRangeToolStripMenuItem.Enabled = true;
+
                             if (this.checkBox2.CheckState == CheckState.Unchecked)
                                 this.list64SubnetsToolStripMenuItem.Enabled = true;
                             else
@@ -2373,6 +2407,7 @@ namespace IPv6SubnettingTool
                     else //v4
                     {
                         this.list32AddrToolStripMenuItem.Enabled = true;
+                        this.listcurrentRangeToolStripMenuItem.Enabled = true;
                     }
                 }
                 else
@@ -2381,6 +2416,7 @@ namespace IPv6SubnettingTool
                     this.list64SubnetsToolStripMenuItem.Enabled = false;
                     this.list128SubnetsToolStripMenuItem1.Enabled = false;
                     this.workwithtoolStripMenuItem1.Enabled = false;
+                    this.listcurrentRangeToolStripMenuItem.Enabled = false;
                 }
             }
             else
@@ -2390,6 +2426,7 @@ namespace IPv6SubnettingTool
                 this.list128SubnetsToolStripMenuItem1.Enabled = false;
                 this.listAllDNSReverseZonesToolStripMenuItem.Enabled = false;
                 this.workwithtoolStripMenuItem1.Enabled = false;
+                this.listcurrentRangeToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -2562,7 +2599,7 @@ namespace IPv6SubnettingTool
 
                     lh = new ListSubnetRange(this.StartEnd, listBox1.SelectedItem.ToString(),
                         this.trackBar1.Value, this.trackBar2.Value, this.checkBox2.CheckState, this.culture, MySQLconnection,
-                        this.ServerInfo, ipmode, this.listBox1.Font);
+                        this.ServerInfo, ipmode, this.listBox1.Font, false);
                 
 
                 if (!lh.IsDisposed)
@@ -2726,7 +2763,7 @@ namespace IPv6SubnettingTool
 
         private void exportToFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveAsText exptofile = new SaveAsText(this.StartEnd, this.checkBox2.CheckState, this.culture);
+            SaveAsText exptofile = new SaveAsText(this.StartEnd, this.checkBox2.CheckState, this.culture, false);
             exptofile.Show();
             //
             windowsList.Add(new WindowsList(exptofile, exptofile.Name, exptofile.GetHashCode(), ipmode));
@@ -2748,7 +2785,7 @@ namespace IPv6SubnettingTool
 
         private void savetoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            SaveAsText saveas = new SaveAsText(this.StartEnd, this.checkBox2.CheckState, this.culture);
+            SaveAsText saveas = new SaveAsText(this.StartEnd, this.checkBox2.CheckState, this.culture, false);
             saveas.Show();
             //
             windowsList.Add(new WindowsList(saveas, saveas.Name, saveas.GetHashCode(), ipmode));

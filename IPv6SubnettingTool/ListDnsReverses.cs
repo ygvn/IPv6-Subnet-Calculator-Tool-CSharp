@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.2
- * Published Date: 7 January 2020
+ * Version: 4.3
+ * Published Date: 28 January 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -922,7 +922,7 @@ namespace IPv6SubnettingTool
 
         private void savetoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            SaveAsText saveastxt = new SaveAsText(StartEnd, this.is128Checked, this.culture);
+            SaveAsText saveastxt = new SaveAsText(StartEnd, this.is128Checked, this.culture, false);
             saveastxt.Show();
 
             IPv6SubnettingTool.Form1.windowsList.Add(new WindowsList(saveastxt, saveastxt.Name, saveastxt.GetHashCode(), null));

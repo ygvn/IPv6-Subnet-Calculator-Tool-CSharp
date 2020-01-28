@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.2
- * Published Date: 7 January 2020
+ * Version: 4.3
+ * Published Date: 28 January 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -65,6 +65,7 @@ namespace IPv6SubnettingTool
         public CultureInfo culture;
         string currentMode = "";
         Font font;
+        bool SelectedRange = false;
         public delegate void ChangeWinFormStringsDelegate(CultureInfo culture);
         public event ChangeWinFormStringsDelegate ChangeUILanguage = delegate { };
         //DB
@@ -83,12 +84,13 @@ namespace IPv6SubnettingTool
 
         public ListSubnetRange(SEaddress input, string sin, int slash, int subnetslash, CheckState is128Checked, 
             CultureInfo culture, OdbcConnection sqlcon, 
-            DBServerInfo servinfo, string mode, Font font)
+            DBServerInfo servinfo, string mode, Font font, bool selectedrange)
         {
             InitializeComponent();
             //
             this.font = font;
-            
+            this.SelectedRange = selectedrange;
+
             this.listBox1.Font = font;
             this.textBox1.Font = font;
             this.textBox2.Font = font;
@@ -363,7 +365,7 @@ namespace IPv6SubnettingTool
 
                 this.listBox1.Items.Clear();
 
-                subnets = v6ST.ListSubRangeFirstPage(subnets, is128Checked);
+                subnets = v6ST.ListSubRangeFirstPage(subnets, is128Checked, this.SelectedRange);
                 page.End = subnets.Start - BigInteger.One;
                 this.listBox1.Items.AddRange(subnets.liste.ToArray());
 
@@ -398,7 +400,7 @@ namespace IPv6SubnettingTool
 
                 this.listBox1.Items.Clear();
 
-                subnets = v6ST.ListSubRangeFirstPage_v4(subnets);
+                subnets = v6ST.ListSubRangeFirstPage_v4(subnets, this.SelectedRange);
                 page.End = subnets.Start - BigInteger.One;
                 this.listBox1.Items.AddRange(subnets.liste.ToArray());
 
@@ -435,7 +437,7 @@ namespace IPv6SubnettingTool
 
                 this.listBox1.Items.Clear();
 
-                subnets = v6ST.ListSubRangePageBackward(subnets, is128Checked);
+                subnets = v6ST.ListSubRangePageBackward(subnets, is128Checked, this.SelectedRange);
                 page.Start = subnets.Start + BigInteger.One;
 
                 this.listBox1.Items.AddRange(subnets.liste.ToArray());
@@ -465,7 +467,7 @@ namespace IPv6SubnettingTool
 
                 this.listBox1.Items.Clear();
 
-                subnets = v6ST.ListSubRangePageBackward_v4(subnets);
+                subnets = v6ST.ListSubRangePageBackward_v4(subnets, this.SelectedRange);
                 page.Start = subnets.Start + BigInteger.One;
 
                 this.listBox1.Items.AddRange(subnets.liste.ToArray());
@@ -505,7 +507,7 @@ namespace IPv6SubnettingTool
 
                 this.listBox1.Items.Clear();
 
-                subnets = v6ST.ListSubRangePageForward(subnets, is128Checked);
+                subnets = v6ST.ListSubRangePageForward(subnets, is128Checked, this.SelectedRange);
 
                 page.End = subnets.Start - BigInteger.One;
                 this.listBox1.Items.AddRange(subnets.liste.ToArray());
@@ -535,7 +537,7 @@ namespace IPv6SubnettingTool
 
                 this.listBox1.Items.Clear();
 
-                subnets = v6ST.ListSubRangePageForward_v4(subnets);
+                subnets = v6ST.ListSubRangePageForward_v4(subnets, this.SelectedRange);
 
                 page.End = subnets.Start - BigInteger.One;
                 this.listBox1.Items.AddRange(subnets.liste.ToArray());
@@ -574,7 +576,7 @@ namespace IPv6SubnettingTool
                 subnets.UpperLimitAddress = StartEnd.UpperLimitAddress;
 
                 this.listBox1.Items.Clear();
-                subnets = v6ST.ListSubRangeLastPage(subnets, is128Checked);
+                subnets = v6ST.ListSubRangeLastPage(subnets, is128Checked, this.SelectedRange);
                 this.listBox1.Items.AddRange(subnets.liste.ToArray());
                 page.Start = subnets.Start + BigInteger.One;
 
@@ -600,7 +602,7 @@ namespace IPv6SubnettingTool
                 subnets.UpperLimitAddress = StartEnd.UpperLimitAddress;
 
                 this.listBox1.Items.Clear();
-                subnets = v6ST.ListSubRangeLastPage_v4(subnets);
+                subnets = v6ST.ListSubRangeLastPage_v4(subnets, this.SelectedRange);
                 this.listBox1.Items.AddRange(subnets.liste.ToArray());
                 page.Start = subnets.Start + BigInteger.One;
 
@@ -931,7 +933,11 @@ namespace IPv6SubnettingTool
                             ss = ss.Substring(1, 32);
                         ss = v6ST.Kolonlar(ss, this.is128Checked);
                         ss = v6ST.CompressAddress(ss);
-                        ss = "p" + subnets.subnetidx + "> " + ss + "/128";
+
+                        if (this.SelectedRange)
+                            ss = "p" + subnets.subnetidx + "> " + ss + "/" + subnets.subnetslash;
+                        else
+                            ss = "p" + subnets.subnetidx + "> " + ss + "/128";
                     }
                     else if (this.is128Checked == CheckState.Unchecked)
                     {
@@ -940,7 +946,11 @@ namespace IPv6SubnettingTool
                             ss = ss.Substring(1, 16);
                         ss = v6ST.Kolonlar(ss, this.is128Checked);
                         ss = v6ST.CompressAddress(ss);
-                        ss = "p" + subnets.subnetidx + "> " + ss + "/64";
+
+                        if (this.SelectedRange)
+                            ss = "p" + subnets.subnetidx + "> " + ss + "/" + subnets.subnetslash;
+                        else
+                            ss = "p" + subnets.subnetidx + "> " + ss + "/64";
                     }
                     liste.Add(ss);
 
@@ -975,8 +985,11 @@ namespace IPv6SubnettingTool
 
                     ss = String.Format("{0:x}", subnets.Start);
                     ss = v6ST.IPv4Format(ss);
-                    
-                    ss = "p" + subnets.subnetidx + "> " + ss + "/32";
+
+                    if (this.SelectedRange)
+                        ss = "p" + subnets.subnetidx + "> " + ss + "/" + subnets.subnetslash;
+                    else
+                        ss = "p" + subnets.subnetidx + "> " + ss + "/32";
 
                     liste.Add(ss);
 
@@ -1009,7 +1022,7 @@ namespace IPv6SubnettingTool
 
         private void savetoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            SaveAsText saveastxt = new SaveAsText(StartEnd, is128Checked, this.culture);
+            SaveAsText saveastxt = new SaveAsText(StartEnd, is128Checked, this.culture, this.SelectedRange);
             saveastxt.Show();
 
             IPv6SubnettingTool.Form1.windowsList.Add(new WindowsList(saveastxt, saveastxt.Name, saveastxt.GetHashCode(), this.currentMode));

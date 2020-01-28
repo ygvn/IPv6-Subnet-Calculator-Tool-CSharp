@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.2
- * Published Date: 7 January 2020
+ * Version: 4.3
+ * Published Date: 28 January 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -53,6 +53,8 @@ namespace IPv6SubnettingTool
         BigInteger TotalBytes = BigInteger.Zero;
 
         CheckState is128Checked;
+        bool SelectedRange = false;
+        int input_subnetslash = 0;
         FileDialog saveDialog = new SaveFileDialog();
         DiskSpace diskspace = new DiskSpace();
         BigInteger count = BigInteger.Zero;
@@ -67,7 +69,7 @@ namespace IPv6SubnettingTool
         CurrentState saveState = new CurrentState();
         #endregion
 
-        public SaveAsText(SEaddress input, CheckState is128Checked, CultureInfo culture)
+        public SaveAsText(SEaddress input, CheckState is128Checked, CultureInfo culture, bool selectedrange)
         {
             InitializeComponent();
 
@@ -75,6 +77,8 @@ namespace IPv6SubnettingTool
             this.StartEnd.ID = ID;
             this.incomingID = input.ID;
             this.culture = culture;
+            this.SelectedRange = selectedrange;
+            this.input_subnetslash = input.subnetslash;
             #endregion
 
             this.SwitchLanguage(this.culture);
@@ -484,8 +488,11 @@ namespace IPv6SubnettingTool
                                 se = v6ST.Kolonlar(se, this.is128Checked);
                                 se = v6ST.CompressAddress(se);
 
-                                ss = "p" + StartEnd.subnetidx + "> " + ss + "/" +
-                                    StartEnd.subnetslash;
+                                if (this.SelectedRange)
+                                    ss = "p" + StartEnd.subnetidx + "> " + ss + "/" + this.input_subnetslash;
+                                else
+                                    ss = "p" + StartEnd.subnetidx + "> " + ss + "/" + StartEnd.subnetslash;
+
                                 TotalBytes += ss.Length + 2;
                                 saveAsName.WriteLine(ss);
 
@@ -493,8 +500,11 @@ namespace IPv6SubnettingTool
                                 {
                                     if (this.checkBox1.CheckState == CheckState.Checked)
                                     {
-                                        se = "e" + StartEnd.subnetidx + "> " + se + "/"
-                                            + StartEnd.subnetslash;
+                                        if (this.SelectedRange)
+                                            se = "e" + StartEnd.subnetidx + "> " + se + "/" + this.input_subnetslash;
+                                        else
+                                            se = "e" + StartEnd.subnetidx + "> " + se + "/" + StartEnd.subnetslash;
+
                                         TotalBytes += se.Length + 4;
                                         saveAsName.WriteLine(se);
                                         saveAsName.WriteLine("");
@@ -538,8 +548,10 @@ namespace IPv6SubnettingTool
                                 se = v6ST.Kolonlar(se, this.is128Checked);
                                 se = v6ST.CompressAddress(se);
 
-                                ss = "p" + StartEnd.subnetidx + "> " + ss + "/" +
-                                    StartEnd.subnetslash;
+                                if (this.SelectedRange)
+                                    ss = "p" + StartEnd.subnetidx + "> " + ss + "/" + this.input_subnetslash;
+                                else
+                                    ss = "p" + StartEnd.subnetidx + "> " + ss + "/" + StartEnd.subnetslash;
 
                                 TotalBytes += ss.Length + 2;
                                 saveAsName.WriteLine(ss);
@@ -548,8 +560,10 @@ namespace IPv6SubnettingTool
                                 {
                                     if (this.checkBox1.CheckState == CheckState.Checked)
                                     {
-                                        se = "e" + StartEnd.subnetidx + "> " + se + "/"
-                                            + StartEnd.subnetslash;
+                                        if (this.SelectedRange)
+                                            se = "e" + StartEnd.subnetidx + "> " + se + "/" + this.input_subnetslash;
+                                        else
+                                            se = "e" + StartEnd.subnetidx + "> " + se + "/" + StartEnd.subnetslash;
                                         TotalBytes += se.Length + 4;
                                         saveAsName.WriteLine(se);
                                         saveAsName.WriteLine("");
@@ -591,8 +605,11 @@ namespace IPv6SubnettingTool
                             se = String.Format("{0:x}", StartEnd.End);
                             se = v6ST.IPv4Format(se);
 
-                            ss = "p" + StartEnd.subnetidx + "> " + ss + "/" +
-                                StartEnd.subnetslash;
+                            if (this.SelectedRange)
+                                ss = "p" + StartEnd.subnetidx + "> " + ss + "/" + this.input_subnetslash;
+                            else
+                                ss = "p" + StartEnd.subnetidx + "> " + ss + "/" + StartEnd.subnetslash;
+
                             TotalBytes += ss.Length + 2;
                             saveAsName.WriteLine(ss);
 
@@ -600,8 +617,11 @@ namespace IPv6SubnettingTool
                             {
                                 if (this.checkBox1.CheckState == CheckState.Checked)
                                 {
-                                    se = "e" + StartEnd.subnetidx + "> " + se + "/"
-                                        + StartEnd.subnetslash;
+                                    if (this.SelectedRange)
+                                        se = "e" + StartEnd.subnetidx + "> " + se + "/" + this.input_subnetslash;
+                                    else
+                                        se = "e" + StartEnd.subnetidx + "> " + se + "/" + StartEnd.subnetslash;
+
                                     TotalBytes += se.Length + 4;
                                     saveAsName.WriteLine(se);
                                     saveAsName.WriteLine("");

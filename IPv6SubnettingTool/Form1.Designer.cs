@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.2
- * Published Date: 7 January 2020
+ * Version: 4.3
+ * Published Date: 28 January 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -87,6 +87,7 @@ namespace IPv6SubnettingTool
             this.iPv4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.listcurrentRangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.list32AddrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.list64SubnetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.list128SubnetsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -136,6 +137,7 @@ namespace IPv6SubnettingTool
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listcurrentRangetoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.list32AddrToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.listSubnetRangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.list128SubnetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -441,6 +443,7 @@ namespace IPv6SubnettingTool
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator1,
+            this.listcurrentRangeToolStripMenuItem,
             this.list32AddrToolStripMenuItem,
             this.list64SubnetsToolStripMenuItem,
             this.list128SubnetsToolStripMenuItem1,
@@ -460,6 +463,14 @@ namespace IPv6SubnettingTool
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(256, 6);
+            // 
+            // listcurrentRangeToolStripMenuItem
+            // 
+            this.listcurrentRangeToolStripMenuItem.Enabled = false;
+            this.listcurrentRangeToolStripMenuItem.Name = "listcurrentRangeToolStripMenuItem";
+            this.listcurrentRangeToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
+            this.listcurrentRangeToolStripMenuItem.Text = "&List Selected Range";
+            this.listcurrentRangeToolStripMenuItem.Click += new System.EventHandler(this.listcurrentRangeToolStripMenuItem_Click);
             // 
             // list32AddrToolStripMenuItem
             // 
@@ -843,6 +854,7 @@ namespace IPv6SubnettingTool
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.selectAllToolStripMenuItem,
             this.copyToolStripMenuItem,
+            this.listcurrentRangetoolStripMenuItem1,
             this.list32AddrToolStripMenuItem1,
             this.listSubnetRangeToolStripMenuItem,
             this.list128SubnetsToolStripMenuItem,
@@ -861,7 +873,7 @@ namespace IPv6SubnettingTool
             this.savetoolStripMenuItem1,
             this.fontsToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(257, 374);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(257, 418);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // selectAllToolStripMenuItem
@@ -877,6 +889,14 @@ namespace IPv6SubnettingTool
             this.copyToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.copyToolStripMenuItem.Text = "&Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // listcurrentRangetoolStripMenuItem1
+            // 
+            this.listcurrentRangetoolStripMenuItem1.Enabled = false;
+            this.listcurrentRangetoolStripMenuItem1.Name = "listcurrentRangetoolStripMenuItem1";
+            this.listcurrentRangetoolStripMenuItem1.Size = new System.Drawing.Size(256, 22);
+            this.listcurrentRangetoolStripMenuItem1.Text = "&List Selected Range";
+            this.listcurrentRangetoolStripMenuItem1.Click += new System.EventHandler(this.listcurrentRangeToolStripMenuItem_Click);
             // 
             // list32AddrToolStripMenuItem1
             // 
@@ -1472,6 +1492,8 @@ namespace IPv6SubnettingTool
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolStripMenuItem listcurrentRangeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listcurrentRangetoolStripMenuItem1;
     }
 }
 
