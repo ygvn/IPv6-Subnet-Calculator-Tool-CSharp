@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.3
- * Published Date: 28 January 2020
+ * Version: 4.4
+ * Published Date: 23 February 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -109,6 +109,8 @@ namespace IPv6SubnettingTool
 {"Form1_languageToolStripMenuItem","&Dil"},
 {"Form1_Last.Text",""},
 {"Form1_Last.ToolTip","Son Sayfa"},
+{"Form1_listcurrentRangeToolStripMenuItem","&Seçilen Aralığı &listele" },
+{"Form1_listcurrentRangeToolStripMenuItem1","&Seçilen Aralığı &listele" },
 {"Form1_list128SubnetsToolStripMenuItem.Text","/128 Adreslerini &listele"},
 {"Form1_list128SubnetsToolStripMenuItem1.Text","/128 Adreslerini &listele"},
 {"Form1_list64SubnetsToolStripMenuItem.Text","/64 Öneklerini &listele"},
@@ -331,8 +333,10 @@ namespace IPv6SubnettingTool
 {"CompressForm.Text","IPv6 Ağ Hesap Makinesi - Compressed/Uncompressed"},
 {"CompressForm_label1.Text","IPv6 Adres:"},
 {"CompressForm_label2.Text","Sıkıştırılmış:"},
-{"CompressForm_label4.Text","Tam Adres:"},
-{"CompressForm_button1.Text","&Bul"},
+{"CompressForm_label4.Text","Genişletilmiş:"},
+{"CompressForm_label7.Text","Ters DNS:"},
+{"CompressForm_label10.Text","Full/Genişletilmiş:"},
+{"CompressForm_button1.Text","&Hesapla"},
 //
 {"StatsUsageForm.Text","IPv6 Ağ Hesap Makinesi - Önek İstatistik/Kullanım Durumu"},
 {"StatsUsageForm_button1.Text","&Atanmış Önekler"},
@@ -443,6 +447,8 @@ namespace IPv6SubnettingTool
 //{"Form1_Last.Text",">>|"},
 {"Form1_Last.Text",""},
 {"Form1_Last.ToolTip","Last Page"},
+{"Form1_listcurrentRangeToolStripMenuItem","&List Selected Range" },
+{"Form1_listcurrentRangeToolStripMenuItem1","&List Selected Range" },
 {"Form1_list128SubnetsToolStripMenuItem.Text","&List /128 Addresses"},
 {"Form1_list128SubnetsToolStripMenuItem1.Text","&List /128 Addresses"},
 {"Form1_list64SubnetsToolStripMenuItem.Text","&List /64 Prefixes"},
@@ -669,8 +675,10 @@ namespace IPv6SubnettingTool
 {"CompressForm.Text","IPv6 Subnet Calculator - Compressed/Uncompressed"},
 {"CompressForm_label1.Text","IPv6 Address:"},
 {"CompressForm_label2.Text","Compressed:"},
-{"CompressForm_label4.Text","Uncompressed:"},
-{"CompressForm_button1.Text","&Find"},
+{"CompressForm_label4.Text","Expanded:"},
+{"CompressForm_label7.Text","Reverse DNS:"},
+{"CompressForm_label10.Text","Full/Expanded:"},
+{"CompressForm_button1.Text","&Calculate"},
 //
 {"StatsUsageForm.Text","IPv6 Subnet Calculator - Prefix Stats/Utilization"},
 {"StatsUsageForm_button1.Text","&List Assigned Prefixes"},
@@ -753,7 +761,7 @@ namespace IPv6SubnettingTool
 {"Form1_exitToolStripMenuItem.Text","&Beenden"},
 {"Form1_exportToFileToolStripMenuItem.Text","Als &Textdatei speichern..."},
 {"Form1_fileToolStripMenuItem.Text","&Datei"},
-{"Form1_Find.Text","Berechnen"},
+{"Form1_Find.Text","&Berechnen"},
 {"Form1_fontsToolStripMenuItem.Text","&Schriftarten..."},
 {"Form1_sendToDatabaseToolStripMenuItem1.Text","&Präfix an Datenbank senden..."},
 {"Form1_KeyDown_header","Beenden - IPv6 Subnet Calculator"},
@@ -780,6 +788,8 @@ namespace IPv6SubnettingTool
 //{"Form1_Last.Text",">>|"},
 {"Form1_Last.Text",""},
 {"Form1_Last.ToolTip","letzte Seite"},
+{"Form1_listcurrentRangeToolStripMenuItem","&Liste ausgewählten Bereich" },
+{"Form1_listcurrentRangeToolStripMenuItem1","&Liste ausgewählten Bereich" },
 {"Form1_list128SubnetsToolStripMenuItem.Text","&Liste /128 Adressen"},
 {"Form1_list128SubnetsToolStripMenuItem1.Text","&Liste /128 Adressen"},
 {"Form1_list64SubnetsToolStripMenuItem.Text","&Liste /64 Präfixe"},
@@ -1002,9 +1012,11 @@ namespace IPv6SubnettingTool
 //
 {"CompressForm.Text","IPv6 Subnet Calculator - komprimierte/unkomprimierte"},
 {"CompressForm_label1.Text","IPv6-Adresse:"},
-{"CompressForm_label2.Text","komprimierte:"},
-{"CompressForm_label4.Text","unkomprimierte:"},
-{"CompressForm_button1.Text","&Finden"},
+{"CompressForm_label2.Text","Komprimiert:"},
+{"CompressForm_label4.Text","Erweitert:"},
+{"CompressForm_label7.Text","Reverse DNS:"},
+{"CompressForm_label10.Text","Full/Erweitert:"},
+{"CompressForm_button1.Text","&Berechnen"},
 //
 {"StatsUsageForm.Text","IPv6 Subnet Calculator - Präfix-Statistik/Auslastung"},
 {"StatsUsageForm_button1.Text","&Zugewiesene Präfixe"},

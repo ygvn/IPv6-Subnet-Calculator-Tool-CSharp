@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.3
- * Published Date: 28 January 2020
+ * Version: 4.4
+ * Published Date: 23 February 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -59,6 +59,8 @@ namespace IPv6SubnettingTool
             this.label1.Text = StringsDictionary.KeyValue("CompressForm_label1.Text", this.culture);
             this.label2.Text = StringsDictionary.KeyValue("CompressForm_label2.Text", this.culture);
             this.label4.Text = StringsDictionary.KeyValue("CompressForm_label4.Text", this.culture);
+            this.label7.Text = StringsDictionary.KeyValue("CompressForm_label7.Text", this.culture);
+            this.label10.Text = StringsDictionary.KeyValue("CompressForm_label10.Text", this.culture);
             this.button1.Text = StringsDictionary.KeyValue("CompressForm_button1.Text", this.culture);
             //
             this.ChangeUILanguage.Invoke(this.culture);
@@ -78,7 +80,7 @@ namespace IPv6SubnettingTool
                 label3.Text = StringsDictionary.KeyValue("Form1_" + v6ST.errmsg, this.culture);
                 string Resv6 = v6ST.FormalizeAddr(sin);
                 
-                // :-) full
+                // :-) full / expanded
                 string veryformal = v6ST.Kolonlar(Resv6, CheckState.Checked);
                 
                 textBox2.Text = v6ST.CompressAddress(veryformal);
@@ -96,8 +98,14 @@ namespace IPv6SubnettingTool
                 textBox4.Text = v6ST.PrintBin(seaddress, 128, CheckState.Checked).Replace(':', ' ');
                 textBox5.Text = "0x" + Resv6;
                 textBox6.Text = v6ST.DnsRev(seaddress.ResultIPAddr, 128, CheckState.Checked)[0];
+                textBox7.Text = "ff02::1:ff" + formal[6][2] + formal[6][3] + ":" + formal[7];
                 textBox8.Text = seaddress.ResultIPAddr.ToString();
                 textBox9.Text = veryformal;
+                string smac = v6ST.FormalizeAddr(textBox7.Text);
+                smac = v6ST.Kolonlar(smac, CheckState.Checked);
+                string[] asmac = smac.Split(':');
+                textBox10.Text = "33:33:" + asmac[6][0] + asmac[6][1] + ":" + asmac[6][2] + asmac[6][3] 
+                    + ":" + asmac[7][0] + asmac[7][1] + ":" + asmac[7][2] + asmac[7][3];
             }
             else
             {
@@ -107,8 +115,10 @@ namespace IPv6SubnettingTool
                 textBox4.Clear();
                 textBox5.Clear();
                 textBox6.Clear();
+                textBox7.Clear();
                 textBox8.Clear();
                 textBox9.Clear();
+                textBox10.Clear();
             }
         }
 

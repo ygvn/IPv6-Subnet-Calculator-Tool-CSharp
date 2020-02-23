@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.3
- * Published Date: 28 January 2020
+ * Version: 4.4
+ * Published Date: 23 February 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -2937,6 +2937,8 @@ namespace IPv6SubnettingTool
             this.label7.Text = StringsDictionary.KeyValue("Form1_label7.Text", this.culture);
             this.label9.Text = StringsDictionary.KeyValue("Form1_label9.Text", this.culture);
             this.Last.Text = StringsDictionary.KeyValue("Form1_Last.Text", this.culture);
+            this.listcurrentRangeToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_listcurrentRangeToolStripMenuItem", this.culture);
+            this.listcurrentRangetoolStripMenuItem1.Text = StringsDictionary.KeyValue("Form1_listcurrentRangeToolStripMenuItem1", this.culture);
             this.list128SubnetsToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_list128SubnetsToolStripMenuItem.Text", this.culture);
             this.list128SubnetsToolStripMenuItem1.Text = StringsDictionary.KeyValue("Form1_list128SubnetsToolStripMenuItem1.Text", this.culture);
             this.list64SubnetsToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_list64SubnetsToolStripMenuItem.Text", this.culture);

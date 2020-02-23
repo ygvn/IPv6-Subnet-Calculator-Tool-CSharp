@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.3
- * Published Date: 28 January 2020
+ * Version: 4.4
+ * Published Date: 23 February 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -60,6 +60,7 @@ namespace IPv6SubnettingTool
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -78,11 +79,16 @@ namespace IPv6SubnettingTool
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox9 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(11, 46);
+            this.label1.Location = new System.Drawing.Point(3, 46);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 16);
             this.label1.TabIndex = 0;
@@ -92,7 +98,7 @@ namespace IPv6SubnettingTool
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(105, 45);
+            this.textBox1.Location = new System.Drawing.Point(97, 45);
             this.textBox1.MaxLength = 39;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(280, 20);
@@ -101,7 +107,7 @@ namespace IPv6SubnettingTool
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(105, 71);
+            this.textBox2.Location = new System.Drawing.Point(97, 71);
             this.textBox2.MaxLength = 40;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
@@ -110,7 +116,7 @@ namespace IPv6SubnettingTool
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(11, 72);
+            this.label2.Location = new System.Drawing.Point(3, 72);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 16);
             this.label2.TabIndex = 4;
@@ -119,18 +125,18 @@ namespace IPv6SubnettingTool
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(391, 45);
+            this.button1.Location = new System.Drawing.Point(383, 45);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(54, 45);
+            this.button1.Size = new System.Drawing.Size(74, 45);
             this.button1.TabIndex = 1;
-            this.button1.Text = "&Find";
+            this.button1.Text = "&Calculate";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(102, 29);
+            this.label3.Location = new System.Drawing.Point(94, 29);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(13, 13);
             this.label3.TabIndex = 7;
@@ -138,7 +144,7 @@ namespace IPv6SubnettingTool
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(11, 98);
+            this.label4.Location = new System.Drawing.Point(3, 98);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 16);
             this.label4.TabIndex = 8;
@@ -148,16 +154,16 @@ namespace IPv6SubnettingTool
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(105, 97);
+            this.textBox3.Location = new System.Drawing.Point(97, 97);
             this.textBox3.MaxLength = 40;
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(340, 20);
+            this.textBox3.Size = new System.Drawing.Size(360, 20);
             this.textBox3.TabIndex = 3;
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(11, 227);
+            this.label5.Location = new System.Drawing.Point(3, 227);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(88, 16);
             this.label5.TabIndex = 10;
@@ -167,17 +173,17 @@ namespace IPv6SubnettingTool
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(105, 227);
+            this.textBox4.Location = new System.Drawing.Point(97, 227);
             this.textBox4.MaxLength = 40;
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(280, 58);
-            this.textBox4.TabIndex = 9;
+            this.textBox4.TabIndex = 8;
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(11, 201);
+            this.label6.Location = new System.Drawing.Point(3, 201);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 16);
             this.label6.TabIndex = 12;
@@ -187,25 +193,25 @@ namespace IPv6SubnettingTool
             // textBox5
             // 
             this.textBox5.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(105, 201);
+            this.textBox5.Location = new System.Drawing.Point(97, 201);
             this.textBox5.MaxLength = 40;
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(340, 20);
-            this.textBox5.TabIndex = 8;
+            this.textBox5.Size = new System.Drawing.Size(360, 20);
+            this.textBox5.TabIndex = 7;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(105, 149);
+            this.textBox6.Location = new System.Drawing.Point(97, 149);
             this.textBox6.MaxLength = 40;
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(340, 20);
-            this.textBox6.TabIndex = 6;
+            this.textBox6.Size = new System.Drawing.Size(360, 20);
+            this.textBox6.TabIndex = 5;
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(11, 150);
+            this.label7.Location = new System.Drawing.Point(3, 150);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(88, 16);
             this.label7.TabIndex = 14;
@@ -215,16 +221,16 @@ namespace IPv6SubnettingTool
             // textBox8
             // 
             this.textBox8.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox8.Location = new System.Drawing.Point(105, 175);
+            this.textBox8.Location = new System.Drawing.Point(97, 175);
             this.textBox8.MaxLength = 40;
             this.textBox8.Name = "textBox8";
             this.textBox8.ReadOnly = true;
-            this.textBox8.Size = new System.Drawing.Size(340, 20);
-            this.textBox8.TabIndex = 7;
+            this.textBox8.Size = new System.Drawing.Size(360, 20);
+            this.textBox8.TabIndex = 6;
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(11, 175);
+            this.label9.Location = new System.Drawing.Point(3, 175);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(88, 16);
             this.label9.TabIndex = 18;
@@ -233,28 +239,72 @@ namespace IPv6SubnettingTool
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(11, 123);
+            this.label10.Location = new System.Drawing.Point(3, 123);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(88, 16);
             this.label10.TabIndex = 19;
-            this.label10.Text = "Full:";
+            this.label10.Text = "Full (Expanded):";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBox9
             // 
             this.textBox9.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox9.Location = new System.Drawing.Point(105, 123);
+            this.textBox9.Location = new System.Drawing.Point(97, 123);
             this.textBox9.MaxLength = 40;
             this.textBox9.Name = "textBox9";
             this.textBox9.ReadOnly = true;
-            this.textBox9.Size = new System.Drawing.Size(340, 20);
+            this.textBox9.Size = new System.Drawing.Size(360, 20);
             this.textBox9.TabIndex = 4;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox7.Location = new System.Drawing.Point(97, 291);
+            this.textBox7.MaxLength = 40;
+            this.textBox7.Name = "textBox7";
+            this.textBox7.ReadOnly = true;
+            this.textBox7.Size = new System.Drawing.Size(360, 20);
+            this.textBox7.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.textBox7, "Solicited Node Multicast Address.");
+            // 
+            // textBox10
+            // 
+            this.textBox10.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox10.Location = new System.Drawing.Point(97, 317);
+            this.textBox10.MaxLength = 40;
+            this.textBox10.Name = "textBox10";
+            this.textBox10.ReadOnly = true;
+            this.textBox10.Size = new System.Drawing.Size(360, 20);
+            this.textBox10.TabIndex = 10;
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(3, 291);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(88, 16);
+            this.label8.TabIndex = 22;
+            this.label8.Text = "SNMA:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.label8, "Solicited Node Multicast Address.");
+            // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(3, 317);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(88, 16);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "SNMA MAC:";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // CompressAddress
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(457, 297);
+            this.ClientSize = new System.Drawing.Size(469, 354);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.textBox10);
+            this.Controls.Add(this.textBox7);
             this.Controls.Add(this.textBox9);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -306,5 +356,10 @@ namespace IPv6SubnettingTool
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

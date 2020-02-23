@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.3
- * Published Date: 28 January 2020
+ * Version: 4.4
+ * Published Date: 23 February 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -799,34 +799,48 @@ namespace IPv6SubnettingTool
 
         private void listAllDNSReverseZonesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int tmp = StartEnd.subnetslash;
-
-            if (this.currentMode == "v6")
+            if (this.SelectedRange)
             {
-                if (this.is128Checked == CheckState.Unchecked)
+                ListDnsReverses dnsr = new ListDnsReverses(StartEnd, this.is128Checked, this.culture, this.currentMode, this.listBox1.Font);
+                if (!dnsr.IsDisposed)
                 {
-                    StartEnd.subnetslash = 64;
-                }
-                else if (this.is128Checked == CheckState.Checked)
-                {
-                    StartEnd.subnetslash = 128;
+                    dnsr.Show();
+                    //
+                    IPv6SubnettingTool.Form1.windowsList.Add(new WindowsList(dnsr, dnsr.Name, dnsr.GetHashCode(), this.currentMode));
+                    this.ChangeUILanguage += dnsr.SwitchLanguage;
                 }
             }
-            else // v4
+            else
             {
-                StartEnd.subnetslash = 32;
-            }
+                int tmp = StartEnd.subnetslash;
 
-            ListDnsReverses dnsr = new ListDnsReverses(StartEnd, this.is128Checked, this.culture, this.currentMode, this.listBox1.Font);
+                if (this.currentMode == "v6")
+                {
+                    if (this.is128Checked == CheckState.Unchecked)
+                    {
+                        StartEnd.subnetslash = 64;
+                    }
+                    else if (this.is128Checked == CheckState.Checked)
+                    {
+                        StartEnd.subnetslash = 128;
+                    }
+                }
+                else // v4
+                {
+                    StartEnd.subnetslash = 32;
+                }
 
-            StartEnd.subnetslash = tmp;
+                ListDnsReverses dnsr = new ListDnsReverses(StartEnd, this.is128Checked, this.culture, this.currentMode, this.listBox1.Font);
 
-            if (!dnsr.IsDisposed)
-            {
-                dnsr.Show();
-                //
-                IPv6SubnettingTool.Form1.windowsList.Add(new WindowsList(dnsr, dnsr.Name, dnsr.GetHashCode(), this.currentMode));
-                this.ChangeUILanguage += dnsr.SwitchLanguage;
+                StartEnd.subnetslash = tmp;
+
+                if (!dnsr.IsDisposed)
+                {
+                    dnsr.Show();
+                    //
+                    IPv6SubnettingTool.Form1.windowsList.Add(new WindowsList(dnsr, dnsr.Name, dnsr.GetHashCode(), this.currentMode));
+                    this.ChangeUILanguage += dnsr.SwitchLanguage;
+                }
             }
         }
 
