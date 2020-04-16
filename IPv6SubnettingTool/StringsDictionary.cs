@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.4
- * Published Date: 23 February 2020
+ * Version: 4.5
+ * Release Date: 16 April 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -142,6 +142,9 @@ namespace IPv6SubnettingTool
 {"Form1_whoisQueryToolStripMenuItem1.Text","Adres &Sorgusu (whois)     F5"},
 {"Form1_AddressTypeInfotoolStripMenuItem.Text","Adres &Türü...                      F6"},
 {"Form1_workwithToolStripMenuItem.Text","Seçilen Ö&nek ile çalış"},
+{"Form1_VKeybToolStrip","&Sanal Klavye"},
+{"Form1_VKeybTooltip","Sanal Klavye için tıklayın"},
+{"Form1_ServiceNamestoolStripMenuItem.Text", "&Servis Adları Port Numaraları..." },
 {"Form1_databasetoolStripMenuItem.Text","&Veritabanı"},
 {"Form1_connectDBtoolStripMenuItem.Text","&Bağlan..."},
 {"Form1_closeDBtoolStripMenuItem.Text","&Kapat"},
@@ -368,6 +371,31 @@ namespace IPv6SubnettingTool
 {"ASNumberPlainDotForm_button1.Text","Ç&evir"},
 {"ASNumberPlainDotForm_button2.Text","İp&tal"},
 //
+{"VKeyboard_button13","<--Geri"},
+{"VKeyboard_button14","Sil"},
+{"VKeyboard_button21","&Kapat"},
+//
+{"ServiceNamesPortNumbers_header.Text","Servis Adları Port Numaraları"},
+{"ServiceNamesPortNumbers_fileToolStripMenuItem.Text","&Dosya"},
+{"ServiceNamesPortNumbers_exitToolStripMenuItem.Text","Çı&kış"},
+{"ServiceNamesPortNumbers_updateToolStripMenuItem.Text", "&Güncelle" },
+{"ServiceNamesPortNumbers_OnlineUpdatetoolStripMenuItem.Text", "IANA sayfasından &Güncelle..."},
+{"ServiceNamesPortNumbers_checkBox1.Text", "içinde geçsin"},
+{"ServiceNamesPortNumbers_label2.Text", "Arama: "},
+{"ServiceNamesPortNumbers_toolStripStatusLabel1.Text", "  Toplam: "},
+{"ServiceNamesPortNumbers_toolStripStatusLabel2.Text", "Dosya: "},
+{"ServiceNamesPortNumbers_err1.Text", "Dosya Hatası: "},
+{"ServiceNamesPortNumbers_err2.Text", "'Güncelle' menüsünden dosyayı indirebilirsiniz"},
+//
+{"UpdateServiceNamesPortNumbers_header.Text","IANA sayfasından Güncelle"},
+{"UpdateServiceNamesPortNumbers_label1.Text","XML dosyası, şu adresten güncellenecek:\r\n" +
+                "https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xml \r\n\r\n" +
+                "Eğer adres hata verirse veya değişmiş ise, IANA sayfasından yeni adresi girin:"},
+{"UpdateServiceNamesPortNumbers_label2.Text","Adres:"},
+{"UpdateServiceNamesPortNumbers_label3.Text","İndiriliyor..."},
+{"UpdateServiceNamesPortNumbers_button1.Text","&Güncelle"},
+{"UpdateServiceNamesPortNumbers_button2.Text","İp&tal"},
+//
 // MessageBoxes:
 {"Form1_ExceptionReadingXML","Hata: XML değerlerini okurken hata oluştu.\r\n"},
 {"Form1_connectDBtoolStripMenuItem","Veritabanı bağlantısı var.\r\n"},
@@ -479,6 +507,9 @@ namespace IPv6SubnettingTool
 {"Form1_whoisQueryToolStripMenuItem1.Text","&whois Query...          F5"},
 {"Form1_AddressTypeInfotoolStripMenuItem.Text","Address &Type Info...     F6"},
 {"Form1_workwithToolStripMenuItem.Text","work with selected &Prefix"},
+{"Form1_VKeybToolStrip","&Virtual Keyboard"},
+{"Form1_VKeybTooltip","Click for Virtual Keyboard"},
+{"Form1_ServiceNamestoolStripMenuItem.Text", "&Service Names Port Numbers..." },
 {"Form1_listSubnetRangeToolStripMenuItem.Text","&List /64 Prefixes"},
 {"Form1_databasetoolStripMenuItem.Text","&Database"},
 {"Form1_connectDBtoolStripMenuItem.Text","&Connect..."},
@@ -709,6 +740,32 @@ namespace IPv6SubnettingTool
 {"ASNumberPlainDotForm_rb2.Text","from asdot to asplain"},
 {"ASNumberPlainDotForm_button1.Text","&Convert"},
 {"ASNumberPlainDotForm_button2.Text","&Exit"},
+//
+{"VKeyboard_button13","<--Backspace"},
+{"VKeyboard_button14","Clear"},
+{"VKeyboard_button21","&Close"},
+//
+{"ServiceNamesPortNumbers_header.Text","Service Names Port Numbers"},
+{"ServiceNamesPortNumbers_fileToolStripMenuItem.Text","&File"},
+{"ServiceNamesPortNumbers_exitToolStripMenuItem.Text","E&xit"},
+{"ServiceNamesPortNumbers_updateToolStripMenuItem.Text", "&Update" },
+{"ServiceNamesPortNumbers_OnlineUpdatetoolStripMenuItem.Text", "Online &Update from IANA..."},
+{"ServiceNamesPortNumbers_checkBox1.Text", "including"},
+{"ServiceNamesPortNumbers_label2.Text", "Search:"},
+{"ServiceNamesPortNumbers_toolStripStatusLabel1.Text", "  Total: "},
+{"ServiceNamesPortNumbers_toolStripStatusLabel2.Text", "File: "},
+{"ServiceNamesPortNumbers_err1.Text", "File Error: "},
+{"ServiceNamesPortNumbers_err2.Text", "You can online update/download the file from 'Update' menu"},
+//
+{"UpdateServiceNamesPortNumbers_header.Text","UpdateServiceNamesPortNumbers"},
+{"UpdateServiceNamesPortNumbers_label1.Text","XML file will be downloaded from:\r\n" +
+                "https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xml \r\n\r\n" +
+                "If the address below fails or changes, enter the new address from IANA web page:"},
+{"UpdateServiceNamesPortNumbers_label2.Text","Address:"},
+{"UpdateServiceNamesPortNumbers_label3.Text","Downloading..."},
+{"UpdateServiceNamesPortNumbers_button1.Text","&Update"},
+{"UpdateServiceNamesPortNumbers_button2.Text","&Cancel"},
+//
 // MessageBoxes:
 {"Form1_ExceptionReadingXML","Exception: Reading XML Values\r\n"},
 {"Form1_connectDBtoolStripMenuItem","Database connection exists\r\n"},
@@ -820,6 +877,9 @@ namespace IPv6SubnettingTool
 {"Form1_whoisQueryToolStripMenuItem1.Text","&whois Abfrage    F5"},
 {"Form1_AddressTypeInfotoolStripMenuItem.Text","Adress &Typ Info...     F6"},
 {"Form1_workwithToolStripMenuItem.Text","Arbeit mit markierten &Präfix"},
+{"Form1_VKeybToolStrip","&virtuelle Tastatur"},
+{"Form1_VKeybTooltip","Klicken Sie für die virtuelle Tastatur"},
+{"Form1_ServiceNamestoolStripMenuItem.Text", "&Dienstnamen und Portnummern..." },
 {"Form1_listSubnetRangeToolStripMenuItem.Text","Liste /64 &Präfixe"},
 {"Form1_databasetoolStripMenuItem.Text","&Datenbank"},
 {"Form1_connectDBtoolStripMenuItem.Text","&Verbinden..."},
@@ -1047,6 +1107,32 @@ namespace IPv6SubnettingTool
 {"ASNumberPlainDotForm_rb2.Text","von asdot in asplain"},
 {"ASNumberPlainDotForm_button1.Text","&Konvertiert"},
 {"ASNumberPlainDotForm_button2.Text","&Beenden"},
+//
+{"VKeyboard_button13","<--Rücktaste"},
+{"VKeyboard_button14","löschen"},
+{"VKeyboard_button21","&schließen"},
+//
+{"ServiceNamesPortNumbers_header.Text","Dienstnamen und Portnummern"},
+{"ServiceNamesPortNumbers_fileToolStripMenuItem.Text","&Datei"},
+{"ServiceNamesPortNumbers_exitToolStripMenuItem.Text","&Beenden"},
+{"ServiceNamesPortNumbers_updateToolStripMenuItem.Text", "&Aktualisieren" },
+{"ServiceNamesPortNumbers_OnlineUpdatetoolStripMenuItem.Text", "Online-&Update von der IANA-Seite..."},
+{"ServiceNamesPortNumbers_checkBox1.Text", "einschließlich"},
+{"ServiceNamesPortNumbers_label2.Text", "Suche:"},
+{"ServiceNamesPortNumbers_toolStripStatusLabel1.Text", "  Gesamt: "},
+{"ServiceNamesPortNumbers_toolStripStatusLabel2.Text", "Datei: "},
+{"ServiceNamesPortNumbers_err1.Text", "Dateifehler: "},
+{"ServiceNamesPortNumbers_err2.Text", "Sie können die Datei über das Menü 'Aktualisieren' herunterladen"},
+//
+{"UpdateServiceNamesPortNumbers_header.Text","AktualisierenPortnummernDienstnamen"},
+{"UpdateServiceNamesPortNumbers_label1.Text","XML-Datei wird heruntergeladen von:\r\n" +
+                "https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xml \r\n\r\n" +
+                "Wenn die folgende Adresse fehlschlägt oder sich ändert, geben Sie die neue Adresse auf der IANA-Webseite:"},
+{"UpdateServiceNamesPortNumbers_label2.Text","Addresse:"},
+{"UpdateServiceNamesPortNumbers_label3.Text","Herunterladen..."},
+{"UpdateServiceNamesPortNumbers_button1.Text","A&ktualisieren"},
+{"UpdateServiceNamesPortNumbers_button2.Text","&Abbrechen"},
+//
 // MessageBoxes:
 {"Form1_ExceptionReadingXML","Ausnahme: XML-Werte lesen\r\n"},
 {"Form1_connectDBtoolStripMenuItem","Datenbankverbindung besteht\r\n"},

@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.4
- * Published Date: 23 February 2020
+ * Version: 4.5
+ * Release Date: 16 April 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -93,11 +93,13 @@ namespace IPv6SubnettingTool
             this.list128SubnetsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.listAllDNSReverseZonesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.workwithtoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.VkeybToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.whoisQueryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddressTypeInfotoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compressaddrtoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ASnumberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ServiceNamestoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.goToAddrSpaceNumberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -160,6 +162,7 @@ namespace IPv6SubnettingTool
             this.Last = new System.Windows.Forms.Button();
             this.Forwd = new System.Windows.Forms.Button();
             this.Backwd = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -185,6 +188,7 @@ namespace IPv6SubnettingTool
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -449,11 +453,13 @@ namespace IPv6SubnettingTool
             this.list128SubnetsToolStripMenuItem1,
             this.listAllDNSReverseZonesToolStripMenuItem,
             this.workwithtoolStripMenuItem1,
+            this.VkeybToolStripMenuItem,
             this.toolStripSeparator13,
             this.whoisQueryToolStripMenuItem,
             this.AddressTypeInfotoolStripMenuItem,
             this.compressaddrtoolStripMenuItem1,
-            this.ASnumberToolStripMenuItem});
+            this.ASnumberToolStripMenuItem,
+            this.ServiceNamestoolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
@@ -512,6 +518,13 @@ namespace IPv6SubnettingTool
             this.workwithtoolStripMenuItem1.Text = "work with selected &Prefix";
             this.workwithtoolStripMenuItem1.Click += new System.EventHandler(this.workwithtoolStripMenuItem1_Click);
             // 
+            // VkeybToolStripMenuItem
+            // 
+            this.VkeybToolStripMenuItem.Name = "VkeybToolStripMenuItem";
+            this.VkeybToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
+            this.VkeybToolStripMenuItem.Text = "&Virtual Keyboard";
+            this.VkeybToolStripMenuItem.Click += new System.EventHandler(this.VkeybToolStripMenuItem_Click);
+            // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
@@ -544,6 +557,13 @@ namespace IPv6SubnettingTool
             this.ASnumberToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
             this.ASnumberToolStripMenuItem.Text = "AS &Number plain/dot Conversion...";
             this.ASnumberToolStripMenuItem.Click += new System.EventHandler(this.ASnumberToolStripMenuItem_Click);
+            // 
+            // ServiceNamestoolStripMenuItem
+            // 
+            this.ServiceNamestoolStripMenuItem.Name = "ServiceNamestoolStripMenuItem";
+            this.ServiceNamestoolStripMenuItem.Size = new System.Drawing.Size(259, 22);
+            this.ServiceNamestoolStripMenuItem.Text = "&Service Names Port Numbers...";
+            this.ServiceNamestoolStripMenuItem.Click += new System.EventHandler(this.ServiceNamestoolStripMenuItem_Click);
             // 
             // goToToolStripMenuItem
             // 
@@ -873,7 +893,7 @@ namespace IPv6SubnettingTool
             this.savetoolStripMenuItem1,
             this.fontsToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(257, 418);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(257, 396);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // selectAllToolStripMenuItem
@@ -1080,6 +1100,17 @@ namespace IPv6SubnettingTool
             this.toolTip1.SetToolTip(this.Backwd, "-128");
             this.Backwd.UseVisualStyleBackColor = true;
             this.Backwd.Click += new System.EventHandler(this.Backwd_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::IPv6SubnettingTool.Properties.Resources._2313keyb;
+            this.pictureBox2.Location = new System.Drawing.Point(28, 29);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(23, 12);
+            this.pictureBox2.TabIndex = 63;
+            this.pictureBox2.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox2, "Click for VirtualKeyboard");
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // label17
             // 
@@ -1306,6 +1337,7 @@ namespace IPv6SubnettingTool
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(471, 498);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox9);
             this.Controls.Add(this.label16);
@@ -1367,6 +1399,7 @@ namespace IPv6SubnettingTool
             this.statusStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1378,7 +1411,7 @@ namespace IPv6SubnettingTool
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        public System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button ResetAll;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -1494,6 +1527,9 @@ namespace IPv6SubnettingTool
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolStripMenuItem listcurrentRangeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listcurrentRangetoolStripMenuItem1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.ToolStripMenuItem VkeybToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ServiceNamestoolStripMenuItem;
     }
 }
 

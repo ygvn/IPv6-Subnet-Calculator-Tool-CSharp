@@ -4,8 +4,8 @@
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.4
- * Published Date: 23 February 2020
+ * Version: 4.5
+ * Release Date: 16 April 2020
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -85,6 +85,8 @@ namespace IPv6SubnettingTool
         public static List<WindowsList> windowsList = new List<WindowsList>();
         public string xmlFilename = "IPv6SubnetCalculatorInfo.xml";  // last settings/info xml file name
         MyXMLFile xmlfile = new MyXMLFile();
+        VKeyboard vkeyb = null;
+        ServiceNamesPortNumbers snpn = null;
         //
         public static string ipmode = "v6"; // default mode IPv6
         //
@@ -2962,6 +2964,8 @@ namespace IPv6SubnettingTool
             this.AddressTypeInfotoolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_AddressTypeInfotoolStripMenuItem.Text", this.culture);
             this.workwithToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_workwithToolStripMenuItem.Text", this.culture);
             this.workwithtoolStripMenuItem1.Text = StringsDictionary.KeyValue("Form1_workwithToolStripMenuItem.Text", this.culture);
+            this.VkeybToolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_VKeybToolStrip", this.culture);
+            this.ServiceNamestoolStripMenuItem.Text = StringsDictionary.KeyValue("Form1_ServiceNamestoolStripMenuItem.Text", this.culture);
             this.sublevelstoolStripMenuItem1.Text = StringsDictionary.KeyValue("Form1_sublevelstoolStripMenuItem1.Text", this.culture);
             this.prefixsublevelstoolStripMenuItem1.Text = StringsDictionary.KeyValue("Form1_prefixsublevelstoolStripMenuItem1.Text", this.culture);
             this.compressaddrtoolStripMenuItem1.Text = StringsDictionary.KeyValue("Form1_compressaddrtoolStripMenuItem1.Text", this.culture);
@@ -2982,6 +2986,7 @@ namespace IPv6SubnettingTool
             this.toolTip1.SetToolTip(this.Last, StringsDictionary.KeyValue("Form1_Last.ToolTip", this.culture));
             this.toolTip1.SetToolTip(this.Subnets, StringsDictionary.KeyValue("Form1_Subnets.ToolTip", this.culture));
             this.toolTip1.SetToolTip(this.listBox1, StringsDictionary.KeyValue("Form1_listBox1.ToolTip", this.culture));
+            this.toolTip1.SetToolTip(this.pictureBox2, StringsDictionary.KeyValue("Form1_VKeybTooltip", this.culture));
 
             // errmsg from checks. 
             if (v6ST.errmsg != "")
@@ -4361,6 +4366,54 @@ namespace IPv6SubnettingTool
             {
                 this.Find_Click(null, null);
                 this.Find.Focus();
+            }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            if (Application.OpenForms["VKeyboard"] as VKeyboard == null)
+            {
+                this.vkeyb = new VKeyboard(this, this.culture);
+                this.vkeyb.Show();
+                windowsList.Add(new WindowsList(vkeyb, vkeyb.Name, vkeyb.GetHashCode(), ipmode));
+                this.ChangeUILanguage += this.vkeyb.SwitchLanguage;
+            }
+            else
+            {
+                if (this.vkeyb.WindowState == FormWindowState.Minimized)
+                {
+                    this.vkeyb.WindowState = FormWindowState.Normal;
+                    Application.OpenForms["VKeyboard"].BringToFront();
+                }
+                Application.OpenForms["VKeyboard"].BringToFront();
+                this.vkeyb.Location = this.Location;
+            }
+
+        }
+
+        private void VkeybToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.pictureBox2_Click(null, null);
+        }
+
+        private void ServiceNamestoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Application.OpenForms["ServiceNamesPortNumbers"] as ServiceNamesPortNumbers == null)
+            {
+                this.snpn = new ServiceNamesPortNumbers(this, this.culture);
+                this.snpn.Show();
+                windowsList.Add(new WindowsList(snpn, snpn.Name, snpn.GetHashCode(), ipmode));
+                this.ChangeUILanguage += this.snpn.SwitchLanguage;
+            }
+            else
+            {
+                if (this.snpn.WindowState == FormWindowState.Minimized)
+                {
+                    this.snpn.WindowState = FormWindowState.Normal;
+                    Application.OpenForms["ServiceNamesPortNumbers"].BringToFront();
+                }
+                Application.OpenForms["ServiceNamesPortNumbers"].BringToFront();
+                this.snpn.Location = this.Location;
             }
         }
     }
