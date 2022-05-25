@@ -1,10 +1,10 @@
 IPv6 Subnet Calculator / Tool
 
-Latest Version: v4.5    
-Date: 16 April 2020
+Latest Version: **v5.0**    
+Release Date: **23 May 2022**   
 
 IPv6 Subnet Calculator / Tool application lets you plan/subnet your assigned address for all 128 bits.   
-We are in the transition phase of our networks' addressing structure from IPv4 to IPv6, and I believe that the network engineers should easily plan their IPv6 addressing /subnetting infrastructure without any error. For this purpose, I wrote and distributed a free IPv6 Subnetting Tool / Calculator both with C# and Java JDK 1.8 based on JavaFX Application Frameworks.    
+We are in the transition phase of our networks' addressing structure from IPv4 to IPv6, and I believe that the network engineers should easily plan their IPv6 addressing /subnetting infrastructure without any error. For this purpose, I wrote and distributed a free IPv6 Subnetting Tool / Calculator both with C# and Java JDK 17 based Application Frameworks.    
 This application requires no installation and does not modify any registry.
 I distributed the application in the hope that it will be useful for your subnet calculations.
 I will try to develop the software continuously, so please don't hesitate to comment/inform for any bugs or new feature suggestions. 
@@ -18,23 +18,24 @@ I will try to develop the software continuously, so please don't hesitate to com
 * IPv6 and IPv4 modes     
 * MySQL Database Connection support     
   .Store/update/manage IPv6 prefixes with MySQL database server   
-  .Tested with MySQL Connector/ODBC 8.0.18   
-  .DriverName: MySQL ODBC 8.0.18 Unicode Driver (myodbc8w.dll)   
+  .Tested with MySQL Connector/ODBC 8.0.28   
 * Statistical View of Assigned/Available Prefixes   
-  .Note: Assigned prefixes must exist in the database   
+  .**Note**: Assigned prefixes must exist in the database   
 * 4-Bytes AS Number plain/dot Conversion Tool   
   .Convert Autonomous System Numbers from asplain to asdot and vice versa.   
 * List Reverse DNS   
+* List Subnet Prefixes   
+* Parent Prefixes are visible   
 * Compress / Uncompress IPv6 Address Tool    
 * XML file created to save the last settings, e.g. DB info, language.
 * Service Names and Port  Numbers Tool.
 * English, Turkish, German languages.
 
 You can download from:   
-https://github.com/ygvn/IPv6-Subnet-Calculator-Tool/blob/master/IPv6SubnetCalculator_v4.5_CSharp.EXE.zip
+https://github.com/ygvn/IPv6-Subnet-Calculator-Tool-CSharp/blob/master/IPv6SubnetCalculator_v5.0_CSharp.EXE.zip
 
 
-Copyright (c) 2010-2020, Yucel Guven   
+Copyright (c) 2010-2022, Yucel Guven   
 All rights reserved.
 
 This file is part of IPv6 Subnetting Tool.
