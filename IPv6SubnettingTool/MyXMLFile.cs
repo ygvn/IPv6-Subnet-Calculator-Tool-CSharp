@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -60,9 +60,9 @@ namespace IPv6SubnettingTool
                     XmlDocument xmldoc = new XmlDocument();
                     xmldoc.Load(this.xmlFilename);
 
-                    // Load UI_info
+                    // Load UserInterface
 
-                    XmlNode node = xmldoc.SelectSingleNode("INFO/UI_Info");
+                    XmlNode node = xmldoc.SelectSingleNode("IPv6SubnetCalculatorInfo/UserInterface");
 
                     foreach (XmlNode n in node.ChildNodes)
                     {
@@ -99,6 +99,46 @@ namespace IPv6SubnettingTool
                                 {
                                     if (!Int32.TryParse(n.InnerText.Trim(), out ScreenShotValues.LocY))
                                         ScreenShotValues.LocY = 0;
+                                }
+                                break;
+                            case "prefixColorBack":
+                                if (n.InnerText.Trim() != "")
+                                {
+                                    ScreenShotValues.prefixColorBack = n.InnerText.Trim();
+                                }
+                                else
+                                {
+                                    ScreenShotValues.prefixColorBack = "#FFFF0000"; // Default: Red
+                                }
+                                break;
+                            case "prefixColorFore":
+                                if (n.InnerText.Trim() != "")
+                                {
+                                    ScreenShotValues.prefixColorFore = n.InnerText.Trim();
+                                }
+                                else
+                                {
+                                    ScreenShotValues.prefixColorBack = "#FFFFFFFF"; // Default: White
+                                }
+                                break;
+                            case "subnetColorBack":
+                                if (n.InnerText.Trim() != "")
+                                {
+                                    ScreenShotValues.subnetColorBack = n.InnerText.Trim();
+                                }
+                                else
+                                {
+                                    ScreenShotValues.subnetColorBack = "#FF40E0D0"; // Default: Turquoise
+                                }
+                                break;
+                            case "subnetColorFore":
+                                if (n.InnerText.Trim() != "")
+                                {
+                                    ScreenShotValues.subnetColorFore = n.InnerText.Trim();
+                                }
+                                else
+                                {
+                                    ScreenShotValues.subnetColorFore = "#FF000000"; // Default: Black
                                 }
                                 break;
                             //
@@ -283,7 +323,7 @@ namespace IPv6SubnettingTool
 
                     // Load Fonts
 
-                    node = xmldoc.SelectSingleNode("INFO/Fonts_Form1");
+                    node = xmldoc.SelectSingleNode("IPv6SubnetCalculatorInfo/Fonts_Form1");
 
                     foreach (XmlNode n in node.ChildNodes)
                     {
@@ -325,7 +365,7 @@ namespace IPv6SubnettingTool
 
                     // Load DBServerInfo
 
-                    node = xmldoc.SelectSingleNode("INFO/DBServerInfo");
+                    node = xmldoc.SelectSingleNode("IPv6SubnetCalculatorInfo/DBServerInfo");
                     foreach (XmlNode n in node.ChildNodes)
                     {
                         switch (n.Name)
@@ -419,16 +459,23 @@ namespace IPv6SubnettingTool
                 using (XmlWriter writer = XmlWriter.Create(this.xmlFilename, settings))
                 {
                     writer.WriteComment("IPv6 Subnet Calculator generated XML file." + Environment.NewLine
-                        + "    Modifying the contents is not recommended." + Environment.NewLine
                         + "    ProductVersion: " + Application.ProductVersion);
 
-                    writer.WriteStartElement("INFO");
+                    writer.WriteStartElement("IPv6SubnetCalculatorInfo");
 
-                    writer.WriteStartElement("UI_Info");
+                    writer.WriteStartElement("UserInterface");
                     writer.WriteElementString("Culture", ScreenShotValues.Cultur.Name);
 
                     writer.WriteElementString("LocX", ScreenShotValues.LocX.ToString());
                     writer.WriteElementString("LocY", ScreenShotValues.LocY.ToString());
+
+                    writer.WriteComment("You can change prefix/subnet colors. " + Environment.NewLine +
+                        "        Color format: ARGB(#AARRGGBB)");
+
+                    writer.WriteElementString("prefixColorBack", ScreenShotValues.prefixColorBack);
+                    writer.WriteElementString("prefixColorFore", ScreenShotValues.prefixColorFore);
+                    writer.WriteElementString("subnetColorBack", ScreenShotValues.subnetColorBack);
+                    writer.WriteElementString("subnetColorFore", ScreenShotValues.subnetColorFore);
 
                     writer.WriteElementString("ExitMode", currentMode);
 

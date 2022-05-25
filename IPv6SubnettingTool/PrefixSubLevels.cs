@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -123,7 +123,7 @@ namespace IPv6SubnettingTool
             this.textBox2.BackColor = Color.FromKnownColor(KnownColor.Control);
 
             this.textBox1.Text = this.parentprefix;
-            this.textBox2.Text = "└ " + this.prefix + "/" + this.pflen;
+            this.textBox2.Text = "└─ " + this.prefix + "/" + this.pflen;
 
             this.treeView1.Nodes.Clear();
             this.root = this.treeView1.Nodes.Add(this.prefix + "/" + this.pflen);
@@ -392,6 +392,10 @@ namespace IPv6SubnettingTool
                 IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
                 this.Close();
             }
+            else if (e.KeyCode == Keys.F5)
+            {
+                this.refreshToolStripMenuItem_Click(null, null);
+            }
         }
 
         public void SwitchLanguage(CultureInfo culture)
@@ -416,7 +420,12 @@ namespace IPv6SubnettingTool
                         this.MySQLconnection, this.ServerInfo, this.culture, this.currentMode);
 
                     if (!getPfxInfo.IsDisposed)
-                        getPfxInfo.ShowDialog();
+                    {
+                        getPfxInfo.StartPosition = FormStartPosition.Manual;
+                        getPfxInfo.Location = new Point(this.Location.X + this.Size.Width / 4, this.Location.Y + this.Size.Height / 4);
+                        getPfxInfo.Show();
+                        IPv6SubnettingTool.Form1.windowsList.Add(new WindowsList(getPfxInfo, getPfxInfo.Name, getPfxInfo.GetHashCode(), this.currentMode));
+                    }
                 }
             }
         }
@@ -450,6 +459,35 @@ namespace IPv6SubnettingTool
             //StringsDictionary.KeyValue("xxxxx", this.culture);
             this.ChangeDB.Invoke(dbname);
             */
+        }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // To Refresh ALL Nodes:
+            //   this.treeView1.Nodes.Clear();
+            //   this.root = this.treeView1.Nodes.Add(this.prefix + "/" + this.pflen);
+            //   this.treeView1.Nodes[0].Nodes.Add(plus);
+
+            // To refresh selected node, just collapse it: (When you expand it again, it will query database)
+            if (this.treeView1.SelectedNode.Parent != null)
+            {
+                this.treeView1.SelectedNode.Parent.Collapse();
+            }
+            else
+            {
+                if (this.treeView1.Nodes != null)
+                {
+                    this.treeView1.Nodes[0].Collapse();
+                }
+            }
+        }
+
+        private void treeView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                copyToolStripMenuItem_Click(null, null);
+            }
         }
 
         private short QuerySelectedPrefix(string inprefix, short pflen)

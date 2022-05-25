@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -44,12 +44,15 @@ namespace IPv6SubnettingTool
         public delegate void ChangeWinFormStringsDelegate(CultureInfo culture);
         public event ChangeWinFormStringsDelegate ChangeUILanguage = delegate { };
 
-        public CompressAddress(CultureInfo culture)
+        public CompressAddress(String sin, CultureInfo culture)
         {
             InitializeComponent();
 
             this.culture = culture;
             this.SwitchLanguage(this.culture);
+
+            this.textBox1.Text = sin;
+            this.button1_Click(null, null);
         }
 
         public void SwitchLanguage(CultureInfo culture)
@@ -134,6 +137,15 @@ namespace IPv6SubnettingTool
         private void CompressAddressForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                this.button1_Click(null, null);
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }

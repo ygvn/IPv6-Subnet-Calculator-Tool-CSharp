@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -170,6 +170,15 @@ namespace IPv6SubnettingTool
             this.label3.Text = StringsDictionary.KeyValue("UpdateServiceNamesPortNumbers_label3.Text", this.culture);
             this.button1.Text = StringsDictionary.KeyValue("UpdateServiceNamesPortNumbers_button1.Text", this.culture);
             this.button2.Text = StringsDictionary.KeyValue("UpdateServiceNamesPortNumbers_button2.Text", this.culture);
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                this.Button1_Click(null, null);
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }

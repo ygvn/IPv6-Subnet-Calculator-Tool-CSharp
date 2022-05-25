@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -72,9 +72,16 @@ namespace IPv6SubnettingTool
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listAssignedPrefixesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listAllParentPrefixesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -82,25 +89,25 @@ namespace IPv6SubnettingTool
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(13, 21);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(384, 47);
+            this.groupBox1.Size = new System.Drawing.Size(384, 41);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
             // label2
             // 
             this.label2.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label2.Location = new System.Drawing.Point(72, 16);
+            this.label2.Location = new System.Drawing.Point(72, 12);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(298, 23);
+            this.label2.Size = new System.Drawing.Size(306, 23);
             this.label2.TabIndex = 1;
             this.label2.Text = "_";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(6, 16);
+            this.label1.Location = new System.Drawing.Point(6, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 23);
             this.label1.TabIndex = 0;
@@ -135,7 +142,7 @@ namespace IPv6SubnettingTool
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.label12.Location = new System.Drawing.Point(236, 124);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(60, 16);
+            this.label12.Size = new System.Drawing.Size(59, 16);
             this.label12.TabIndex = 7;
             this.label12.Text = "percent";
             // 
@@ -146,7 +153,7 @@ namespace IPv6SubnettingTool
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label13.Location = new System.Drawing.Point(237, 161);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(53, 16);
+            this.label13.Size = new System.Drawing.Size(52, 16);
             this.label13.TabIndex = 8;
             this.label13.Text = "percent";
             // 
@@ -200,12 +207,61 @@ namespace IPv6SubnettingTool
             this.toolStripStatusLabel2.Text = "db=Down";
             this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.toolsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(408, 24);
+            this.menuStrip1.TabIndex = 14;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.listAssignedPrefixesToolStripMenuItem,
+            this.listAllParentPrefixesToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Text = "&Tools";
+            // 
+            // listAssignedPrefixesToolStripMenuItem
+            // 
+            this.listAssignedPrefixesToolStripMenuItem.Name = "listAssignedPrefixesToolStripMenuItem";
+            this.listAssignedPrefixesToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.listAssignedPrefixesToolStripMenuItem.Text = "&List Assigned prefixes";
+            this.listAssignedPrefixesToolStripMenuItem.Click += new System.EventHandler(this.listAssignedPrefixesToolStripMenuItem_Click);
+            // 
+            // listAllParentPrefixesToolStripMenuItem
+            // 
+            this.listAllParentPrefixesToolStripMenuItem.Name = "listAllParentPrefixesToolStripMenuItem";
+            this.listAllParentPrefixesToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.listAllParentPrefixesToolStripMenuItem.Text = "List All &Parent prefixes";
+            this.listAllParentPrefixesToolStripMenuItem.Click += new System.EventHandler(this.listAllParentPrefixesToolStripMenuItem_Click);
+            // 
             // StatsUsage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(408, 407);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label13);
@@ -215,6 +271,7 @@ namespace IPv6SubnettingTool
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "StatsUsage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -227,6 +284,8 @@ namespace IPv6SubnettingTool
             this.groupBox2.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -246,5 +305,11 @@ namespace IPv6SubnettingTool
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listAssignedPrefixesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listAllParentPrefixesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }

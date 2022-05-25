@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -1473,7 +1473,13 @@ namespace IPv6SubnettingTool
                 GetPrefixInfoFromDB getpfxinfo = new GetPrefixInfoFromDB(pfx, this.MySQLconnection, this.ServerInfo, this.culture, this.currentMode);
 
                 if (!getpfxinfo.IsDisposed)
-                    getpfxinfo.ShowDialog();
+                {
+                    getpfxinfo.StartPosition = FormStartPosition.Manual;
+                    getpfxinfo.Location = new Point(this.Location.X + this.Size.Width / 4, this.Location.Y + this.Size.Height / 4);
+                    getpfxinfo.Show();
+                    IPv6SubnettingTool.Form1.windowsList.Add(new WindowsList(getpfxinfo, getpfxinfo.Name, getpfxinfo.GetHashCode(), this.currentMode));
+
+                }
             }
         }
     }

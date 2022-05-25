@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -44,7 +44,7 @@ namespace IPv6SubnettingTool
 {
     public partial class DBinfo : Form
     {
-        #region special variables - yucel
+        #region special initials/constants -yucel
         public DBServerInfo ServerInfo = new DBServerInfo();
         DBServerInfo inputServerInfo = new DBServerInfo();
         OdbcConnection MySQLconnection = null;
@@ -275,11 +275,11 @@ namespace IPv6SubnettingTool
                 return;
             }
 
+            /*****************************************************
             // Does DB exist and Table type correct? v6? v4? etc.
-
             if (DBExist())
             {
-                string t = isv6Table();
+                string t = CheckPrefixField(); 
 
                 if (t == this.currentMode)
                 {
@@ -305,36 +305,54 @@ namespace IPv6SubnettingTool
             }
             else // NO Database
             {
-                string r = CreateDBandTable();
+            *****************************************************/
 
-                if (r == null)
+            // Privileges/permissions to give:
+            // mysql> GRANT ALL PRIVILEGES ON 'your_db_name'.* TO 'your_user_name'@'your_IP_address' WITH GRANT OPTION;
+            // 
+            // If you are manually creating DB,Table,Triggers, and Indexes, 
+            // follow the data structure CreateDBandTable() function codes below.
+            // Here is the complete TODO list:
+            // 1. Create your database and table
+            // 2. Create Triggers for insert/update values on your `dbname`.`tablename`
+            // 3. And index it on `dbname`.`tablename`
+
+            string r = CreateDBandTable();
+
+            if (r == null)
+            {
+                this.DialogResult = DialogResult.OK;
+
+                CopyServerInfoValues();
+
+                string dbname; //msg; 
+
+                if (this.currentMode == "v6")
                 {
-                    this.DialogResult = DialogResult.OK;
-
-                    CopyServerInfoValues();
-
-                    string msg = "";
-
-                    if (this.currentMode == "v6")
-                        msg = StringsDictionary.KeyValue("DBinfo_newDB1", this.culture) 
-                            + this.ServerInfo.DBname + StringsDictionary.KeyValue("DBinfo_newDB2", this.culture);
-                    else
-                        msg = StringsDictionary.KeyValue("DBinfo_newDB1", this.culture) + this.ServerInfo.DBname_v4
-                            + StringsDictionary.KeyValue("DBinfo_newDB2", this.culture);
-
-                    MessageBox.Show(msg, "DB:", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    if (this is IDisposable)
-                        this.Dispose();
-                    else
-                        this.Close();
+                    dbname = this.ServerInfo.DBname;
                 }
                 else
                 {
-                    MessageBox.Show("Exception: CreateDBandTable()" + Environment.NewLine + r, "Exception",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    dbname = this.ServerInfo.DBname_v4;
                 }
+
+                /*
+                msg = StringsDictionary.KeyValue("DBinfo_newDB1", this.culture) + dbname
+                  + StringsDictionary.KeyValue("DBinfo_newDB2", this.culture);
+                
+                MessageBox.Show(msg, "DB:", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                */
+
+                if (this is IDisposable)
+                    this.Dispose();
+                else
+                    this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Exception: CreateDBandTable()" + Environment.NewLine + r, "Exception",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
 
@@ -362,7 +380,9 @@ namespace IPv6SubnettingTool
                     + " INFORMATION_SCHEMA.SCHEMATA"
                     + " WHERE SCHEMA_NAME='" + sDBName + "';" , this.MySQLconnection);
 
-                int r = MyCommand.ExecuteNonQuery();
+                OdbcDataReader reader = MyCommand.ExecuteReader();
+                int r = reader.RecordsAffected;
+
                 if (r > 0)
                 {
                     return true;
@@ -379,7 +399,7 @@ namespace IPv6SubnettingTool
             }
         }
 
-        private string isv6Table()
+        private string CheckPrefixField()
         {
             try
             {
@@ -413,7 +433,7 @@ namespace IPv6SubnettingTool
                         {
                             return "v6";
                         }
-                        else if (Type.ToUpper() == "INT(10) UNSIGNED")
+                        else if (Type.ToUpper() == "INT UNSIGNED")
                         {
                             return "v4";
                         }
@@ -448,9 +468,9 @@ namespace IPv6SubnettingTool
                 sDBName = this.ServerInfo.DBname;
                 sTableName = this.ServerInfo.Tablename;
 
-                sTrigInsert = "trig_insert_" + sDBName;
-                sTrigUpdate = "trig_update_" + sDBName;
-                sIdxIndex = "index_" + sDBName;
+                sTrigInsert = "trig_insert_v6_" + sDBName;
+                sTrigUpdate = "trig_update_v6_" + sDBName;
+                sIdxIndex = "index_v6_" + sDBName;
             }
             else // v4
             {
@@ -486,18 +506,16 @@ namespace IPv6SubnettingTool
                     + spfx
                     + "pflen TINYINT UNSIGNED, "
                     + "parentpflen TINYINT UNSIGNED, "
-                    + "netname VARCHAR(40), "
-                    + "person  VARCHAR(40), "
+                    + "netname VARCHAR(60), "
+                    + "person  VARCHAR(60), "
                     + "organization VARCHAR(60), "
                     + "`as-num` INT UNSIGNED, "
-                    + "phone VARCHAR(40), "
-                    + "email VARCHAR(40), "
-                    + "status VARCHAR(40), "
-                    // MySQL's INVALID-ZERO problems... Even Windows MySQL server behaves different from Linux MySQL server:
-                    //+ "`created` TIMESTAMP NOT NULL default '0000-00-00 00:00:00', "
-                    + "`created` TIMESTAMP NOT NULL default '1970-01-02 01:01:01', "  // <--seems OK for both Windows & Linux. Changed also TRIGGER below.
+                    + "phone VARCHAR(60), "
+                    + "email VARCHAR(60), "
+                    + "status VARCHAR(60), "
+                    + "created TIMESTAMP NOT NULL default NOW(), "
                     + "`last-updated` TIMESTAMP NOT NULL default NOW() ON UPDATE NOW(), "
-                    + "PRIMARY KEY(prefix, pflen) "
+                    + "PRIMARY KEY(prefix, pflen, parentpflen) "
                     + "); ";
                 MyCommand.ExecuteNonQuery();
 
@@ -514,7 +532,7 @@ namespace IPv6SubnettingTool
                     MyCommand.CommandText = "CREATE TRIGGER " + sTrigInsert + " BEFORE INSERT ON "
                         + "`" + sDBName + "`.`" + sTableName + "` "
                         + " FOR EACH ROW BEGIN SET NEW.`created`=IF(ISNULL(NEW.`created`) OR "
-                        //+ "NEW.`created`='0000-00-00 00:00:00', CURRENT_TIMESTAMP, "
+                        //+ "NEW.`created`='0000-00-00 00:00:00', CURRENT_TIMESTAMP, "  // Mysql Zero date value bug/issue.
                         + "NEW.`created`='1970-01-02 01:01:01', CURRENT_TIMESTAMP, "
                         + "IF(NEW.`created` < CURRENT_TIMESTAMP, NEW.`created`, "
                         + "CURRENT_TIMESTAMP));SET NEW.`last-updated`=NEW.`created`; END;";
@@ -539,13 +557,9 @@ namespace IPv6SubnettingTool
 
                 if (MyCommand.ExecuteNonQuery() == 0)
                 {
-                    MyCommand.CommandText = " CREATE INDEX " + sIdxIndex + " ON "
-                    + "`"
-                    + sDBName
-                    + "`" + ".`"
-                    + sTableName
-                    + "` "
-                    + " (prefix, pflen) USING BTREE;";
+                    MyCommand.CommandText = " CREATE INDEX " + sIdxIndex 
+                        + " ON " + "`" + sDBName + "`.`" + sTableName + "` "
+                    + " (prefix, pflen, parentpflen) USING BTREE;";
                     MyCommand.ExecuteNonQuery();
                 }
             }
@@ -752,6 +766,60 @@ namespace IPv6SubnettingTool
             }
 
             return driverNames;
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                this.button1_Click(null, null);
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void textBox7_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                this.button1_Click(null, null);
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                this.button1_Click(null, null);
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void textBox5_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                this.button1_Click(null, null);
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void textBox3_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                this.button1_Click(null, null);
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void textBox4_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                this.button1_Click(null, null);
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }

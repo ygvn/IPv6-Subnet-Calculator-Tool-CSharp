@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -65,6 +65,8 @@ namespace IPv6SubnettingTool
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.selectalltoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.copytoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.modifySelectedPrefixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.getPrefixInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -83,6 +85,9 @@ namespace IPv6SubnettingTool
             // 
             // listBox1
             // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.BackColor = System.Drawing.Color.White;
             this.listBox1.ContextMenuStrip = this.contextMenuStrip1;
             this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -92,32 +97,50 @@ namespace IPv6SubnettingTool
             this.listBox1.Location = new System.Drawing.Point(12, 94);
             this.listBox1.Name = "listBox1";
             this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBox1.Size = new System.Drawing.Size(349, 303);
+            this.listBox1.Size = new System.Drawing.Size(350, 307);
             this.listBox1.TabIndex = 4;
             this.listBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox1_DrawItem);
             this.listBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBox1_KeyDown);
+            this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.selectalltoolStripMenuItem1,
-            this.copytoolStripMenuItem1});
+            this.copytoolStripMenuItem1,
+            this.modifySelectedPrefixToolStripMenuItem,
+            this.getPrefixInfoToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(123, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(192, 92);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // selectalltoolStripMenuItem1
             // 
             this.selectalltoolStripMenuItem1.Name = "selectalltoolStripMenuItem1";
-            this.selectalltoolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.selectalltoolStripMenuItem1.Size = new System.Drawing.Size(191, 22);
             this.selectalltoolStripMenuItem1.Text = "Select &All";
             this.selectalltoolStripMenuItem1.Click += new System.EventHandler(this.selectalltoolStripMenuItem1_Click);
             // 
             // copytoolStripMenuItem1
             // 
             this.copytoolStripMenuItem1.Name = "copytoolStripMenuItem1";
-            this.copytoolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.copytoolStripMenuItem1.Size = new System.Drawing.Size(191, 22);
             this.copytoolStripMenuItem1.Text = "&Copy";
             this.copytoolStripMenuItem1.Click += new System.EventHandler(this.copytoolStripMenuItem1_Click);
+            // 
+            // modifySelectedPrefixToolStripMenuItem
+            // 
+            this.modifySelectedPrefixToolStripMenuItem.Name = "modifySelectedPrefixToolStripMenuItem";
+            this.modifySelectedPrefixToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.modifySelectedPrefixToolStripMenuItem.Text = "&Modify selected prefix";
+            this.modifySelectedPrefixToolStripMenuItem.Click += new System.EventHandler(this.modifySelectedPrefixToolStripMenuItem_Click);
+            // 
+            // getPrefixInfoToolStripMenuItem
+            // 
+            this.getPrefixInfoToolStripMenuItem.Name = "getPrefixInfoToolStripMenuItem";
+            this.getPrefixInfoToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.getPrefixInfoToolStripMenuItem.Text = "&Get prefix info";
+            this.getPrefixInfoToolStripMenuItem.Click += new System.EventHandler(this.getPrefixInfoToolStripMenuItem_Click);
             // 
             // button1
             // 
@@ -163,12 +186,14 @@ namespace IPv6SubnettingTool
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.ForeColor = System.Drawing.Color.RoyalBlue;
             this.groupBox1.Location = new System.Drawing.Point(12, 20);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(349, 42);
+            this.groupBox1.Size = new System.Drawing.Size(350, 42);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             // 
@@ -194,10 +219,12 @@ namespace IPv6SubnettingTool
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.ForeColor = System.Drawing.Color.RoyalBlue;
             this.label4.Location = new System.Drawing.Point(296, 75);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 16);
+            this.label4.Size = new System.Drawing.Size(69, 16);
             this.label4.TabIndex = 7;
             this.label4.Text = "_";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -207,9 +234,9 @@ namespace IPv6SubnettingTool
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 400);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 404);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(373, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(374, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 9;
             this.statusStrip1.Text = "statusStrip1";
@@ -236,7 +263,7 @@ namespace IPv6SubnettingTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 422);
+            this.ClientSize = new System.Drawing.Size(374, 426);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox1);
@@ -245,12 +272,11 @@ namespace IPv6SubnettingTool
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
-            this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(390, 465);
             this.Name = "ListAssignedfromDB";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "IPv6 Subnet Calculator - List from Database";
+            this.Text = "IPv6 Subnet Calculator - List Assigned from Database";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ListAssignedfromDB_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListAssignedfromDB_KeyDown);
             this.contextMenuStrip1.ResumeLayout(false);
@@ -280,5 +306,7 @@ namespace IPv6SubnettingTool
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripMenuItem modifySelectedPrefixToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem getPrefixInfoToolStripMenuItem;
     }
 }

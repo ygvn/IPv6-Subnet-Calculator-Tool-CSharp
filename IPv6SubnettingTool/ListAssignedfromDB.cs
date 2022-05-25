@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -46,6 +46,7 @@ namespace IPv6SubnettingTool
         #region special initials/constants - Yücel
         SEaddress seaddr = new SEaddress();
         string prefix = "";
+        string parentNet = "";
         string end = "";
         short pflen = 0;
         short parentpflen = 0;
@@ -70,6 +71,8 @@ namespace IPv6SubnettingTool
         //
         public delegate void ChangeDatabaseDelegate(string dbname);
         public event ChangeDatabaseDelegate ChangeDB = delegate { };
+        public delegate void ChangeDBState(OdbcConnection dbconn, int info);
+        public event ChangeDBState changeDBstate = delegate { };
         #endregion
 
         public ListAssignedfromDB(string prefix, string end, short parentpflen, short pflen, CheckState chks,
@@ -190,7 +193,7 @@ namespace IPv6SubnettingTool
             string spfx = "", spfx2 = "", sDBName = "", sTableName = "";
 
             try
-            {                
+            {
                 if (this.currentMode == "v6")
                 {
                     this.MySQLconnection.ChangeDatabase(this.ServerInfo.DBname);
@@ -220,6 +223,7 @@ namespace IPv6SubnettingTool
                 MyDataReader = MyCommand.ExecuteReader();
                 MyDataReader.Read();
                 this.db_ItemCount = int.Parse(MyDataReader.GetString(0));
+                this.toolStripStatusLabel1.Text = "Total=[" + this.db_ItemCount + "]";
 
                 MySQLcmd = "SELECT "
                     + spfx2 + "(prefix), pflen, netname, person, organization, "
@@ -270,6 +274,130 @@ namespace IPv6SubnettingTool
             return r;
         }
 
+        public Boolean isParentNetinDB(String prefix, short len, Boolean withParentLength)
+        {
+            OdbcDataReader MyDataRdr;
+            OdbcCommand MyCmd;
+            string MySQLcmd;
+            Boolean Found = false;
+            int r;
+
+            try
+            {
+                if (withParentLength)
+                {
+                    string[] sa;
+                    string[] Qsa;
+                    string sDBname = "", sTableName = "";
+
+                    if (this.currentMode == "v6")
+                    {
+                        this.parentNet = v6ST.FindParentNet(prefix, len, CheckState.Checked);
+                        Qsa = new String[2] { "inet6_ntoa(prefix)", "inet6_aton" };
+                        sDBname = this.ServerInfo.DBname;
+                        sTableName = this.ServerInfo.Tablename;
+                    }
+                    else
+                    {
+                        this.parentNet = v6ST.FindParentNet_v4(prefix, len);
+                        Qsa = new String[2] { "inet_ntoa(prefix)", "inet_aton" };
+                        sDBname = this.ServerInfo.DBname_v4;
+                        sTableName = this.ServerInfo.Tablename_v4;
+                    }
+
+                    sa = this.parentNet.Split('/');
+
+                    // is ParentPrefix in Database?:
+                    MySQLcmd = "SELECT " + Qsa[0] + ", pflen, parentpflen FROM "
+                        + "`" + sDBname + "`." + "`" + sTableName + "`"
+                        + " WHERE prefix=" + Qsa[1] + "('" + sa[0] + "')"
+                        + " AND pflen=" + sa[1] + " AND parentpflen=" + len.ToString();
+
+                    MyCmd = new OdbcCommand(MySQLcmd, this.MySQLconnection);
+                    MyDataRdr = MyCmd.ExecuteReader();
+                    r = MyDataRdr.RecordsAffected;
+
+                    string s = "";
+
+                    if (MyDataRdr.Read())
+                    {
+                        s = MyDataRdr.GetByte(2).ToString();
+                        //Console.WriteLine(s);
+                        Found = true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                /*
+                else  // Try not to use, i.e. don't input 'false'.It works but gives same results if there's 2 or more records.
+                      // To Do: Will develop in future.
+                {     
+                    // We don't have parentpflength. First get parentpflen of the input prefix from DB:
+                    MySQLcmd = "SELECT parentpflen FROM "
+                            + "`" + this.ServerInfo.DBname + "`." + "`" + this.ServerInfo.Tablename + "`"
+                            + " WHERE prefix = inet6_aton('" + prefix + "')"
+                            + " AND pflen = " + pflen + " ORDER BY parentpflen ASC";
+
+                    MyCmd = new OdbcCommand(MySQLcmd, this.MySQLconnection);
+                    MyDataRdr = MyCmd.ExecuteReader();
+                    r = MyDataRdr.RecordsAffected;
+
+                    short ppflen = -1;
+
+                    if (MyDataRdr.Read())
+                    {
+                        ppflen = Convert.ToInt16(MyDataRdr.GetString(0));
+                        //Console.WriteLine("FOUND> ", ppflen);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                    // with ppflen, find ParentNet using v6ST:
+                    String[] sa;
+                    this.parentNet = v6ST.FindParentNet(prefix, ppflen, CheckState.Checked);
+                    sa = this.parentNet.Split('/');
+
+                    // is ParentPrefix in Database?:
+                    MySQLcmd = "SELECT inet6_ntoa(prefix), pflen, parentpflen FROM "
+                            + "`" + this.ServerInfo.DBname + "`." + "`" + this.ServerInfo.Tablename + "`"
+                            + " WHERE prefix=inet6_aton('" + sa[0] + "')"
+                            + " AND pflen=" + sa[1] + " AND parentpflen=" + sa[1];
+
+                    MyCmd = new OdbcCommand(MySQLcmd, this.MySQLconnection);
+                    MyDataRdr = MyCmd.ExecuteReader();
+                    r = MyDataRdr.RecordsAffected;
+
+                    string s = "";
+
+                    if (MyDataRdr.Read())
+                    {
+                        s = MyDataRdr.GetString(2);
+                        //Console.WriteLine("FOUND> ", s);
+                        Found = true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }*/
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message +
+                    StringsDictionary.KeyValue("FormDB_MySQLquery_exception", this.culture),
+                    StringsDictionary.KeyValue("FormDB_MySQLquery_exception_header", this.culture),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return Found;
+        }
+
         public int MySQLquery(int button)
         {
             if (this.MySQLconnection == null)
@@ -285,7 +413,7 @@ namespace IPv6SubnettingTool
 
             if (this.tmp_last == "")
                 this.tmp_last = this.prefix;
-            
+
             int r = 0;
             string MySQLcmd = "";
             this.listBox1.Items.Clear();
@@ -316,7 +444,7 @@ namespace IPv6SubnettingTool
                 if (button == 1) // // First page
                 {
                     MySQLcmd = "SELECT "
-                        + spfx2 + "(prefix), pflen, netname, person, organization, "
+                        + spfx2 + "(prefix), pflen, parentpflen, netname, person, organization, "
                         + "`as-num`, phone, email, status, created, `last-updated` FROM "
                         + "`" + sDBName + "`.`" + sTableName + "`"
                         + " WHERE ( prefix >= " + spfx + this.tmp_last + "')"
@@ -328,7 +456,7 @@ namespace IPv6SubnettingTool
                 else if (button == 2) // Backwd page
                 {
                     MySQLcmd = "SELECT "
-                        + spfx2 + "(prefix), pflen, netname, person, organization, "
+                        + spfx2 + "(prefix), pflen, parentpflen, netname, person, organization, "
                         + "`as-num`, phone, email, status, created, `last-updated` FROM "
                         + "`" + sDBName + "`.`" + sTableName + "`"
                         + " WHERE ( prefix < " + spfx + this.tmp_first + "')"
@@ -340,7 +468,7 @@ namespace IPv6SubnettingTool
                 else if (button == 3) // Fwd page
                 {
                     MySQLcmd = "SELECT "
-                        + spfx2 + "(prefix), pflen, netname, person, organization, "
+                        + spfx2 + "(prefix), pflen, parentpflen, netname, person, organization, "
                         + "`as-num`, phone, email, status, created, `last-updated` FROM "
                         + "`" + sDBName + "`.`" + sTableName + "`"
                         + " WHERE ( prefix > " + spfx + this.tmp_last + "')"
@@ -352,7 +480,7 @@ namespace IPv6SubnettingTool
                 else if (button == 4) // Last page
                 {
                     MySQLcmd = "SELECT "
-                        + spfx2 + "(prefix), pflen, netname, person, organization, "
+                        + spfx2 + "(prefix), pflen, parentpflen, netname, person, organization, "
                         + "`as-num`, phone, email, status, created, `last-updated` FROM "
                         + "`" + sDBName + "`.`" + sTableName + "`"
                         + " WHERE ( prefix <= " + spfx + this.tmp_first + "')"
@@ -375,36 +503,58 @@ namespace IPv6SubnettingTool
                         while (MyDataReader.Read())
                         {
                             liste.Add("prefix:\t\t " + MyDataReader.GetString(0) + "/" + MyDataReader.GetByte(1).ToString());
-                            liste.Add("netname:\t " + MyDataReader.GetString(2));
-                            liste.Add("person:\t\t " + MyDataReader.GetString(3));
-                            liste.Add("organization:\t " + MyDataReader.GetString(4));
-                            liste.Add("as-num:\t\t " + MyDataReader.GetString(5));
-                            liste.Add("phone:\t\t " + MyDataReader.GetString(6));
-                            liste.Add("email:\t\t " + MyDataReader.GetString(7));
-                            liste.Add("status:\t\t " + MyDataReader.GetString(8));
-                            liste.Add("created:\t\t " + MyDataReader.GetString(9));
-                            liste.Add("last-updated:\t " + MyDataReader.GetString(10));
+
+                            if (isParentNetinDB(MyDataReader.GetString(0), Convert.ToInt16(MyDataReader.GetByte(2)), true))
+                            {
+                                liste.Add("parent:\t\t " + this.parentNet);
+                            }
+                            else
+                            {
+                                String sp = this.parentNet.Split('/')[1];
+                                liste.Add("parent:\t\t " + this.parentNet + " (/" + sp + "-" + sp + " *Not_in_DB*)");
+                            }
+
+                            liste.Add("netname:\t " + MyDataReader.GetString(3));
+                            liste.Add("person:\t\t " + MyDataReader.GetString(4));
+                            liste.Add("organization:\t " + MyDataReader.GetString(5));
+                            liste.Add("as-num:\t\t " + MyDataReader.GetString(6));
+                            liste.Add("phone:\t\t " + MyDataReader.GetString(7));
+                            liste.Add("email:\t\t " + MyDataReader.GetString(8));
+                            liste.Add("status:\t\t " + MyDataReader.GetString(9));
+                            liste.Add("created:\t\t " + MyDataReader.GetString(10));
+                            liste.Add("last-updated:\t " + MyDataReader.GetString(11));
                             liste.Add("");
                         }
                     }
                     else if (button == 2 || button == 4)
                     {
-                        String[] fs = new String[10];
+                        String[] fs = new String[11];
                         while (MyDataReader.Read())
                         {
                             liste.Add("");
                             fs[0] = "prefix:\t\t " + MyDataReader.GetString(0) + "/" + MyDataReader.GetByte(1).ToString();
-                            fs[1] = "netname:\t " + MyDataReader.GetString(2);
-                            fs[2] = "person:\t\t " + MyDataReader.GetString(3);
-                            fs[3] = "organization:\t " + MyDataReader.GetString(4);
-                            fs[4] = "as-num:\t\t " + MyDataReader.GetString(5);
-                            fs[5] = "phone:\t\t " + MyDataReader.GetString(6);
-                            fs[6] = "email:\t\t " + MyDataReader.GetString(7);
-                            fs[7] = "status:\t\t " + MyDataReader.GetString(8);
-                            fs[8] = "created:\t\t " + MyDataReader.GetString(9);
-                            fs[9] = "last-updated:\t " + MyDataReader.GetString(10);
 
-                            for (int i = 9; i > -1; i--)
+                            if (isParentNetinDB(MyDataReader.GetString(0), Convert.ToInt16(MyDataReader.GetByte(2)), true))
+                            {
+                                fs[1] = "parent:\t\t " + this.parentNet;
+                            }
+                            else
+                            {
+                                String sp = this.parentNet.Split('/')[1];
+                                fs[1] = "parent:\t\t " + this.parentNet + " (/" + sp + "-" + sp + " *Not_in_DB*)";
+                            }
+
+                            fs[2] = "netname:\t " + MyDataReader.GetString(3);
+                            fs[3] = "person:\t\t " + MyDataReader.GetString(4);
+                            fs[4] = "organization:\t " + MyDataReader.GetString(5);
+                            fs[5] = "as-num:\t\t " + MyDataReader.GetString(6);
+                            fs[6] = "phone:\t\t " + MyDataReader.GetString(7);
+                            fs[7] = "email:\t\t " + MyDataReader.GetString(8);
+                            fs[8] = "status:\t\t " + MyDataReader.GetString(9);
+                            fs[9] = "created:\t\t " + MyDataReader.GetString(10);
+                            fs[10] = "last-updated:\t " + MyDataReader.GetString(11);
+
+                            for (int i = 10; i > -1; i--)
                                 liste.Add(fs[i]);
                         }
 
@@ -413,7 +563,7 @@ namespace IPv6SubnettingTool
 
                     this.listBox1.Items.AddRange(liste.ToArray());
                     this.tmp_first = liste[0].Split(' ')[1].Split('/')[0];
-                    this.tmp_last = liste[liste.Count - 11].Split(' ')[1].Split('/')[0];
+                    this.tmp_last = liste[liste.Count - 12].Split(' ')[1].Split('/')[0];
                 }
 
                 MyDataReader.Close();
@@ -472,7 +622,7 @@ namespace IPv6SubnettingTool
                     }
                 }
             }
-            
+
         }
 
         public void SwitchLanguage(CultureInfo culture)
@@ -586,7 +736,7 @@ namespace IPv6SubnettingTool
             SolidBrush sfore = new SolidBrush(e.ForeColor);
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
 
-            if (e.Index % 11 == 0)
+            if (e.Index % 12 == 0)
             {
                 e.DrawBackground();
                 DrawItemState st = DrawItemState.Selected;
@@ -618,7 +768,7 @@ namespace IPv6SubnettingTool
 
         private void listBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            e.SuppressKeyPress = true;
+            //e.SuppressKeyPress = true;
 
             if (e.Control && e.KeyCode == Keys.A)
             {
@@ -638,6 +788,10 @@ namespace IPv6SubnettingTool
                     s += o.ToString() + Environment.NewLine;
                 }
                 Clipboard.SetText(s);
+            }
+            if (e.KeyCode == Keys.Enter)
+            {
+                modifySelectedPrefixToolStripMenuItem_Click(null, null);
             }
         }
 
@@ -683,6 +837,104 @@ namespace IPv6SubnettingTool
         private void ListAssignedfromDB_FormClosing(object sender, FormClosingEventArgs e)
         {
             IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
+        }
+
+        private void modifySelectedPrefixToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if ((this.listBox1.SelectedIndex % 12 == 0) || (this.listBox1.SelectedIndex % 12 == 1))
+            {
+                if (MySQLconnection != null)
+                {
+                    string selected = this.listBox1.SelectedItem.ToString().Split(' ')[1].Trim();
+                    string snet = selected.Split('/')[0].Trim();
+                    short plen = Convert.ToInt16(selected.Split('/')[1]);
+
+                    if (this.currentMode == "v6")
+                    {
+                        if (this.ServerInfo.DBname == "")
+                        {
+                            MessageBox.Show("Database name is null.\r\nPlease close the window,\r\nselect your database and reopen from the Main Form",
+                                "Database Null", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+                    }
+                    else // v4
+                    {
+                        if (this.ServerInfo.DBname_v4 == "")
+                        {
+                            MessageBox.Show("Database name is null.\r\nPlease close the window,\r\nselect your database and reopen from the Main Form",
+                                "Database Null", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+                    }
+
+                    DatabaseUI db = new DatabaseUI(snet, plen, parentpflen, this.MySQLconnection,
+                        this.ServerInfo, this.culture, this.currentMode, this.listBox1.Font);
+
+                    if (!db.IsDisposed)
+                    {
+                        db.Show();
+                        //
+                        IPv6SubnettingTool.Form1.windowsList.Add(new WindowsList(db, db.Name, db.GetHashCode(), this.currentMode));
+
+                        this.changeDBstate += db.DBStateChange;
+                        //this.ChangeUILanguage += db.SwitchLanguage;
+                    }
+                }
+            }
+        }
+    
+
+        private void getPrefixInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.listBox1.SelectedIndex % 12 == 1)
+            {
+                if (MySQLconnection != null)
+                {
+                    if (this.listBox1.SelectedItem.ToString().Trim() != "" && this.listBox1.SelectedItem != null)
+                    {
+                        String selected = this.listBox1.SelectedItem.ToString().Split(' ')[1].Trim();
+                        GetPrefixInfoFromDB getpfxdbinfo = new GetPrefixInfoFromDB(selected, MySQLconnection, 
+                            this.ServerInfo, this.culture, this.currentMode);
+                        
+                        getpfxdbinfo.StartPosition = FormStartPosition.Manual;
+                        getpfxdbinfo.Location = new Point(this.Location.X + this.Size.Width / 4, this.Location.Y + this.Size.Height / 4);
+                        getpfxdbinfo.Show();
+                        IPv6SubnettingTool.Form1.windowsList.Add(new WindowsList(getpfxdbinfo, getpfxdbinfo.Name, getpfxdbinfo.GetHashCode(), this.currentMode));
+
+                    }
+                }
+            }
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            switch (listBox1.SelectedIndex % 12)
+            {
+                case 0:
+                    { // prefix:
+                        this.modifySelectedPrefixToolStripMenuItem.Enabled = true;
+                        this.getPrefixInfoToolStripMenuItem.Enabled = false;
+                        break;
+                    }
+                case 1:
+                    { // parent:
+                        this.modifySelectedPrefixToolStripMenuItem.Enabled = true;
+                        this.getPrefixInfoToolStripMenuItem.Enabled = true;
+                        break;
+                    }
+                default:
+                    {
+                        this.modifySelectedPrefixToolStripMenuItem.Enabled = false;
+                        this.getPrefixInfoToolStripMenuItem.Enabled = false;
+                        break;
+                    }
+            }
+        }
+
+        private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            modifySelectedPrefixToolStripMenuItem_Click(null, null);
         }
     }
 }

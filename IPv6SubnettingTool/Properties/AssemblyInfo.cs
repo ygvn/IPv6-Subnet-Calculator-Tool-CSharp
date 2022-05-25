@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -39,12 +39,12 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //[assembly: AssemblyTitle("IPv6 Subnetting Tool")]
-[assembly: AssemblyTitle("IPv6 Subnet Calculator / IPv6 Að Hesap Makinesi")]
-[assembly: AssemblyDescription("IPv6 Subnet Calculator / IPv6 Að Hesap Makinesi")]
+[assembly: AssemblyTitle("IPv6 Subnet Calculator / IPv6 Ag Hesap Makinesi")]
+[assembly: AssemblyDescription("IPv6 Subnet Calculator / IPv6 Ag Hesap Makinesi")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("IPv6 Subnet Calculator / IPv6 Að Hesap Makinesi")]
-[assembly: AssemblyCopyright("Copyright © 2010-2020 Yücel Güven")]
+[assembly: AssemblyProduct("IPv6 Subnet Calculator / IPv6 Ag Hesap Makinesi")]
+[assembly: AssemblyCopyright("Copyright © 2010-2022 Yücel Güven")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -66,6 +66,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.5")]
-[assembly: AssemblyFileVersion("4.5")]
+[assembly: AssemblyVersion("5.0")]
+[assembly: AssemblyFileVersion("5.0")]
 [assembly: NeutralResourcesLanguageAttribute("")]

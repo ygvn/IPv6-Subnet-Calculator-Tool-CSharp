@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -86,7 +86,8 @@ namespace IPv6SubnettingTool
 {"Form1_fileToolStripMenuItem.Text","Do&sya"},
 {"Form1_Find.Text","&Hesapla"},
 {"Form1_fontsToolStripMenuItem.Text","&Font Değiştir..."},
-{"Form1_sendToDatabaseToolStripMenuItem1.Text","Önek'i &Veritabanına ekle..."},
+{"Form1_sendToDatabaseToolStripMenuItem1.Text","Önek'i &Veritabanına ekle(güncelle)..."},
+{"Form1_modifyUpdateParentPrefixToolStripMenuItem","&Kök Önek'i değiştir(güncelle)"},
 {"Form1_GermanToolStripMenuItem","&Deutsch"},
 {"Form1_KeyDown_header","ÇIKIŞ - IPv6 Ağ Hesap Makinesi"},
 {"Form1_KeyDown_msg","Programdan Çıkış"},
@@ -152,7 +153,8 @@ namespace IPv6SubnettingTool
 {"Form1_statusofDBtoolStripMenuItem.Text","&Durum"},
 {"Form1_changeDatabasetoolStripMenuItem.Text","&Veritabanı değiştir..."},
 {"Form1_opendbformtoolStripMenuItem.Text","Veritabanı &Formunu Aç..."},
-{"Form1_sendtoDBtoolStripMenuItem.Text","Öneki Veritabanına &Ekle"},
+{"Form1_sendtoDBtoolStripMenuItem.Text","Önek'i Veritabanına &Ekle(Güncelle)"},
+{"Form1_modifyUpdateParentToolStripMenuItem", "&Kök Önek'i değiştir(güncelle)" },
 {"Form1_getPrefixInfoFromDB.Text","Öneki Veritabanından sorgula..."},
 {"Form1_closeDBtoolStripMenuItem_Click_noDB","Veritabanı bağlantısı bulunmuyor."},
 {"Form1_closeDBtoolStripMenuItem_Click_noDB_header","Bağlantı yok"},
@@ -309,7 +311,8 @@ namespace IPv6SubnettingTool
 {"FormDB_button5.Text","Çı&kış"},
 {"FormDB_copytoolStripMenuItem1.Text","&Kopyala"},
 {"FormDB_deletetoolStripMenuItem1.Text","&Öneki Sil"},
-{"FormDB_label2.Text","Seçilen Önek:"},
+//{"FormDB_label2.Text","Seçilen Önek:"},
+{"FormDB_label2.Text","kök değeri:"},
 {"FormDB_label10.Text","Veritabanı:"},
 {"FormDB_modifytoolStripMenuItem1.Text","&Öneki Güncelle"},
 {"FormDB_MySQLquery_closed","Veritabanı Bağlantısı kapandı!\r\n\r\n"
@@ -322,6 +325,7 @@ namespace IPv6SubnettingTool
 {"FormDB_norecord","[ Kayıt bulunamadı ]"},
 {"FormDB_modifyrecord","[ Seçilen kayıt güncelleniyor ]"},
 {"FormDB_delrecord","[ Kayıt silindi ]"},
+{"FormDB_DeleteConfirm","Önek siliniyor: " },
 {"FormDB_insertrecord","[ Kayıt eklendi/güncellendi ]"},
 {"FormDB_recordlimit","En fazla 100 kayıt gösteriliyor"},
 {"FormDB_selectAlltoolStripMenuItem1.Text","&Tümünü Seç"},
@@ -371,7 +375,7 @@ namespace IPv6SubnettingTool
 {"ASNumberPlainDotForm_button1.Text","Ç&evir"},
 {"ASNumberPlainDotForm_button2.Text","İp&tal"},
 //
-{"VKeyboard_button13","<--Geri"},
+{"VKeyboard_button13","<- Geri"},
 {"VKeyboard_button14","Sil"},
 {"VKeyboard_button21","&Kapat"},
 //
@@ -401,7 +405,8 @@ namespace IPv6SubnettingTool
 {"Form1_connectDBtoolStripMenuItem","Veritabanı bağlantısı var.\r\n"},
 {"Form1_AddressTypeInfotoolStripMenuItem","IPv6 Adres alanı boş.\r\nLütfen Hesapla'ya tıklayın."},
 {"Form1_changeDatabasetoolStripMenuItem","Veritabanı başarıyla değiştirildi.\r\nYeni veritabanı: "},
-{"DBinfo_newDB1","Yeni Veritabanı: '"},
+//{"DBinfo_newDB1","Yeni Veritabanı: '"},
+{"DBinfo_newDB1","Veritabanı: '"},
 {"DBinfo_newDB2","' oluşturuldu."},
 {"DBinfo_notDBtable1","Veritabanı tablosu IP"},
 {"DBinfo_notDBtable2"," tablosu değil"},
@@ -450,7 +455,8 @@ namespace IPv6SubnettingTool
 {"Form1_fileToolStripMenuItem.Text","&File"},
 {"Form1_Find.Text","&Calculate"},
 {"Form1_fontsToolStripMenuItem.Text","&Fonts..."},
-{"Form1_sendToDatabaseToolStripMenuItem1.Text","&Send prefix to database..."},
+{"Form1_sendToDatabaseToolStripMenuItem1.Text","&Send(Update) prefix to database..."},
+{"Form1_modifyUpdateParentPrefixToolStripMenuItem","&Modify(Update) Parent prefix" },
 {"Form1_GermanToolStripMenuItem","&Deutsch"},
 {"Form1_KeyDown_header","EXIT - IPv6 Subnet Calculator"},
 {"Form1_KeyDown_msg","Exit IPv6 Subnet Calculator"},
@@ -518,8 +524,9 @@ namespace IPv6SubnettingTool
 {"Form1_statusofDBtoolStripMenuItem.Text","&Status"},
 {"Form1_changeDatabasetoolStripMenuItem.Text","&Change database..."},
 {"Form1_opendbformtoolStripMenuItem.Text","&Open database form..."},
-{"Form1_sendtoDBtoolStripMenuItem.Text","&Send prefix to database..."},
+{"Form1_sendtoDBtoolStripMenuItem.Text","&Send(Update) prefix to database..."},
 {"Form1_getPrefixInfoFromDB.Text","&Get prefix info from database..."},
+{"Form1_modifyUpdateParentToolStripMenuItem", "&Modify(Update) Parent prefix" },
 {"Form1_closeDBtoolStripMenuItem_Click_noDB","There is no database connection"},
 {"Form1_closeDBtoolStripMenuItem_Click_noDB_header","No database connection"},
 {"Form1_closeDBtoolStripMenuItem_Click_closeDB","Closing database connection." 
@@ -629,7 +636,7 @@ namespace IPv6SubnettingTool
 {"SaveAs_label12.Text","Range:"},
 {"SaveAs_label2.Text","From index :"},
 {"SaveAs_label3.Text","To index :"},
-{"SaveAs_label4.Text","Save As A Text File"},
+{"SaveAs_label4.Text","Save As Text File"},
 {"SaveAs_label5.Text",""},
 {"SaveAs_label6.Text","Max.Index# :"},
 {"SaveAs_label8.Text","_"},
@@ -678,7 +685,8 @@ namespace IPv6SubnettingTool
 {"FormDB_button5.Text","E&xit"},
 {"FormDB_copytoolStripMenuItem1.Text","&Copy"},
 {"FormDB_deletetoolStripMenuItem1.Text","&Delete prefix"},
-{"FormDB_label2.Text","Selected Prefix:"},
+//{"FormDB_label2.Text","Selected Prefix:"},
+{"FormDB_label2.Text","parent:"},
 {"FormDB_label10.Text","Database:"},
 {"FormDB_modifytoolStripMenuItem1.Text","&Modify prefix"},
 {"FormDB_MySQLquery_closed","Database connection lost!\r\n\r\n"
@@ -691,6 +699,7 @@ namespace IPv6SubnettingTool
 {"FormDB_norecord","[ No record(s) found ]"},
 {"FormDB_modifyrecord","[ Modifying selected record ]"},
 {"FormDB_delrecord","[ Record deleted ]"},
+{"FormDB_DeleteConfirm","Deleting prefix: " },
 {"FormDB_insertrecord","[ Record inserted/updated ]"},
 {"FormDB_recordlimit","Record display limit is 100"},
 
@@ -741,7 +750,7 @@ namespace IPv6SubnettingTool
 {"ASNumberPlainDotForm_button1.Text","&Convert"},
 {"ASNumberPlainDotForm_button2.Text","&Exit"},
 //
-{"VKeyboard_button13","<--Backspace"},
+{"VKeyboard_button13","<- Backspace"},
 {"VKeyboard_button14","Clear"},
 {"VKeyboard_button21","&Close"},
 //
@@ -771,7 +780,8 @@ namespace IPv6SubnettingTool
 {"Form1_connectDBtoolStripMenuItem","Database connection exists\r\n"},
 {"Form1_AddressTypeInfotoolStripMenuItem","IPv6 Address field is empty.\r\nPlease click on Calculate button."},
 {"Form1_changeDatabasetoolStripMenuItem","Database changed successfully.\r\nNew Database: "},
-{"DBinfo_newDB1","New Database: '"},
+//{"DBinfo_newDB1","New Database: '"},
+{"DBinfo_newDB1","Database: '"},
 {"DBinfo_newDB2","' created."},
 {"DBinfo_notDBtable1","Database table is not IP"},
 {"DBinfo_notDBtable2"," table"},
@@ -820,7 +830,8 @@ namespace IPv6SubnettingTool
 {"Form1_fileToolStripMenuItem.Text","&Datei"},
 {"Form1_Find.Text","&Berechnen"},
 {"Form1_fontsToolStripMenuItem.Text","&Schriftarten..."},
-{"Form1_sendToDatabaseToolStripMenuItem1.Text","&Präfix an Datenbank senden..."},
+{"Form1_sendToDatabaseToolStripMenuItem1.Text","&Präfix an Datenbank senden(aktualisieren)..."},
+{"Form1_modifyUpdateParentPrefixToolStripMenuItem","Ändern(&aktualisieren) übergeordnete Präfix" },
 {"Form1_KeyDown_header","Beenden - IPv6 Subnet Calculator"},
 {"Form1_KeyDown_msg","Programm Beenden"},
 //{"Form1_Forwd.Text",">>"},
@@ -888,8 +899,9 @@ namespace IPv6SubnettingTool
 {"Form1_statusofDBtoolStripMenuItem.Text","&Status"},
 {"Form1_changeDatabasetoolStripMenuItem.Text","&Datenbank ändern..."},
 {"Form1_opendbformtoolStripMenuItem.Text","Datenbank &Form öffnen"},
-{"Form1_sendtoDBtoolStripMenuItem.Text","&Präfix an Datenbank senden..."},
+{"Form1_sendtoDBtoolStripMenuItem.Text","&Präfix an Datenbank senden(aktualisieren)..."},
 {"Form1_getPrefixInfoFromDB.Text","&Präfix informationen aus der Datenbank..."},
+{"Form1_modifyUpdateParentToolStripMenuItem", "Ändern(&aktualisieren) übergeordnete Präfix" },
 {"Form1_closeDBtoolStripMenuItem_Click_noDB","keine geöffnete Datenbank-Verbindung"},
 {"Form1_closeDBtoolStripMenuItem_Click_noDB_header","keine DB-V"},
 {"Form1_closeDBtoolStripMenuItem_Click_closeDB","Datenbank-Verbindung schließen." 
@@ -1046,7 +1058,8 @@ namespace IPv6SubnettingTool
 {"FormDB_button5.Text","&Beenden"},
 {"FormDB_copytoolStripMenuItem1.Text","&Kopieren"},
 {"FormDB_deletetoolStripMenuItem1.Text","&Präfix löschen"},
-{"FormDB_label2.Text","gewählten Präfix:"},
+//{"FormDB_label2.Text","gewählten Präfix:"},
+{"FormDB_label2.Text","übergeordnete:"},
 {"FormDB_label10.Text","Datenbank:"},
 {"FormDB_modifytoolStripMenuItem1.Text","&Präfix ändern"},
 {"FormDB_MySQLquery_closed","DB-Verbindung verloren!\r\n\r\n"
@@ -1058,6 +1071,7 @@ namespace IPv6SubnettingTool
 {"FormDB_norecord","[ keine Datensätze gefunden ]"},
 {"FormDB_modifyrecord","[ Datensatz ändern ]"},
 {"FormDB_delrecord","[ Datensatz gelöscht ]"},
+{"FormDB_DeleteConfirm","Präfix löschen: " },
 {"FormDB_insertrecord","[ Datensatz eingefügt/aktualisiert ]"},
 {"FormDB_recordlimit","Anzeigelimit: 100"},
 
@@ -1108,7 +1122,7 @@ namespace IPv6SubnettingTool
 {"ASNumberPlainDotForm_button1.Text","&Konvertiert"},
 {"ASNumberPlainDotForm_button2.Text","&Beenden"},
 //
-{"VKeyboard_button13","<--Rücktaste"},
+{"VKeyboard_button13","<- Rücktaste"},
 {"VKeyboard_button14","löschen"},
 {"VKeyboard_button21","&schließen"},
 //
@@ -1138,7 +1152,8 @@ namespace IPv6SubnettingTool
 {"Form1_connectDBtoolStripMenuItem","Datenbankverbindung besteht\r\n"},
 {"Form1_AddressTypeInfotoolStripMenuItem","Das IPv6-Adressfeld ist leer.\r\nBitte klicken Sie auf Berechnen."},
 {"Form1_changeDatabasetoolStripMenuItem","Datenbank erfolgreich geändert.\r\nNeue Datenbank: "},
-{"DBinfo_newDB1","Neue Datenbank: '"},
+//{"DBinfo_newDB1","Neue Datenbank: '"},
+{"DBinfo_newDB1","Datenbank: '"},
 {"DBinfo_newDB2","' erstellt."},
 {"DBinfo_notDBtable1","Die Datenbanktabelle ist keine IP"},
 {"DBinfo_notDBtable2","-Tabelle"},

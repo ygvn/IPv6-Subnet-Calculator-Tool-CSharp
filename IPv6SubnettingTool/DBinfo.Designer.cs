@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -109,6 +109,7 @@ namespace IPv6SubnettingTool
             this.textBox1.TabIndex = 1;
             this.textBox1.Text = "127.0.0.1";
             this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // label2
             // 
@@ -144,6 +145,7 @@ namespace IPv6SubnettingTool
             this.textBox2.Size = new System.Drawing.Size(139, 20);
             this.textBox2.TabIndex = 3;
             this.textBox2.Enter += new System.EventHandler(this.textBox2_Enter);
+            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox2_KeyDown);
             // 
             // textBox3
             // 
@@ -152,6 +154,7 @@ namespace IPv6SubnettingTool
             this.textBox3.Size = new System.Drawing.Size(139, 20);
             this.textBox3.TabIndex = 5;
             this.textBox3.Enter += new System.EventHandler(this.textBox3_Enter);
+            this.textBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox3_KeyDown);
             // 
             // textBox4
             // 
@@ -162,6 +165,7 @@ namespace IPv6SubnettingTool
             this.textBox4.TabIndex = 6;
             this.textBox4.UseSystemPasswordChar = true;
             this.textBox4.Enter += new System.EventHandler(this.textBox4_Enter);
+            this.textBox4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox4_KeyDown);
             // 
             // button1
             // 
@@ -199,6 +203,7 @@ namespace IPv6SubnettingTool
             this.textBox5.Size = new System.Drawing.Size(139, 20);
             this.textBox5.TabIndex = 4;
             this.textBox5.Enter += new System.EventHandler(this.textBox5_Enter);
+            this.textBox5.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox5_KeyDown);
             // 
             // label6
             // 
@@ -242,6 +247,7 @@ namespace IPv6SubnettingTool
             this.textBox7.TabIndex = 2;
             this.textBox7.Text = "3306";
             this.textBox7.Enter += new System.EventHandler(this.textBox7_Enter);
+            this.textBox7.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox7_KeyDown);
             // 
             // label8
             // 

@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -42,6 +42,10 @@ namespace IPv6SubnettingTool
         public static string mode = "v6";             // default mode
         public static int LocX = 0;
         public static int LocY = 0;
+        public static string prefixColorBack = "#FFFF0000";       // Default Red
+        public static string prefixColorFore = "#FFFFFFFF";       // Default White
+        public static string subnetColorBack = "#FF40E0D0";       // Default Turquoise
+        public static string subnetColorFore = "#FF000000";       // Default Black
         public static bool ResetFlag = false;
         public static bool ResetFlag_v4 = false;
         //

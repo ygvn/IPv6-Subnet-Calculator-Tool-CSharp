@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--  
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -10,7 +10,7 @@
     various data types are done through the TypeConverter classes 
     associated with the data types.
     
-    Example: 
+    Example:
     
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
@@ -123,40 +123,22 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        Qk22BgAAAAAAAHYAAAAoAAAAPAAAADIAAAABAAQAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAA/wAA
-        gP8AgAD/AICA/4AAAP+AAID/gIAA/4CAgP/AwMD/AAD//wD/AP8A/////wAA//8A/////wD/////////
-        /////////////////////////////////////wAA////////////////////////////////////////
-        AAD///////////////////////////////////////8AAP//////////////////////////////////
-        /////wAA///4iIiIiIiIiIiIiIiIiIiIiI//////////////AAD//4AAAAAAAAAAAAAAAAAAAAAACP//
-        //////////8AAP//gAAAAAAAAAAAAAAAAAAAAAAI/////////////wAA//+AAAAAAAAAAAAAAAAAAAAA
-        AAj/////////////AAD//4AAAAAAAAAAAAAAAAAAAAAACP/////4iP////8AAP//gAAAAAAAAAAAAAAA
-        AAAAAAAI/////4AI/////wAA//+AAAAAAAAAAAAAAAAAAAAAAAj////4AAj/////AAD//4AAAAAAAAAA
-        AAAAAAAAAAAACP///4AACP////8AAP//gAAAAAAAAAAAAAAAAAAAAAAI///4AAAI/////wAA//+AAAAA
-        AAAAAAAAAAAAAAAAAAj//4AAAAj/////AAD//4AAAAAAAAAAAAAAAAAAAAAACP/4AAAACP////8AAP//
-        gAAAAAAAAAAAAAAAAAAAAAAI/4AAAAAAAAAA/wAA//+AAAAAAAAAAAAAAAAAAAAAAAj4AAAAAAAAAAD/
-        AAD//4AAAAAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAP8AAP//gAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA
-        AAAA/wAA//+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAD//4AAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAP8AAP//gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/wAA//+AAAAAAAAAAAAAAAAAAAAA
-        AAgAAAAAAAAAAAD/AAD//4AAAAAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAP8AAP//gAAAAAAAAAAAAAAA
-        AAAAAAAI+AAAAAAAAAAA/wAA//+AAAAAAAAAAAAAAAAAAAAAAAj/gAAAAAAAAAD/AAD//4AAAAAAAA//
-        ////////AAAACP/4AAAACP////8AAP//gAAAAAAAD/////////8AAAAI//+AAAAI/////wAA//+AAAAA
-        AAAP/////////wAAAAj///gAAAj/////AAD//4AAAAAAAA////8AAA//AAAACP///4AACP////8AAP//
-        gAAAAAAAD////wAAD/8AAAAI////+AAI/////wAA//+AAAAAAAAP////AAAP/wAAAAj/////gAj/////
-        AAD//4AAAAAAAA////8AAA//AAAACP/////4iP////8AAP//gAAAAAAAD////wAAD/8AAAAI////////
-        /////wAA//+AAAAAAAAP////AAAP/wAAAAj/////////////AAD//4AAAAAAAA////8AAA//AAAACP//
-        //////////8AAP//+AAAAAAAD////wAAD/8AAAAI/////////////wAA///4AAAAAAAP////AAAP/wAA
-        AI//////////////AAD///+AAAAAAA////8AAA//AAAI//////////////8AAP//////////////////
-        /////////////////////wAA////////////////////////////////////////AAD/////////////
-        //////////////////////////8AAP///////////////////////////////////////wAAiIiIiIiI
-        iIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIAAD///////////////////////////////////////8AAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+        iVBORw0KGgoAAAANSUhEUgAAADwAAAA0CAYAAADWr1sfAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAArdJREFUaEPtmj2q8kAUhiNiYy+KYO8WTCtuwFIQBCGdbsBF6Abcho3iBqwEu6De
+        QrDSThBRz5czd45fHJLcGX/G5N555EXjGU2ezE8waIEi1+uVJakoCZPoZDKBWq0GlmW9PYvFAjabDdvv
+        K1Du4fV6DeVyGXK5HIzHYyaPz+8Kib8K5W9aLpcvPYAoDofDTZj2+ex0eqiH0+m0lnksCpdKJfb+M/tO
+        lDCm3W6z2uVyYc+qxEpY/M4gYcxwOGT1R44hkcKY6XTKW6nxsPCjQ0oFEsYrQqFQgGKxyJLP5yGTycBu
+        t+Mt5VEWXq1WTFgHeFLFnvWn0WjwlvLEftEKS6VS+X3CUdTrdeh0OnxLHiXhr68vqFarkEqlYL/fa8vx
+        eORH8B8U7na7fEseJeH5fB44l96Zfr9vhBHtwjisdSR2ws6IF0VGzt2BB8WyBzByXa9p+AmMnbBl2WDb
+        XpwBuN5j4PBtiVGAwq73vYkSpnwfvCds+04GF3IHNtu2B2yLtQkeGfefxyRKmL3PzLDn73uTjYzbe3xU
+        ePF/FpM4YcytN4V5/euGNOV7KHv8BeGwIc1qlgOs892RV3fA8WIneQ5TDwYtWrc23gnh/c8Qezu2wu+K
+        EeYYYUmUhOnnIf4exte68jFh3DHdAMDXOiOiRRiJ0x0PIyzB08JBt2QwUTUxBC6GSFjdz8eEadUWE1UT
+        Q22JoLqIdmEdN+Kj0Cas80Z8FGbRkuRpYXGBoUTVxBA0X8PqfsyiJcnTwp/CCEtihH+ChOk6LC4wlKia
+        GILma1jdjzZh8TosLjCUqJoYaksE1UXMkJbECP+EEf4Q2oXNryXNNJtNaLVafEseZeHtdgvZbJad3aC/
+        ++oKXq5msxk/KnmUhGne4h+2xWul7vR6PXYs5/OZPcui3MMo/ekFizidTvyVLAD/AH/kSBG2DTCWAAAA
+        AElFTkSuQmCC
 </value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>153, 17</value>
-  </metadata>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>153, 17</value>
   </metadata>

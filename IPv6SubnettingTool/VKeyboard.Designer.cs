@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -238,7 +238,7 @@ namespace IPv6SubnettingTool
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(84, 30);
             this.button13.TabIndex = 12;
-            this.button13.Text = "<--Backspace";
+            this.button13.Text = "<- Backspace";
             this.button13.UseVisualStyleBackColor = true;
             this.button13.Click += new System.EventHandler(this.AllButtons_Clicked);
             // 

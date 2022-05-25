@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -101,8 +101,9 @@ namespace IPv6SubnettingTool
             this.textBox1.Location = new System.Drawing.Point(97, 45);
             this.textBox1.MaxLength = 39;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(280, 20);
+            this.textBox1.Size = new System.Drawing.Size(290, 20);
             this.textBox1.TabIndex = 0;
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // textBox2
             // 
@@ -111,7 +112,7 @@ namespace IPv6SubnettingTool
             this.textBox2.MaxLength = 40;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(280, 20);
+            this.textBox2.Size = new System.Drawing.Size(290, 20);
             this.textBox2.TabIndex = 2;
             // 
             // label2
@@ -125,9 +126,9 @@ namespace IPv6SubnettingTool
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(383, 45);
+            this.button1.Location = new System.Drawing.Point(393, 45);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(74, 45);
+            this.button1.Size = new System.Drawing.Size(64, 46);
             this.button1.TabIndex = 1;
             this.button1.Text = "&Calculate";
             this.button1.UseVisualStyleBackColor = true;

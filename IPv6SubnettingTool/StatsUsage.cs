@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -195,7 +195,7 @@ namespace IPv6SubnettingTool
 
         private void StatsUsage_Paint(object sender, PaintEventArgs e)
         {
-            this.graph.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+            this.graph.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
             this.graph.Clear(StatsUsage.DefaultBackColor);
             this.graph.FillRectangle(fillwhite, 13, 64, 383, 170);
@@ -365,6 +365,27 @@ namespace IPv6SubnettingTool
         {
             IPv6SubnettingTool.Form1.RemoveForm(this.GetHashCode());
         }
+
+        private void listAssignedPrefixesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.button1_Click(null, null);
+        }
+
+        private void listAllParentPrefixesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MySQLconnection != null)
+            {
+                ListParentNets listparents = new ListParentNets(MySQLconnection, this.ServerInfo, this.culture, this.currentMode);
+
+                listparents.Show();
+
+                Form1.windowsList.Add(new WindowsList(listparents, listparents.Name, listparents.GetHashCode(), this.currentMode));
+
+                this.changeDBstate += listparents.DBStateChange;
+                this.ChangeUILanguage += listparents.SwitchLanguage;
+            }
+        }
+
         public void ChangeDatabase(string dbname)
         {
             /* DON'T USE:

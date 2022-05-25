@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (c) 2010-2020 Yucel Guven
+ * Copyright (c) 2010-2022 Yucel Guven
  * All rights reserved.
  * 
  * This file is part of IPv6 Subnetting Tool.
  * 
- * Version: 4.5
- * Release Date: 16 April 2020
+ * Version: 5.0
+ * Release Date: 23 May 2022
  *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted (subject to the limitations in the
@@ -1436,6 +1436,55 @@ namespace IPv6SubnettingTool
             }
 
             return mask;
+        }
+
+        /// <summary>
+        /// Return the inverse mask (wildcard mask) of given prefix-length value.
+        /// </summary>
+        /// <param name="pflen">int16(short)</param>
+        /// <returns>BigInteger inverse mask</returns>
+        public static BigInteger PrepareInvMask(short pflen)
+        {
+            //if (pflen == 128)
+            //    return (BigInteger.Zero);
+
+            if (pflen > 127 || pflen < 0)
+                return BigInteger.Zero;
+
+            int delta = 127 - pflen;
+            mask = BigInteger.Zero;
+
+            for (int i = 127; i > delta; i--)
+            {
+                mask = (mask | (BigInteger.One << i));
+            }
+            mask = ~mask;
+            
+            return mask;
+        }
+
+        /// <summary>
+        /// Return the inverse mask (wildcard mask) of given prefix-length value.
+        /// </summary>
+        /// <param name="pflen">int16(short)</param>
+        /// <returns>BigInteger inverse mask</returns>
+        public static BigInteger PrepareInvMask_v4(short pflen)
+        {
+            //if (pflen == 32)
+            //    return (BigInteger.Zero);
+
+            if (pflen > 31 || pflen < 0)
+                return BigInteger.Zero;
+
+            int delta = 31 - pflen;
+            mask = BigInteger.Zero;
+
+            for (int i = 31; i > delta; i--)
+            {
+                mask = (mask | (BigInteger.One << i));
+            }
+
+            return ~mask;
         }
 
         /// <summary>
