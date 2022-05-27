@@ -19,7 +19,7 @@ I will try to develop the software continuously, so please don't hesitate to com
 * IPv6 and IPv4 modes     
 * MySQL Database Connection support     
   .Store/update/manage IPv6 prefixes with MySQL database server   
-  .Tested with MySQL Connector/ODBC 8.0.28   
+  .Tested with MySQL Connector/ODBC 8.0.28 (Recommended)   
 * Statistical View of Assigned/Available Prefixes   
   .**Note**: Assigned prefixes must exist in the database   
 * 4-Bytes AS Number plain/dot Conversion Tool   
