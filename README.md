@@ -1,7 +1,7 @@
 IPv6 Subnet Calculator / Tool
 
-Latest Version: **v5.0**    
-Release Date: **23 May 2022**   
+Latest Version: **v5.1**    
+Release Date: **01 January 2025**   
 
 IPv6 Subnet Calculator / Tool application lets you plan/subnet your assigned address for all 128 bits.   
 We are in the transition phase of our networks' addressing structure from IPv4 to IPv6, and I believe that the network engineers should easily plan their IPv6 addressing /subnetting infrastructure without any error. For this purpose,    
@@ -36,7 +36,7 @@ You can download from:
 https://github.com/ygvn/IPv6-Subnet-Calculator-Tool-CSharp/blob/master/IPv6SubnetCalculator_v5.0_CSharp.EXE.zip
 
 
-Copyright (c) 2010-2022, Yucel Guven   
+Copyright (c) 2010-2025, Yucel Guven   
 All rights reserved.
 
 This file is part of IPv6 Subnetting Tool.

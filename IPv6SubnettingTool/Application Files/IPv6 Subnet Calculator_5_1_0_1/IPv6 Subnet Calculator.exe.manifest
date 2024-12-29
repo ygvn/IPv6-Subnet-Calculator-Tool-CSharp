@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="IPv6 Subnet Calculator.exe" version="5.1.0.1" publicKeyToken="c6cb0151e0dcecc7" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="IPv6 Subnet Calculator" version="5.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="IPv6 Subnet Calculator.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IPv6 Subnet Calculator.exe" size="465888">
+      <assemblyIdentity name="IPv6 Subnet Calculator" version="5.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>gkB/kecz6lKSdABofOJegNgyqy+9kgi9PZIj0u62Ofs=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="IPv6 Subnet Calculator.exe.config" size="160">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>WRpHa7bbPCg3cN3TzpXN4WCj1YdXjWywX5XblPS9AH8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="License.txt" size="1601">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>1MVSZK3QqDkadOwXhmLm8XSWZSpCQ45AoQEdhaBqgm8=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=DESKTOP-46VNNOS\Admin" issuerKeyHash="b6b6239f86d9605db77bd7d6139b3f21cd41a50e" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>V6w36GY1dhcd3b1cTmmzkWhd01joX37V6LCpfoMI7BE=</DigestValue></Reference></SignedInfo><SignatureValue>OVIsM1oEMgX23xczDXu5geQASj84dF5+bk+lK+e/3gnufo1h8MIWYzP10KEsHTSMwvWRPDt/7oYtTRGpn9mmZzULoClxCrrd90nbD6j3bAwOBoDqWlzJouFYakM6fGGnf3zErbJuqR5NqfqpBnunW8W+2pLa5m4ARwXCZwyudB4=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>p9V90dajvMC1Rwn3lS0Am5h6cwmA2A2uUOj1jZS6hqqRnA1al3FVA31PyQb8/bHsFcYwnFMEd+mLQeQ+goZgIsMmATq2P1ngC2Q5DvuvZcYomEMQ+h97pn2wvjR2wdAKT9o3ZhxHAMwSCqWun16e03JQyEEFJ7BnfTdz8pP/GB0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="11ec08837ea9b0e8d57e5fe858d35d6891b3694e5cbddd1d17763566e837ac57" Description="" Url=""><as:assemblyIdentity name="IPv6 Subnet Calculator.exe" version="5.1.0.1" publicKeyToken="c6cb0151e0dcecc7" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=DESKTOP-46VNNOS\Admin</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>ZdODmTuxZuYrK8fWsmzSfnumIUDHHiqbgdkBnhZ7kuk=</DigestValue></Reference></SignedInfo><SignatureValue>YpTFtfGuM7vp9MHnhIRW69f1kfj3PZLSKb9jnnbszFaHaCSasucUmdBuxqtsEILOkI0Oepg10ydh/iWMYq44NTG5y/AFtJWDK+Juth8VdoDzohBTwCXlsneqmjXBI8l5Aej6xN6fKqrwRG5+UxuUbp4AO0+9sQp7EtPDSGjrCeg=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>p9V90dajvMC1Rwn3lS0Am5h6cwmA2A2uUOj1jZS6hqqRnA1al3FVA31PyQb8/bHsFcYwnFMEd+mLQeQ+goZgIsMmATq2P1ngC2Q5DvuvZcYomEMQ+h97pn2wvjR2wdAKT9o3ZhxHAMwSCqWun16e03JQyEEFJ7BnfTdz8pP/GB0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB7TCCAVagAwIBAgIQX2bn8HAeV5FJa/NjO7tTmDANBgkqhkiG9w0BAQsFADA1MTMwMQYDVQQDHioARABFAFMASwBUAE8AUAAtADQANgBWAE4ATgBPAFMAXABBAGQAbQBpAG4wHhcNMjQxMjI5MjAwMDM2WhcNMjUxMjMwMDIwMDM2WjA1MTMwMQYDVQQDHioARABFAFMASwBUAE8AUAAtADQANgBWAE4ATgBPAFMAXABBAGQAbQBpAG4wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAKfVfdHWo7zAtUcJ95UtAJuYenMJgNgNrlDo9Y2UuoaqkZwNWpdxVQN9T8kG/P2x7BXGMJxTBHfpi0HkPoKGYCLDJgE6tj9Z4AtkOQ77r2XGKJhDEPofe6Z9sL40dsHQCk/aN2YcRwDMEgqlrp9entNyUMhBBSewZ303c/KT/xgdAgMBAAEwDQYJKoZIhvcNAQELBQADgYEAD/sOeH2USjW/gNiVrkB1PCeKPM3+256GpfAHuB53PKolETYl5i+ocHAtCLQT3nq2a0DLsN1fUjiBPtyXTyn6CVMahyKeGMLmLlCiNBJYYj16+IoVagcEt/1TB1SdE27sJ7nQXyjK5I+YEbZZRgv/PFc7BC0H+BPpbCVpbMGmfyA=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

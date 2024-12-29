@@ -171,9 +171,9 @@ namespace IPv6SubnettingTool
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(275, 122);
             this.label2.TabIndex = 1;
-            this.label2.Text = " Release Date: 01 January 2025\r\n\r\n\r\n IPv4> FF.FF.FF.FF              \r\n           4294" +
-    "967295\r\n \r\n IPv6> FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF                   3402" +
-    "82366920938463463374607431768211455";
+            this.label2.Text = " Release Date: 01 January 2025\r\n\r\n\r\n IPv4> FF.FF.FF.FF              \r\n           " +
+    "4294967295\r\n \r\n IPv6> FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF                   " +
+    "340282366920938463463374607431768211455";
             // 
             // tabControl1
             // 
