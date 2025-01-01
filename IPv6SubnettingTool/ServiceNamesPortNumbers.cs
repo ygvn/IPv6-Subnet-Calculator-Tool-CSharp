@@ -61,6 +61,8 @@ namespace IPv6SubnettingTool
             this.mainForm = callingForm as Form1;
             this.culture = culture;
             this.SwitchLanguage(this.culture);
+            //
+            this.fileName = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + this.fileName;
 
             StartUp();
         }

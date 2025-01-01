@@ -42,7 +42,8 @@ namespace IPv6SubnettingTool
 {
     public class MyXMLFile
     {
-        public string xmlFilename = "IPv6SubnetCalculatorInfo.xml";
+        public string xmlFilename = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) 
+            + "\\IPv6SubnetCalculatorInfo.xml";
 
         public MyXMLFile() { }
 

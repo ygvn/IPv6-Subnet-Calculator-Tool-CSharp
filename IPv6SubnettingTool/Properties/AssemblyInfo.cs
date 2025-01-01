@@ -44,7 +44,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("IPv6 Subnet Calculator / IPv6 Ag Hesap Makinesi")]
-[assembly: AssemblyCopyright("Copyright © 2010-2022 Yücel Güven")]
+[assembly: AssemblyCopyright("Copyright © 2010-2025 Yücel Güven")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -66,6 +66,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("5.0")]
-[assembly: AssemblyFileVersion("5.0")]
+[assembly: AssemblyVersion("5.1")]
+[assembly: AssemblyFileVersion("5.1")]
 [assembly: NeutralResourcesLanguageAttribute("")]

@@ -70,10 +70,10 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>C1007F17A2E74311F2E8708A584BE18038BC3751</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>62706ABFF3E677800528845B2916ED6D22663B7B</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>IPv6SubnettingTool_4_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>IPv6SubnettingTool_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -306,6 +306,8 @@
     <None Include="app.config" />
     <None Include="IPv6SubnettingTool_3_TemporaryKey.pfx" />
     <None Include="IPv6SubnettingTool_4_TemporaryKey.pfx" />
+    <None Include="IPv6SubnettingTool_5_TemporaryKey.pfx" />
+    <None Include="IPv6SubnettingTool_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

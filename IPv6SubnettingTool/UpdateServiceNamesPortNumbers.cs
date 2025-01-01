@@ -67,6 +67,7 @@ namespace IPv6SubnettingTool
 
             string[] fname = this.textBox1.Text.Trim().Split('/');
             this.fileName = fname[fname.Length - 1];    // last part of the URL is the filename
+            this.fileName = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + this.fileName;
 
             this.progressBar1.Visible = true;
             this.label3.Visible = true;
