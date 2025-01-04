@@ -30,12 +30,11 @@ I will try to develop the software continuously, so please don't hesitate to com
 * Compress / Uncompress IPv6 Address Tool    
 * XML file created to save the last settings, e.g. DB info, language.
 * Service Names and Port  Numbers Tool.
-* English, Turkish, German languages.
-
-You can download from:   
-https://github.com/ygvn/IPv6-Subnet-Calculator-Tool-CSharp/blob/master/IPv6SubnetCalculator_v5.0_CSharp.EXE.zip
+* English, Turkish, German languages.  
 
 
+
+___________________________________________________________________
 Copyright (c) 2010-2025, Yucel Guven   
 All rights reserved.
 
