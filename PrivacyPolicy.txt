@@ -1,0 +1,51 @@
+PRIVACY POLICY for "IPv6 Subnet Calculator Tool Application"
+
+Last Updated: January 07, 2025
+
+
+I. INTRODUCTION
+
+As a developer of "IPv6 Subnet Calculator Tool" ("this application", "this app", "this software"), 
+I take your privacy seriously. We are in the transition phase of our networks' addressing structure from IPv4 to IPv6,
+and I believe that the network engineers should easily plan their IPv6 addressing infrastructure without any error.
+The purpose of this application is to help you plan/subnet your assigned IPv6 address for all 128 bits.
+
+
+II. MAIN POINTS
+
+a. Does this application collect or process any personal information?
+   In short: No, this application DOES NOT collect any personal information.
+   This app does not collect, store or transmit highly sensitive personal information, 
+   such as health or financial data.
+
+b. When I run this app on my device, does this application use cookies and other tracking technologies?
+   In short: No, this application DOES NOT use cookies and other tracking technologies.
+
+c. Does this application shares any type of personal information with anyone else?
+   No, due to items (a) and (b) above, this application DOES NOT shares any type of personal information 
+   with anyone else.
+
+d. Does this application creates any file or modifies any specific registries on my device?
+   This application creates and uses a readable xml file in order to save your last settings.
+   This application does not modify any entry from your registry library.
+
+e. Does this application require or use my internet connection?
+   If you would like to use "whois query" or if you would like to update and use "services and port numbers" 
+   from the Tools menu, then this application requires an internet connection in order to connect and get the requested
+   information from the related internet servers.
+   This application does not require any internet connection to perform its calculations.
+   This application may use your internet connection to check for an updated version.
+
+
+III. CHANGES TO THE PRIVACY POLICY
+
+This Privacy policy will be regularly updated.
+
+Whenever I change this Privacy policy, I will post the changed/new version to this Privacy policy and other places considering appropriate. Additional forms of notice of modifications or updates as appropriate under the circumstances 
+may be provided to you.
+ 
+
+IV. QUESTIONS OR CONCERNS
+
+Reading this privacy notice will help you understand your privacy rights and choices. If you do not agree with this policy and practices, please do not use this application/tool. If you still have any questions, comments or concerns about this notice,
+please contact at "yucelguven@hotmail.com".

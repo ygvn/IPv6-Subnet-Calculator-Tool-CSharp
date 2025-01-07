@@ -1,0 +1,32 @@
+Please verify downloaded MSI package with BOTH:
+1. File Properties on Windows, and
+2. Checksum hash value, as shown below.
+
+
+1. After downloading the installer MSI package check properties 
+(Right click on file and select -> Properties)
+
+File Properties on Windows (Right click->Properties):
+-----------------------------------------------------
+Size        : 616 KB (631,296 bytes)
+Size on disk: 620 KB (634,880 bytes)
+
+
+2. This is a SHA256 checksum/hash value created by certutil.exe command.
+You can run this command after downloading the "IPv6SubnetCalculator.msi" package
+in order to be sure that its genuine/original/error-free package.
+
+a) Checksum with certutil.exe:
+------------------------------
+  C:\> certutil.exe -hashfile IPv6SubnetCalculator.msi SHA256
+  SHA256 hash of C:\IPv6SubnetCalculator.msi:
+  3a848c3bab7d145e5b4c04ade92562095a729d2a1c2e4825be45c7a0b70136c5
+  CertUtil: -hashfile command completed successfully.
+
+b) Checksum with PowerShell:
+-------------------------
+  PS E:\Downloads> Get-FileHash IPv6SubnetCalculator.msi -Algorithm SHA256
+
+  Algorithm   Hash                                                              Path
+  ---------   ----                                                              ----
+  SHA256      3A848C3BAB7D145E5B4C04ADE92562095A729D2A1C2E4825BE45C7A0B70136C5  E:\Downloads\IPv6SubnetCalc...
